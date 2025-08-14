@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: Computação em Nuvem - Anhanguera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-orange: #FF6600;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333333;
+            --white: #ffffff;
+            --light-blue: #e6f2ff;
+            --light-orange: #fff0e6;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            width: 100%;
+            background-color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .logo {
+            max-height: 60px;
+        }
+
+        .title-container {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .title-container h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .slide {
+            display: none;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-content {
+            padding: 25px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        button {
+            background-color: var(--secondary-orange);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e55a00;
+        }
+
+        button:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            text-align: center;
+            font-size: 18px;
+            color: var(--dark-gray);
+            margin: 10px 0;
+            background-color: var(--white);
+            padding: 8px;
+            border-radius: 20px;
+            width: fit-content;
+            margin: 10px auto;
+        }
+
+        /* Estilos específicos para cada slide */
+        .slide h1, .slide h2, .slide h3 {
+            color: var(--primary-blue);
+        }
+
+        .slide h2 {
+            border-bottom: 2px solid var(--secondary-orange);
+            padding-bottom: 5px;
+        }
+
+        .slide hr {
+            border: 1px solid var(--secondary-orange);
+            width: 80%;
+        }
+
+        .slide table th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .slide table td {
+            border: 1px solid var(--medium-gray);
+        }
+
+        .highlight-box {
+            background-color: rgba(255, 102, 0, 0.1);
+            border-left: 4px solid var(--secondary-orange);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .comparison-box {
+            border: 1px solid var(--medium-gray);
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+
+        .infographic {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .infographic-item {
+            width: 45%;
+            text-align: center;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: var(--light-blue);
+        }
+
+        .infographic-item i {
+            font-size: 3em;
+            color: var(--secondary-orange);
+            margin-bottom: 10px;
+        }
+
+        .question-box {
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .answer-box {
+            background-color: var(--light-orange);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--medium-gray);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .slide-content {
+                padding: 15px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            .infographic-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn2t8u0bn1_tfT4NtXDXLZIezp7bfUzncz7cj73ixDgjImH4XknOA6fBiswaCkA88IQg&usqp=CAU" alt="Logo Anhanguera" class="logo">
+    </div>
+    
+    <div class="title-container">
+        <h1>Apresentação: Computação em Nuvem</h1>
+    </div>
+    
+    <div class="slide-indicator" id="slideIndicator">Slide 1 de 16</div>
+    
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide1">
+            <div class="slide-content">
+                <div style="text-align: center;"> 
+                    <h1 style="font-size: 2.5em; margin-bottom: 10px;">Computação em Nuvem:</h1> 
+                    <h2 style="font-size: 1.8em; margin-top: 0;">Fundamentos e Aplicações</h2> 
+                    <hr> 
+                    <p style="color: #555; font-size: 1.2em;">Uma jornada didática para entender a tecnologia que molda o nosso futuro digital.</p> 
+                    <div class="image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIfHwybhVXVR3TaTYcbgO14byolRDBuWXzoKgLWjVWzfFzgB_c6eWgYm8SU8zU2LlEgKo&usqp=CAU" alt="Nuvem Computacional">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+            <div class="slide-content">
+                <h2>O que é Computação em Nuvem?</h2> 
+                <p style="font-size: 1.1em;">É a entrega de recursos de computação (servidores, armazenamento, software) pela internet, com um modelo de pagamento baseado no uso.</p> 
+                <div style="display: flex; justify-content: space-around; margin-top: 20px; text-align: center;"> 
+                    <div style="width: 45%;"> 
+                        <h3 style="color: #D9534F;">Modelo Tradicional (On-Premise)</h3> 
+                        <p style="font-size: 1.1em;">🏢 Comprar, instalar e manter seus próprios servidores.</p> 
+                        <p style="font-weight: bold; color: #D9534F;">Alto Custo de Capital (CapEx)</p> 
+                    </div> 
+                    <div style="width: 45%;"> 
+                        <h3 style="color: #5CB85C;">Modelo de Nuvem (Cloud)</h3> 
+                        <p style="font-size: 1.1em;">☁️ "Alugar" recursos de um provedor e pagar pelo consumo.</p> 
+                        <p style="font-weight: bold; color: #5CB85C;">Custo Operacional (OpEx)</p> 
+                    </div> 
+                </div>
+                <div class="image-container">
+                    <img src="https://tecnomega.com.br/wp-content/uploads/image-5245432-lgpd-pilar-tecnologico.png" alt="Comparação On-Premise vs Cloud">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+            <div class="slide-content">
+                <h2>As 5 Características Essenciais da Nuvem</h2> 
+                <div class="infographic">
+                    <div class="infographic-item">
+                        <i class="fas fa-hand-pointer"></i>
+                        <h3>Autoatendimento sob Demanda</h3>
+                        <p>Provisione recursos você mesmo, em minutos, sem precisar de ajuda.</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-globe"></i>
+                        <h3>Amplo Acesso à Rede</h3>
+                        <p>Acesse seus dados e aplicações de qualquer lugar com internet.</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Pool de Recursos</h3>
+                        <p>Provedores atendem múltiplos clientes com a mesma infraestrutura.</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <h3>Elasticidade Rápida</h3>
+                        <p>Aumente ou diminua recursos automaticamente para lidar com picos de demanda.</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>Serviço Medido</h3>
+                        <p>O uso é monitorado e cobrado de forma transparente. Pague apenas pelo que consome.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" id="slide4">
+            <div class="slide-content">
+                <h2 style="text-align: center;">Modelos de Serviço: A Pizza como Serviço 🍕</h2> 
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 1em;"> 
+                    <thead> 
+                        <tr> 
+                            <th style="padding: 10px;">Modelo</th> 
+                            <th style="padding: 10px;">O que Você Gerencia</th> 
+                            <th style="padding: 10px;">Analogia</th> 
+                            <th style="padding: 10px;">Exemplos</th> 
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr> 
+                            <td style="padding: 10px; font-weight: bold;">SaaS (Software)</td> 
+                            <td style="padding: 10px;">Nada, apenas usa o software</td> 
+                            <td style="padding: 10px;">Pizza entregue pronta em casa</td> 
+                            <td style="padding: 10px;">Gmail, Microsoft 365, Salesforce</td> 
+                        </tr> 
+                        <tr> 
+                            <td style="padding: 10px; font-weight: bold;">PaaS (Plataforma)</td> 
+                            <td style="padding: 10px;">Apenas suas Aplicações e Dados</td> 
+                            <td style="padding: 10px;">Montar a pizza na pizzaria</td> 
+                            <td style="padding: 10px;">AWS Beanstalk, Google App Engine</td> 
+                        </tr> 
+                        <tr> 
+                            <td style="padding: 10px; font-weight: bold;">IaaS (Infraestrutura)</td> 
+                            <td style="padding: 10px;">SO, Aplicações, Dados</td> 
+                            <td style="padding: 10px;">Usar a cozinha e o forno de um amigo</td> 
+                            <td style="padding: 10px;">Amazon EC2, Google Compute Engine</td> 
+                        </tr> 
+                    </tbody> 
+                </table>
+                <div class="image-container">
+                    <img src="https://noventiq.com.br/uploads/cke/88/6c/e8/cloud-computing.png" alt="Modelos de Serviço em Nuvem">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" id="slide5">
+            <div class="slide-content">
+                <h2>Modelos de Implantação: Onde sua Nuvem Vive?</h2> 
+                <div style="display: flex; justify-content: space-around; margin-top: 20px; text-align: center;"> 
+                    <div style="width: 30%;"> 
+                        <h3>Nuvem Pública</h3> 
+                        <p style="font-size: 1.1em;">Infraestrutura de um provedor (AWS, Azure) compartilhada por todos. Máxima escalabilidade e custo-benefício.</p> 
+                        <div class="image-container">
+                            
+                        </div>
+                    </div> 
+                    <div style="width: 30%;"> 
+                        <h3>Nuvem Privada</h3> 
+                        <p style="font-size: 1.1em;">Infraestrutura de uso exclusivo de uma única organização. Máximo controle e segurança.</p> 
+                        <div class="image-container">
+                        </div>
+                    </div> 
+                    <div style="width: 30%;"> 
+                        <h3>Nuvem Híbrida</h3> 
+                        <p style="font-size: 1.1em;">Combinação de nuvens públicas e privadas para otimizar custos, segurança e flexibilidade.</p> 
+                        <div class="image-container">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide" id="slide6">
+            <div class="slide-content">
+                <h2 style="text-align: center;">A Base da Nuvem: VMs vs. Contêineres</h2> 
+                <p style="text-align: center; font-size: 1.1em;">A <strong>virtualização</strong> é a tecnologia que permite criar múltiplos ambientes a partir de um único hardware.</p> 
+                <div style="display: flex; justify-content: space-around; margin-top: 20px;"> 
+                    <div class="comparison-box"> 
+                        <h3 style="text-align: center;">Máquinas Virtuais (VMs)</h3> 
+                        <p><strong>Virtualiza o:</strong> Hardware</p> 
+                        <p><strong>Como funciona:</strong> Simula um computador completo, com seu próprio SO.</p> 
+                        <p><strong>Características:</strong> Isolamento total, mais "pesada", lenta para iniciar.</p> 
+                        <p><strong>Analogia:</strong> 🏠 Uma casa completa.</p> 
+                        <div class="image-container">
+                            
+                        </div>
+                    </div> 
+                    <div class="comparison-box"> 
+                        <h3 style="text-align: center;">Contêineres</h3> 
+                        <p><strong>Virtualiza o:</strong> Sistema Operacional</p> 
+                        <p><strong>Como funciona:</strong> Compartilha o SO da máquina, empacotando só a aplicação.</p> 
+                        <p><strong>Características:</strong> Leve, portátil, extremamente rápido para iniciar.</p> 
+                        <p><strong>Analogia:</strong> 🏢 Um apartamento em um prédio.</p> 
+                        <div class="image-container">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide" id="slide7">
+            <div class="slide-content">
+                <h2>Segurança e Arquitetura na Nuvem</h2> 
+                <div style="display: flex; justify-content: space-around; margin-top: 20px;"> 
+                    <div style="width: 48%;"> 
+                        <h3>IAM (Identidade e Acesso)</h3> 
+                        <p>Controla a segurança respondendo:</p> 
+                        <ul style="font-size: 1.1em;"> 
+                            <li><strong>Autenticação:</strong> Quem é você?</li> 
+                            <li><strong>Autorização:</strong> O que você pode fazer?</li> 
+                        </ul> 
+                        <p style="font-weight: bold;">Regra de Ouro: Princípio do Privilégio Mínimo.</p>
+                        <div class="image-container">
+                        </div>
+                    </div> 
+                    <div style="width: 48%;"> 
+                        <h3>SOA (Arquitetura Orientada a Serviços)</h3> 
+                        <p>Organiza uma aplicação como uma coleção de serviços independentes e reutilizáveis (<strong>Microserviços</strong>).</p> 
+                        <p><strong>Benefício:</strong> Agilidade para desenvolver e atualizar partes de um sistema sem afetar o todo.</p>
+                        <div class="image-container">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide" id="slide8">
+            <div class="slide-content">
+                <h2 style="text-align: center;">Análise de Cenário Prático (Questão 5)</h2> 
+                <p style="text-align: center; font-size: 1.1em;"><strong>Desafio:</strong> Implantar um app com um <strong>Serviço Web</strong> e um <strong>Banco de Dados</strong>.</p> 
+                <div class="highlight-box"> 
+                    <h3>Componente 1: Banco de Dados</h3> 
+                    <ul> 
+                        <li><strong>Requisitos:</strong> Alto isolamento, segurança, controle total.</li> 
+                        <li><strong>Solução Ideal:</strong> Usar uma <strong>Máquina Virtual (VM)</strong> no modelo <strong>IaaS</strong>.</li> 
+                        <li><strong>Justificativa:</strong> A VM oferece o máximo de isolamento de hardware, e o IaaS dá o controle necessário para configurar a segurança.</li> 
+                    </ul> 
+                </div> 
+                <div class="highlight-box"> 
+                    <h3>Componente 2: Serviço Web</h3> 
+                    <ul> 
+                        <li><strong>Requisitos:</strong> Agilidade, escalabilidade rápida, foco no código.</li> 
+                        <li><strong>Solução Ideal:</strong> Usar <strong>Contêineres</strong> no modelo <strong>PaaS</strong>.</li> 
+                        <li><strong>Justificativa:</strong> O PaaS abstrai a complexidade da infraestrutura, e os contêineres permitem escalar a aplicação de forma ágil.</li> 
+                    </ul> 
+                </div>
+                <div class="image-container">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide" id="slide9">
+            <div class="slide-content">
+                <h2>Conclusão e Próximos Passos</h2> 
+                <h3>O que Consolidamos Hoje:</h3> 
+                <ul style="font-size: 1.1em;"> 
+                    <li>A nuvem é um modelo flexível, escalável e eficiente de consumir tecnologia.</li> 
+                    <li>A escolha entre IaaS, PaaS e SaaS depende da sua necessidade de controle.</li> 
+                    <li>A virtualização (VMs e Contêineres) é a tecnologia fundamental que torna a nuvem possível.</li> 
+                    <li>Segurança (IAM) e Arquitetura (SOA) são pilares para construir sistemas modernos.</li> 
+                </ul> 
+                <h3>Para sua Autonomia de Estudos:</h3> 
+                <ul style="font-size: 1.1em;"> 
+                    <li>Use esta apresentação como um mapa para revisar a apostila.</li> 
+                    <li>Explore os links da "Aula Atividade".</li> 
+                    <li><strong>Desafio Prático:</strong> Crie uma conta gratuita em um provedor de nuvem (AWS, Azure, GCP) e tente criar sua primeira VM!</li> 
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide" id="slide10">
+            <div class="slide-content" style="text-align: center;">
+                <h1 style="font-size: 3em;">Perguntas?</h1> 
+                <p style="font-size: 1.5em;">Obrigado!</p>
+                <div class="image-container">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Questão 1 -->
+        <div class="slide" id="slide11">
+            <div class="slide-content">
+                <h2>Questão 1: Consolidação da Computação em Nuvem</h2>
+                <div class="question-box">
+                    <p><strong>Afirmativa I:</strong> A evolução das tecnologias de transmissão de dados melhorou a qualidade do acesso à internet, o que beneficiou o acesso remoto a serviços de computação em nuvem.</p>
+                    <p><strong>Afirmativa II:</strong> A escalabilidade de serviços em nuvem foi possível na medida em que a virtualização baseada em contêineres substituiu a virtualização baseada em hypervisor.</p>
+                    <p><strong>Afirmativa III:</strong> A especificação de modelos de serviços baseados em tecnologias web favoreceu os mecanismos de integração de aplicações em nuvem.</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise das Afirmativas:</h3>
+                    <ul>
+                        <li><strong>Afirmativa I:</strong> <i class="fas fa-check-circle" style="color: green;"></i> <strong>Correta</strong> - A melhoria nas tecnologias de rede (como 5G, fibra óptica) permitiu acesso mais rápido e estável aos serviços em nuvem.</li>
+                        <li><strong>Afirmativa II:</strong> <i class="fas fa-times-circle" style="color: red;"></i> <strong>Incorreta</strong> - Contêineres não substituíram hypervisors, mas sim complementam. Ambos são usados para diferentes casos de uso.</li>
+                        <li><strong>Afirmativa III:</strong> <i class="fas fa-check-circle" style="color: green;"></i> <strong>Correta</strong> - Tecnologias web (APIs REST, SOAP) facilitaram a integração entre aplicações em nuvem.</li>
+                    </ul>
+                    <p><strong>Resposta correta:</strong> Alternativa C (I e III, apenas)</p>
+                </div>
+                <div class="image-container">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Questão 2 -->
+        <div class="slide" id="slide12">
+            <div class="slide-content">
+                <h2>Questão 2: Abstração de Complexidade na Nuvem</h2>
+                <div class="question-box">
+                    <p><strong>Questão:</strong> A computação em nuvem oferece vários benefícios como a abstração da complexidade de gerenciamento de infraestrutura. No caso dos modelos de serviços SaaS e PaaS, o cliente do serviço não precisa se preocupar com gerenciamento de servidores e ainda pode contar com mecanismos de replicação automática de aplicações. Dentre as evoluções tecnológicas que viabilizaram os serviços de computação em nuvem, a que contribui para a abstração de complexidade é:</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise das Alternativas:</h3>
+                    <ul>
+                        <li><strong>a. O aprimoramento dos mecanismos de balanceamento de carga em clusters:</strong> Contribui para escalabilidade, mas não diretamente para abstração.</li>
+                        <li><strong>b. Interfaces padronizadas por meio de tecnologias web abertas:</strong> <i class="fas fa-check-circle" style="color: green;"></i> <strong>Correta</strong> - APIs e interfaces web permitem que usuários acessem serviços complexos sem conhecer a infraestrutura subjacente.</li>
+                        <li><strong>c. A melhoria no desempenho das redes de acesso à internet:</strong> Melhora o acesso, mas não a abstração.</li>
+                        <li><strong>d. O aprimoramento da segurança e desempenho das tecnologias de virtualização:</strong> Melhora a eficiência, mas não é o principal fator de abstração.</li>
+                        <li><strong>e. Novas técnicas de consolidação de servidores:</strong> Otimiza recursos, mas não abstrai complexidade.</li>
+                    </ul>
+                    <p><strong>Resposta correta:</strong> Alternativa B</p>
+                </div>
+                <div class="image-container">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Questão 3 -->
+        <div class="slide" id="slide13">
+            <div class="slide-content">
+                <h2>Questão 3: Modelos de Virtualização</h2>
+                <div class="question-box">
+                    <p><strong>Questão:</strong> Os dois principais modelos de virtualização são: virtualização baseada em hypervisor e virtualização baseada em contêiner. Ambos os modelos podem ser usados para provisionamento dinâmico de recursos em ambientes de computação em nuvem. Entretanto eles têm características muito diferentes. Em relação aos modelos de virtualização, assinale a alternativa correta.</p>
+                </div>
+                <div class="answer-box">
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Alternativa</th>
+                            <th>Análise</th>
+                            <th>Correta?</th>
+                        </tr>
+                        <tr>
+                            <td>a. As máquinas virtuais compartilham o sistema operacional da máquina física no qual estão sendo executadas.</td>
+                            <td>VMs têm seu próprio SO, não compartilham com o hospedeiro.</td>
+                            <td><i class="fas fa-times-circle" style="color: red;"></i> Não</td>
+                        </tr>
+                        <tr>
+                            <td>b. O processo de inicializar um contêiner é mais lento que o processo de inicializar uma máquina virtual.</td>
+                            <td>Contêineres iniciam muito mais rápido que VMs (segundos vs minutos).</td>
+                            <td><i class="fas fa-times-circle" style="color: red;"></i> Não</td>
+                        </tr>
+                        <tr>
+                            <td>c. O uso de contêiner provê um maior nível de proteção aos dados de uma aplicação, quando comparado com o uso de máquina virtual.</td>
+                            <td>VMs oferecem maior isolamento e proteção que contêineres.</td>
+                            <td><i class="fas fa-times-circle" style="color: red;"></i> Não</td>
+                        </tr>
+                        <tr>
+                            <td>d. Um contêiner com aplicação implementada para sistema Windows pode ser executado em uma máquina física com sistema Linux.</td>
+                            <td>Contêineres precisam do mesmo kernel do SO hospedeiro. Windows containers não rodam em Linux.</td>
+                            <td><i class="fas fa-times-circle" style="color: red;"></i> Não</td>
+                        </tr>
+                        <tr>
+                            <td>e. Contêineres e máquinas virtuais podem conter mais de uma aplicação.</td>
+                            <td>Ambos podem hospedar múltiplas aplicações, embora não seja a prática recomendada para contêineres.</td>
+                            <td><i class="fas fa-check-circle" style="color: green;"></i> Sim</td>
+                        </tr>
+                    </table>
+                    <p><strong>Resposta correta:</strong> Alternativa E</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Questão 4 -->
+        <div class="slide" id="slide14">
+            <div class="slide-content">
+                <h2>Questão 4: Arquitetura Orientada a Serviços (SOA)</h2>
+                <div class="question-box">
+                    <p><strong>Questão:</strong> O que é Arquitetura Orientada a Serviços (SOA)?</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Definição:</h3>
+                    <p>Arquitetura orientada a serviços (SOA) é um tipo de design de software que torna os componentes reutilizáveis usando interfaces de serviços com uma linguagem de comunicação comum em uma rede. Esses serviços podem ser acessados remotamente e é possível interagir com eles e atualizá-los de maneira independente.</p>
+                    
+                    <h3>Princípios Fundamentais:</h3>
+                    <ul>
+                        <li><strong>Reutilização:</strong> Serviços podem ser usados por múltiplas aplicações.</li>
+                        <li><strong>Interoperabilidade:</strong> Serviços se comunicam através de protocolos padrão.</li>
+                        <li><strong>Acoplamento fraco:</strong> Serviços são independentes uns dos outros.</li>
+                        <li><strong>Abstração:</strong> Detalhes de implementação são ocultos dos consumidores.</li>
+                    </ul>
+                    
+                    <h3>Relação com Microserviços:</h3>
+                    <p>Microserviços são uma evolução do SOA, com foco em serviços menores, mais granulares e mais independentes.</p>
+                </div>
+                <div class="image-container">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Questão 5 - Detalhada -->
+        <div class="slide" id="slide15">
+            <div class="slide-content">
+                <h2>Questão 5: Análise Detalhada do Cenário Prático</h2>
+                <div class="question-box">
+                    <p><strong>Cenário:</strong> Uma empresa vai lançar um novo aplicativo para gestão de tarefas colaborativas. O sistema inclui um serviço web e um banco de dados. A empresa escolheu um provedor de nuvem pública que oferece apenas serviços nos modelos PaaS e IaaS.</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise do Banco de Dados:</h3>
+                    <ul>
+                        <li><strong>Requisitos:</strong> Alto isolamento, segurança, controle total.</li>
+                        <li><strong>Modelo de Serviço:</strong> IaaS (Infraestrutura como Serviço).</li>
+                        <li><strong>Tecnologia de Virtualização:</strong> Máquina Virtual (VM).</li>
+                        <li><strong>Justificativa:</strong> 
+                            <ul>
+                                <li>VMs oferecem isolamento completo no nível de hardware.</li>
+                                <li>IaaS permite controle total sobre o sistema operacional e configurações de segurança.</li>
+                                <li>Bancos de dados geralmente não precisam escalar rapidamente como aplicações web.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h3>Análise do Serviço Web:</h3>
+                    <ul>
+                        <li><strong>Requisitos:</strong> Agilidade, escalabilidade rápida, foco no código.</li>
+                        <li><strong>Modelo de Serviço:</strong> PaaS (Plataforma como Serviço).</li>
+                        <li><strong>Tecnologia de Virtualização:</strong> Contêineres.</li>
+                        <li><strong>Justificativa:</strong> 
+                            <ul>
+                                <li>PaaS abstrai a complexidade da infraestrutura.</li>
+                                <li>Contêineres permitem inicialização rápida e escalabilidade horizontal.</li>
+                                <li>Facilita a implantação contínua e atualizações sem downtime.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="image-container">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Resumo das Questões -->
+        <div class="slide" id="slide16">
+            <div class="slide-content">
+                <h2>Resumo das Questões e Respostas</h2>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Questão</th>
+                        <th>Tema</th>
+                        <th>Resposta</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Consolidação da Computação em Nuvem</td>
+                        <td>Alternativa C (I e III, apenas)</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Abstração de Complexidade</td>
+                        <td>Alternativa B (Interfaces padronizadas por meio de tecnologias web abertas)</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Modelos de Virtualização</td>
+                        <td>Alternativa E (Contêineres e máquinas virtuais podem conter mais de uma aplicação)</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Arquitetura Orientada a Serviços (SOA)</td>
+                        <td>Definição: Design de software com componentes reutilizáveis usando interfaces de serviços</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Cenário Prático de Implantação</td>
+                        <td>Banco de Dados: VM em IaaS | Serviço Web: Contêineres em PaaS</td>
+                    </tr>
+                </table>
+                <div class="highlight-box" style="text-align: center; margin-top: 20px;">
+                    <h3>Dicas para a Prova</h3>
+                    <p>• Entenda as diferenças entre VMs e Contêineres</p>
+                    <p>• Memorize as características dos modelos de serviço (IaaS, PaaS, SaaS)</p>
+                    <p>• Compreenda os benefícios da computação em nuvem</p>
+                    <p>• Estude os conceitos de SOA e IAM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)">Anterior</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Próximo</button>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Anhanguera Educacional. Todos os direitos reservados.</p>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 16;
+
+        function showSlide(n) {
+            // Esconde todos os slides
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Mostra o slide atual
+            document.getElementById(`slide${n}`).classList.add('active');
+            
+            // Atualiza o indicador
+            document.getElementById('slideIndicator').textContent = `Slide ${n} de ${totalSlides}`;
+            
+            // Atualiza o estado dos botões
+            document.getElementById('prevBtn').disabled = (n === 1);
+            document.getElementById('nextBtn').disabled = (n === totalSlides);
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            // Garante que o slide atual esteja dentro dos limites
+            if (currentSlide < 1) {
+                currentSlide = 1;
+            } else if (currentSlide > totalSlides) {
+                currentSlide = totalSlides;
+            }
+            
+            showSlide(currentSlide);
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlide(currentSlide);
+        });
+
+        // Adiciona suporte para navegação com teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+    </script>
+</body>
+</html>
