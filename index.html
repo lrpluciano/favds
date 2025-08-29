@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquitetura de Aplicações em Nuvem</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Engenharia de Software - Teleaula 01</title>
     <style>
         :root {
-            --primary-blue: #0a2d5e;
-            --secondary-blue: #00a8e8;
-            --accent-orange: #ff6b00;
-            --light-gray: #f5f5f5;
-            --dark-gray: #333;
+            --primary: #4a90e2;
+            --primary-dark: #357abd;
+            --secondary: #5cb85c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
             --white: #ffffff;
-            --success-green: #4caf50;
-            --danger-red: #f44336;
-            --warning-yellow: #ff9800;
-            --info-blue: #2196f3;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         * {
@@ -27,1972 +24,422 @@
         }
         
         body {
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
         }
         
-        .presentation-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
         
-        .slide {
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            overflow: hidden;
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        .slide.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .slide-header {
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--white);
-            padding: 25px 40px;
-            position: relative;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
         }
         
-        .slide-title {
-            font-size: 2.5rem;
-            font-weight: 700;
+        header h1 {
+            font-size: 2.8rem;
             margin-bottom: 10px;
         }
         
-        .slide-subtitle {
-            font-size: 1.4rem;
-            font-weight: 300;
+        header p {
+            font-size: 1.2rem;
             opacity: 0.9;
         }
         
-        .slide-content {
-            padding: 40px;
-        }
-        
-        .visual-representation {
-            width: 100%;
-            height: 300px;
-            margin: 20px 0;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .content-box {
-            background: var(--light-gray);
+        .section {
+            background: var(--white);
+            margin: 30px 0;
+            padding: 30px;
             border-radius: 10px;
-            padding: 25px;
-            border-left: 5px solid var(--secondary-blue);
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow);
         }
         
-        .content-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        .section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
         }
         
-        .content-box h3 {
-            color: var(--primary-blue);
+        .section h3 {
+            color: var(--primary-dark);
             font-size: 1.5rem;
+            margin: 25px 0 15px;
+        }
+        
+        .step {
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .step h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            background: #f0f7ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .question p {
+            font-weight: 500;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
         }
         
-        .content-box h3 i {
-            margin-right: 10px;
-            color: var(--accent-orange);
+        .options {
+            margin-left: 25px;
         }
         
-        .content-box p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+        .options li {
+            margin: 10px 0;
+            list-style-type: none;
+            position: relative;
         }
         
-        .content-box ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
+        .options li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
         }
         
-        .content-box li {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        .answer {
+            background: #e8f5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 15px 10px 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         
         .highlight {
-            color: var(--accent-orange);
-            font-weight: 600;
+            background: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
         }
         
-        .comparison {
-            display: flex;
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .comparison-column {
-            flex: 1;
-            background: var(--light-gray);
-            border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-        }
-        
-        .comparison-column h3 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-        
-        .comparison-column:first-child {
-            border-top: 5px solid var(--danger-red);
-        }
-        
-        .comparison-column:last-child {
-            border-top: 5px solid var(--success-green);
-        }
-        
-        .comparison-column p {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        
-        .nav-btn {
-            background: var(--primary-blue);
-            color: var(--white);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-btn:hover {
-            background: var(--secondary-blue);
-            transform: translateY(-3px);
-        }
-        
-        .nav-btn i {
-            margin-right: 8px;
-        }
-        
-        .nav-btn.next i {
-            margin-right: 0;
-            margin-left: 8px;
-        }
-        
-        .slide-counter {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 1.1rem;
-            color: var(--dark-gray);
-        }
-        
-        .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .feature-item {
-            background: var(--light-gray);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 3px solid var(--secondary-blue);
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-item i {
-            font-size: 2.5rem;
-            color: var(--accent-orange);
-            margin-bottom: 15px;
-        }
-        
-        .feature-item h4 {
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .feature-item p {
-            font-size: 1rem;
-        }
-        
-        .triangle-diagram {
-            width: 300px;
-            height: 260px;
-            margin: 30px auto;
-            position: relative;
-        }
-        
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-bottom: 260px solid rgba(10, 45, 94, 0.1);
-            position: relative;
-        }
-        
-        .triangle-point {
-            position: absolute;
-            width: 120px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-        
-        .triangle-point.top {
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .triangle-point.left {
-            bottom: 40px;
-            left: -100px;
-        }
-        
-        .triangle-point.right {
-            bottom: 40px;
-            right: -100px;
-        }
-        
-        .myth-container {
-            display: flex;
-            gap: 30px;
-            margin: 30px 0;
-        }
-        
-        .myth-box {
-            flex: 1;
-            background: var(--light-gray);
-            border-radius: 10px;
-            padding: 25px;
-            position: relative;
-            border-left: 5px solid var(--accent-orange);
-        }
-        
-        .myth-box:before {
-            content: "\f071";
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            background: var(--accent-orange);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        
-        .myth-box h3 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .myth-box p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .myth-box .reality {
-            background: rgba(0, 168, 232, 0.1);
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary);
             padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 1.1rem;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
         }
         
-        .myth-box .reality strong {
-            color: var(--secondary-blue);
-        }
-        
-        .question-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .question-card {
-            background: var(--light-gray);
-            border-radius: 10px;
-            padding: 20px;
-            border-left: 5px solid var(--accent-orange);
-        }
-        
-        .question-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .question-card .question {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .question-card .answer {
-            color: var(--success-green);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 30px 0;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .contact-item i {
-            margin-right: 10px;
-            color: var(--accent-orange);
-            font-size: 1.3rem;
-        }
-        
-        .process-flow {
-            display: flex;
-            justify-content: space-between;
-            margin: 30px 0;
-            position: relative;
-        }
-        
-        .process-step {
-            flex: 1;
+        footer {
             text-align: center;
-            position: relative;
-            z-index: 2;
+            padding: 30px 0;
+            margin-top: 40px;
+            color: var(--gray);
+            border-top: 1px solid #ddd;
         }
-        
-        .process-step i {
-            font-size: 2rem;
-            color: var(--secondary-blue);
-            margin-bottom: 10px;
-        }
-        
-        .process-step h4 {
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-        }
-        
-        .process-step p {
-            font-size: 0.9rem;
-        }
-        
-        .process-flow:before {
-            content: '';
-            position: absolute;
-            top: 25px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--secondary-blue);
-            z-index: 1;
-        }
-        
-        .info-box {
-            background: rgba(0, 168, 232, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--info-blue);
-        }
-        
-        .info-box h4 {
-            color: var(--info-blue);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .warning-box {
-            background: rgba(255, 152, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--warning-yellow);
-        }
-        
-        .warning-box h4 {
-            color: var(--warning-yellow);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .success-box {
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--success-green);
-        }
-        
-        .success-box h4 {
-            color: var(--success-green);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .danger-box {
-            background: rgba(244, 67, 54, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--danger-red);
-        }
-        
-        .danger-box h4 {
-            color: var(--danger-red);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        /* Representações Visuais com CSS */
-        .cloud-computing-visual {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            position: relative;
-        }
-        
-        .cloud-computing-visual::before {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 80px;
-            background: white;
-            border-radius: 50px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .cloud-computing-visual::after {
-            content: '\f0c2';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            font-size: 4rem;
-            color: var(--secondary-blue);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .app-cloud-visual {
-            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-            position: relative;
-        }
-        
-        .app-cloud-visual::before {
-            content: '';
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: white;
-            border-radius: 20px;
-            top: 50%;
-            left: 30%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .app-cloud-visual::after {
-            content: '\f109';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            font-size: 3rem;
-            color: var(--accent-orange);
-            position: absolute;
-            top: 50%;
-            left: 30%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .app-cloud-visual .cloud-icon {
-            position: absolute;
-            top: 50%;
-            right: 25%;
-            transform: translate(50%, -50%);
-            font-size: 4rem;
-            color: var(--secondary-blue);
-        }
-        
-        .multilayer-visual {
-            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-            position: relative;
-        }
-        
-        .layer {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-        
-        .layer-1 {
-            width: 300px;
-            height: 60px;
-            top: 30%;
-        }
-        
-        .layer-2 {
-            width: 250px;
-            height: 60px;
-            top: 50%;
-        }
-        
-        .layer-3 {
-            width: 200px;
-            height: 60px;
-            top: 70%;
-        }
-        
-        .architecture-layers-visual {
-            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
-            position: relative;
-        }
-        
-        .arch-layer {
-            position: absolute;
-            left: 20%;
-            width: 200px;
-            height: 50px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .arch-layer.interface {
-            top: 20%;
-            color: var(--info-blue);
-        }
-        
-        .arch-layer.processing {
-            top: 45%;
-            color: var(--warning-yellow);
-        }
-        
-        .arch-layer.data {
-            top: 70%;
-            color: var(--success-green);
-        }
-        
-        .arch-arrow {
-            position: absolute;
-            left: 30%;
-            color: var(--dark-gray);
-            font-size: 1.5rem;
-        }
-        
-        .arch-arrow.down1 {
-            top: 32%;
-        }
-        
-        .arch-arrow.down2 {
-            top: 57%;
-        }
-        
-        .microservices-visual {
-            background: linear-gradient(135deg, #fff8e1, #ffecb3);
-            position: relative;
-        }
-        
-        .service-box {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-        
-        .service-1 { top: 30%; left: 20%; }
-        .service-2 { top: 30%; left: 40%; }
-        .service-3 { top: 30%; left: 60%; }
-        .service-4 { top: 55%; left: 30%; }
-        .service-5 { top: 55%; left: 50%; }
-        
-        .monolith {
-            position: absolute;
-            width: 200px;
-            height: 150px;
-            background: rgba(244, 67, 54, 0.2);
-            border: 2px dashed var(--danger-red);
-            border-radius: 15px;
-            top: 25%;
-            right: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--danger-red);
-        }
-        
-        .myths-visual {
-            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-            position: relative;
-        }
-        
-        .myth-bubble {
-            position: absolute;
-            width: 150px;
-            height: 100px;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-weight: bold;
-            color: var(--accent-orange);
-        }
-        
-        .myth-1 {
-            top: 30%;
-            left: 20%;
-            transform: rotate(-5deg);
-        }
-        
-        .myth-2 {
-            top: 50%;
-            right: 20%;
-            transform: rotate(5deg);
-        }
-        
-        .reality-check {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
-            color: var(--success-green);
-        }
-        
-        .serverless-visual {
-            background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
-            position: relative;
-        }
-        
-        .function {
-            position: absolute;
-            width: 100px;
-            height: 60px;
-            background: white;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-weight: bold;
-            color: var(--info-blue);
-        }
-        
-        .func-1 { top: 25%; left: 20%; }
-        .func-2 { top: 25%; left: 45%; }
-        .func-3 { top: 25%; left: 70%; }
-        .func-4 { top: 55%; left: 32.5%; }
-        .func-5 { top: 55%; left: 57.5%; }
-        
-        .event-trigger {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            color: var(--accent-orange);
-        }
-        
-        .edge-visual {
-            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
-            position: relative;
-        }
-        
-        .edge-device {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-size: 1.5rem;
-            color: var(--secondary-blue);
-        }
-        
-        .device-1 { top: 20%; left: 15%; }
-        .device-2 { top: 35%; left: 35%; }
-        .device-3 { top: 50%; left: 20%; }
-        .device-4 { top: 65%; left: 40%; }
-        
-        .central-cloud {
-            position: absolute;
-            top: 40%;
-            right: 15%;
-            font-size: 4rem;
-            color: var(--primary-blue);
-        }
-        
-        .connection-line {
-            position: absolute;
-            height: 2px;
-            background: var(--secondary-blue);
-            transform-origin: left center;
-        }
-        
-        .security-visual {
-            background: linear-gradient(135deg, #ffebee, #ffcdd2);
-            position: relative;
-        }
-        
-        .shield {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 6rem;
-            color: var(--danger-red);
-        }
-        
-        .lock-icon {
-            position: absolute;
-            font-size: 2rem;
-            color: var(--success-green);
-        }
-        
-        .lock-1 { top: 25%; left: 25%; }
-        .lock-2 { top: 25%; right: 25%; }
-        .lock-3 { bottom: 25%; left: 25%; }
-        .lock-4 { bottom: 25%; right: 25%; }
-        
-        .dos-visual {
-            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-            position: relative;
-        }
-        
-        .server {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            color: var(--primary-blue);
-        }
-        
-        .attack-arrow {
-            position: absolute;
-            font-size: 2rem;
-            color: var(--danger-red);
-            animation: pulse 1s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        .arrow-1 { top: 20%; left: 20%; }
-        .arrow-2 { top: 20%; right: 20%; }
-        .arrow-3 { bottom: 20%; left: 20%; }
-        .arrow-4 { bottom: 20%; right: 20%; }
-        
-        .study-visual {
-            background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
-            position: relative;
-        }
-        
-        .book {
-            position: absolute;
-            top: 50%;
-            left: 30%;
-            transform: translate(-50%, -50%);
-            font-size: 5rem;
-            color: var(--primary-blue);
-        }
-        
-        .lightbulb {
-            position: absolute;
-            top: 40%;
-            right: 25%;
-            font-size: 3rem;
-            color: var(--warning-yellow);
-            animation: glow 2s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 5px var(--warning-yellow); }
-            to { text-shadow: 0 0 20px var(--warning-yellow); }
-        }
-        
-        .conclusion-visual {
-            background: linear-gradient(135deg, #f1f8e9, #dcedc8);
-            position: relative;
-        }
-        
-        .trophy {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 5rem;
-            color: var(--warning-yellow);
-        }
-        
-        .star {
-            position: absolute;
-            font-size: 1.5rem;
-            color: var(--accent-orange);
-            animation: twinkle 1.5s infinite alternate;
-        }
-        
-        @keyframes twinkle {
-            from { opacity: 0.3; }
-            to { opacity: 1; }
-        }
-        
-        .star-1 { top: 20%; left: 20%; }
-        .star-2 { top: 30%; right: 25%; }
-        .star-3 { bottom: 25%; left: 30%; }
-        .star-4 { bottom: 20%; right: 20%; }
         
         @media (max-width: 768px) {
-            .content-grid, .comparison, .myth-container, .process-flow {
-                flex-direction: column;
+            header h1 {
+                font-size: 2.2rem;
             }
             
-            .slide-title {
-                font-size: 2rem;
+            .section {
+                padding: 20px;
             }
             
-            .slide-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .slide-content {
-                padding: 25px;
-            }
-            
-            .process-flow:before {
-                display: none;
-            }
-            
-            .visual-representation {
-                height: 200px;
+            .section h2 {
+                font-size: 1.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="presentation-container">
-        <!-- Slide 1: Título -->
-        <div class="slide active">
-            <div class="slide-header">
-                <h1 class="slide-title">Arquitetura de Aplicações em Nuvem</h1>
-                <p class="slide-subtitle">Do Cliente-Servidor ao Edge Computing</p>
+    <header>
+        <div class="container">
+            <h1>Engenharia de Software</h1>
+            <p>Teleaula 01 - Introdução à Engenharia de Software</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="section">
+            <h2>Introdução à Atividade</h2>
+            <p>Esta aula atividade tem como objetivo promover o <span class="highlight">autoestudo</span> das competências e conteúdos relacionados à Unidade de Ensino "Introdução à engenharia de software".</p>
+            
+            <div class="note">
+                <strong>Organização da Atividade:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Etapa 1: 1h20</li>
+                    <li>Intervalo: 20 min</li>
+                    <li>Etapa 2: 1h20</li>
+                </ul>
             </div>
-            <div class="slide-content">
-                <div class="visual-representation cloud-computing-visual"></div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-book-open"></i> Sobre Esta Apresentação</h3>
-                    <p>Bem-vindo a esta jornada completa sobre arquitetura de aplicações em nuvem! Esta apresentação foi desenvolvida para fornecer uma compreensão aprofundada dos conceitos fundamentais, modelos arquiteturais e tendências modernas em computação em nuvem.</p>
-                    <p>Ao longo dos slides, exploraremos desde os conceitos básicos até arquiteturas avançadas, com foco em como aplicar esses conhecimentos para resolver questões práticas e reais do mundo da tecnologia.</p>
-                </div>
-                
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <i class="fas fa-cloud"></i>
-                        <h4>Conceitos Fundamentais</h4>
-                        <p>Entenda o que são aplicações em nuvem, suas características e vantagens</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-sitemap"></i>
-                        <h4>Arquiteturas</h4>
-                        <p>Monolíticas, multicamadas, microsserviços e modelos modernos</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <h4>Segurança</h4>
-                        <p>Principais ameaças e propriedades de segurança em ambientes de nuvem</p>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <h4><i class="fas fa-info-circle"></i> Como Aproveitar Esta Apresentação</h4>
-                    <p>Esta apresentação foi projetada para ser autoexplicativa e passo a passo. Cada slide contém explicações detalhadas, exemplos práticos e representações visuais para facilitar a compreensão. Ao final, você estará preparado para responder às questões da avaliação com confiança.</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" disabled>
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(2)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">1 / 12</div>
+            
+            <p style="margin-top: 20px;">Para participar das atividades 1, 3 e 4, utilize o Padlet:</p>
+            <a href="https://padlet.com/vanessaleite2/xxttsjconhmllh6d" target="_blank" class="btn">Acessar Padlet</a>
+        </div>
+        
+        <div class="section">
+            <h2>Atividade 1: Fundamentos dos Métodos Ágeis</h2>
+            <p>Para iniciar nossa aula atividade, é fundamental que você compreenda os conceitos de <span class="highlight">metodologias ágeis</span>. No Padlet, disponibilizamos um podcast que explica:</p>
+            
+            <div class="step">
+                <h4>Passo 1:</h4>
+                <p>Acesse o Padlet através do botão acima</p>
+            </div>
+            
+            <div class="step">
+                <h4>Passo 2:</h4>
+                <p>Localize e ouça o podcast sobre fundamentos dos métodos ágeis</p>
+            </div>
+            
+            <div class="step">
+                <h4>Passo 3:</h4>
+                <p>Enquanto ouve, anote os principais conceitos sobre:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Definição de métodos ágeis</li>
+                    <li>Principais metodologias (Scrum, XP, Kanban)</li>
+                    <li>Aplicações no mercado de trabalho</li>
+                    <li>Vantagens em relação a métodos tradicionais</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>Dica:</strong> O podcast é essencial para responder às questões da Atividade 2. Preste atenção especialmente aos conceitos de Scrum e XP.
             </div>
         </div>
         
-        <!-- Slide 2: O que são Aplicações em Nuvem -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">O que são Aplicações em Nuvem?</h1>
-                <p class="slide-subtitle">Conceitos e Características Essenciais</p>
+        <div class="section">
+            <h2>Atividade 2: Questões sobre Metodologias Ágeis</h2>
+            <p>Agora que você compreende mais sobre as metodologias ágeis, teste seus conhecimentos nas questões a seguir. Vamos analisar cada uma delas passo a passo:</p>
+            
+            <div class="question">
+                <p><strong>Questão 1:</strong> (Ano: 2019 Banca: FCC) Scrum e XP são metodologias ágeis usadas no contexto de desenvolvimento de software que:</p>
+                <div class="options">
+                    <li>a) podem ser usadas em conjunto, criando uma metodologia híbrida própria, de forma a unir as práticas de gestão do Scrum com as práticas de desenvolvimento da XP.</li>
+                    <li>b) utilizam reuniões diárias (Daily Meetings) de 30 minutos em pé para ajudar a tornar as reuniões mais produtivas, colaborativas e úteis.</li>
+                    <li>c) podem ser usadas juntas, desde que em um contexto em que o gerenciamento do projeto seja realizado por um framework como o PMBoK.</li>
+                    <li>d) não podem ser usadas em conjunto por serem ambas voltadas para a gestão do processo de desenvolvimento de software.</li>
+                    <li>e) podem ser usadas em conjunto, já que a XP foca mais na gestão do processo de desenvolvimento e a Scrum, no desenvolvimento propriamente dito.</li>
+                </div>
+                
+                <div class="answer">
+                    <strong>Análise e Resposta Correta:</strong>
+                    <p>A alternativa correta é a <strong>letra A</strong>. Scrum e XP são complementares:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>Scrum:</strong> Foca na gestão do projeto (sprints, reuniões, papéis)</li>
+                        <li><strong>XP (Extreme Programming):</strong> Foca em práticas de desenvolvimento (TDD, integração contínua, programação em pares)</li>
+                    </ul>
+                    <p style="margin-top: 10px;">É comum combinar as práticas de gestão do Scrum com as técnicas de desenvolvimento da XP em projetos reais.</p>
+                </div>
             </div>
-            <div class="slide-content">
-                <div class="visual-representation app-cloud-visual">
-                    <i class="fas fa-cloud cloud-icon"></i>
+            
+            <div class="question">
+                <p><strong>Questão 2:</strong> (Ano: 2019, IFPR) Os métodos ágeis compartilham um conjunto de princípios, com base no manifesto ágil, e por isso compartilham vários princípios. Assinale a alternativa correta sobre os princípios comuns aos métodos ágeis:</p>
+                <div class="options">
+                    <li>a) Desenvolvimento interativo. Compartilhar as mudanças. Desenvolvimento eficiente. Manter a complexidade. Entrega ambiental.</li>
+                    <li>b) Enviar as mudanças. Desenvolvimento do cliente. Manter a complexidade. Entrega ambiental. Pessoas, sem processos.</li>
+                    <li>c) Entrega experimental. Pessoas são processos. Envolvimento do cliente. Evitar as mudanças. Manter a complexidade.</li>
+                    <li>d) Envolvimento do cliente. Entrega incremental. Pessoas, não processos. Aceitar as mudanças. Manter a simplicidade.</li>
+                    <li>e) Nenhuma das alternativas anteriores.</li>
                 </div>
                 
-                <div class="content-box">
-                    <h3><i class="fas fa-cloud"></i> Definição Completa</h3>
-                    <p>Aplicações em nuvem são softwares hospedados em servidores remotos e acessados principalmente pela Internet. Pelo menos uma parte da aplicação é gerenciada por um servidor, e não pela máquina local do usuário.</p>
-                    <p>Essencialmente, em vez de instalar e executar software em seu próprio computador ou servidor de sua empresa, você acessa o software através da internet, com o provedor de serviços cuidando de toda a infraestrutura subjacente.</p>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-list-ul"></i> Características Essenciais (NIST)</h3>
-                        <ul>
-                            <li><span class="highlight">Serviço sob demanda:</span> Recursos provisionados automaticamente sem necessidade de interação humana com o provedor</li>
-                            <li><span class="highlight">Amplo acesso via rede:</span> Capacidades disponíveis através da rede por meio de mecanismos padrão</li>
-                            <li><span class="highlight">Pool de recursos compartilhados:</span> Recursos computacionais do provedor são agrupados para atender múltiplos consumidores</li>
-                            <li><span class="highlight">Elasticidade rápida:</span> Capacidades podem ser elástica e rapidamente provisionadas e liberadas</li>
-                            <li><span class="highlight">Serviço mensurável:</span> Sistemas de nuvem controlam e otimizam o uso de recursos através de medição</li>
-                        </ul>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-lightbulb"></i> Vantagens da Computação em Nuvem</h3>
-                        <ul>
-                            <li><span class="highlight">Consistência:</span> Experiência unificada para usuários (front-end) e equipes de operações (back-end)</li>
-                            <li><span class="highlight">Compatibilidade:</span> Funciona em infraestruturas físicas, virtuais ou baseadas em nuvem</li>
-                            <li><span class="highlight">Eficiência:</span> Redução de custos com infraestrutura e manutenção</li>
-                            <li><span class="highlight">Escalabilidade:</span> Ajuste de recursos conforme demanda, sem investimentos iniciais</li>
-                            <li><span class="highlight">Disponibilidade:</span> Serviços geralmente oferecem SLAs com alta disponibilidade</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="success-box">
-                    <h4><i class="fas fa-check-circle"></i> Exemplos do Mundo Real</h4>
-                    <p><strong>Gmail:</strong> Serviço de e-mail acessado via navegador, sem necessidade de instalar software localmente.</p>
-                    <p><strong>Netflix:</strong> Plataforma de streaming que utiliza infraestrutura de nuvem para entregar conteúdo globalmente.</p>
-                    <p><strong>Salesforce:</strong> Sistema de CRM (Customer Relationship Management) oferecido como serviço (SaaS).</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(1)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(3)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">2 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 3: Arquitetura Multicamadas -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Arquitetura Multicamadas</h1>
-                <p class="slide-subtitle">Evolução do Modelo Cliente-Servidor</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation multilayer-visual">
-                    <div class="layer layer-1">Camada 1</div>
-                    <div class="layer layer-2">Camada 2</div>
-                    <div class="layer layer-3">Camada 3</div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-history"></i> Evolução Arquitetural</h3>
-                    <p>O modelo básico de arquitetura centralizada (cliente-servidor) evoluiu para um modelo com múltiplas camadas. Nesse caso, o sistema é dividido em camadas que têm responsabilidades específicas, permitindo maior flexibilidade, escalabilidade e manutenção.</p>
-                    <p>Essa evolução foi necessária para atender às demandas crescentes de sistemas complexos, onde a separação de preocupações (separation of concerns) se tornou fundamental para o desenvolvimento sustentável de software.</p>
-                </div>
-                
-                <div class="comparison">
-                    <div class="comparison-column">
-                        <h3>Cliente-Servidor Tradicional</h3>
-                        <p><i class="fas fa-server"></i> <strong>Servidor único central</strong><br>Toda a lógica e dados residem em um único servidor</p>
-                        <p><i class="fas fa-exclamation-triangle"></i> <strong>Sobrecarga centralizada</strong><br>Pontos únicos de falha e gargalos de performance</p>
-                        <p><i class="fas fa-times-circle"></i> <strong>Difícil escalabilidade</strong><br>Escalabilidade vertical limitada pelo hardware</p>
-                        <p><i class="fas fa-tools"></i> <strong>Manutenção complexa</strong><br>Atualizações requerem downtime do sistema inteiro</p>
-                    </div>
-                    <div class="comparison-column">
-                        <h3>Arquitetura Multicamadas</h3>
-                        <p><i class="fas fa-layer-group"></i> <strong>3 camadas independentes</strong><br>Interface, Processamento e Dados separados</p>
-                        <p><i class="fas fa-check-circle"></i> <strong>Escalabilidade por camada</strong><br>Cada camada pode ser escalada independentemente</p>
-                        <p><i class="fas fa-cogs"></i> <strong>Manutenção simplificada</strong><br>Atualizações em uma camada não afetam as outras</p>
-                        <p><i class="fas fa-puzzle-piece"></i> <strong>Flexibilidade na implementação</strong><br>Diferentes tecnologias para cada camada</p>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <h4><i class="fas fa-info-circle"></i> Importância da Separação de Camadas</h4>
-                    <p>A arquitetura multicamadas permite que cada camada evolua independentemente. Por exemplo, você pode atualizar a interface do usuário sem modificar a lógica de negócio, ou otimizar o banco de dados sem afetar como os dados são processados.</p>
-                    <p>Essa separação também facilita a atribuição de responsabilidades: desenvolvedores front-end trabalham na interface, enquanto desenvolvedores back-end focam na lógica e especialistas em bancos de dados cuidam da camada de persistência.</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(2)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(4)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">3 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 4: As 3 Camadas -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">As 3 Camadas em Detalhe</h1>
-                <p class="slide-subtitle">Responsabilidades e Interações</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation architecture-layers-visual">
-                    <div class="arch-layer interface">Interface</div>
-                    <div class="arch-layer processing">Processamento</div>
-                    <div class="arch-layer data">Dados</div>
-                    <i class="fas fa-arrow-down arch-arrow down1"></i>
-                    <i class="fas fa-arrow-down arch-arrow down2"></i>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-desktop"></i> Camada de Interface (Apresentação)</h3>
-                        <p><strong>Responsabilidade:</strong> Entrada e saída de dados, interação com o usuário.</p>
-                        <p><strong>Exemplos:</strong> Interfaces web, aplicativos móveis, APIs REST para clientes.</p>
-                        <p><strong>Tecnologias:</strong> HTML, CSS, JavaScript, React, Angular, Vue.js.</p>
-                        <p><strong>Objetivo:</strong> Proporcionar experiência intuitiva e responsiva ao usuário final.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-microchip"></i> Camada de Processamento (Lógica)</h3>
-                        <p><strong>Responsabilidade:</strong> Contém a lógica da aplicação, regras de negócio e processamento de dados.</p>
-                        <p><strong>Exemplos:</strong> APIs, servidores de aplicação, serviços de negócio.</p>
-                        <p><strong>Tecnologias:</strong> Java, Python, Node.js, .NET, PHP, Ruby.</p>
-                        <p><strong>Objetivo:</strong> Executar operações críticas e aplicar regras de negócio.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-database"></i> Camada de Dados (Persistência)</h3>
-                        <p><strong>Responsabilidade:</strong> Armazenamento, recuperação e gerenciamento de dados.</p>
-                        <p><strong>Exemplos:</strong> Bancos de dados relacionais e NoSQL, data warehouses.</p>
-                        <p><strong>Tecnologias:</strong> MySQL, PostgreSQL, MongoDB, Cassandra, Redis.</p>
-                        <p><strong>Objetivo:</strong> Garantir persistência, integridade e segurança dos dados.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-exclamation-circle"></i> Regra Fundamental</h3>
-                        <p class="highlight" style="font-size: 1.4rem; text-align: center; margin: 20px 0;">
-                            A camada de interface NUNCA deve interagir diretamente com a camada de dados!
-                        </p>
-                        <p><strong>Por quê?</strong> Toda comunicação deve passar pela camada de processamento para garantir:</p>
-                        <ul>
-                            <li><span class="highlight">Segurança:</span> Evita ataques diretos ao banco de dados (SQL injection)</li>
-                            <li><span class="highlight">Manutenção:</span> Alterações no banco não afetam a interface</li>
-                            <li><span class="highlight">Consistência:</span> Garante que todas as regras de negócio sejam aplicadas</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="process-flow">
-                    <div class="process-step">
-                        <i class="fas fa-desktop"></i>
-                        <h4>Interface</h4>
-                        <p>Entrada/Saída</p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-arrow-down"></i>
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-cogs"></i>
-                        <h4>Processamento</h4>
-                        <p>Lógica de Negócio</p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-arrow-down"></i>
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-database"></i>
-                        <h4>Dados</h4>
-                        <p>Persistência</p>
-                    </div>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(3)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(5)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">4 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 5: Microsserviços -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Arquitetura de Microsserviços</h1>
-                <p class="slide-subtitle">Vantagens sobre Aplicações Monolíticas</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation microservices-visual">
-                    <div class="service-box service-1">S1</div>
-                    <div class="service-box service-2">S2</div>
-                    <div class="service-box service-3">S3</div>
-                    <div class="service-box service-4">S4</div>
-                    <div class="service-box service-5">S5</div>
-                    <div class="monolith">Monolito</div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-cubes"></i> O que são Microsserviços?</h3>
-                    <p>Arquitetura onde uma aplicação é dividida em serviços pequenos e independentes, cada um com sua própria responsabilidade e ciclo de vida. Cada microsserviço é autônomo, desenvolvido, implantado e escalado independentemente.</p>
-                    <p>Essa abordagem contrasta com as aplicações monolíticas tradicionais, onde todos os componentes estão interligados em um único bloco de código que deve ser implantado como uma unidade.</p>
-                </div>
-                
-                <div class="comparison">
-                    <div class="comparison-column">
-                        <h3>Aplicação Monolítica</h3>
-                        <p><i class="fas fa-cube"></i> <strong>Bloco único interdependente</strong><br>Todos os componentes estão acoplados</p>
-                        <p><i class="fas fa-sync-alt"></i> <strong>Implantação tudo de uma vez</strong><br>Qualquer alteração requer deploy completo</p>
-                        <p><i class="fas fa-expand-arrows-alt"></i> <strong>Escala toda aplicação</strong><br>Não é possível escalar componentes individuais</p>
-                        <p><i class="fas fa-code"></i> <strong>Tecnologia única</strong><br>Limitada a uma stack tecnológica</p>
-                        <p><i class="fas fa-users"></i> <strong>Equipes interdependentes</strong><br>Dificuldade de trabalho paralelo</p>
-                    </div>
-                    <div class="comparison-column">
-                        <h3>Microsserviços</h3>
-                        <p><i class="fas fa-project-diagram"></i> <strong>Serviços independentes</strong><br>Desacoplados e autônomos</p>
-                        <p><i class="fas fa-rocket"></i> <strong>Implantação individual</strong><br>Atualizações contínuas e independentes</p>
-                        <p><i class="fas fa-compress-arrows-alt"></i> <strong>Escala granular</strong><br>Escala apenas serviços necessários</p>
-                        <p><i class="fas fa-random"></i> <strong>Múltiplas tecnologias</strong><br>Cada serviço usa a melhor tecnologia</p>
-                        <p><i class="fas fa-users-cog"></i> <strong>Equipes autônomas</strong><br>Times independentes por serviço</p>
-                    </div>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-star"></i> Vantagens Principais</h3>
-                        <ul>
-                            <li><span class="highlight">Modularidade:</span> Falha em um serviço não afeta os outros, aumentando a resiliência do sistema</li>
-                            <li><span class="highlight">Flexibilidade:</span> Cada serviço pode usar a tecnologia mais adequada às suas necessidades</li>
-                            <li><span class="highlight">Agilidade:</span> Atualizações rápidas e contínuas, permitindo entrega contínua de valor</li>
-                            <li><span class="highlight">Escalabilidade:</span> Apenas serviços sob demanda são escalados, otimizando recursos</li>
-                            <li><span class="highlight">Manutenção:</span> Código mais fácil de entender, testar e manter devido ao tamanho reduzido</li>
-                        </ul>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-bolt"></i> Casos de Uso Reais</h3>
-                        <ul>
-                            <li><span class="highlight">Netflix:</span> Divide sua plataforma em centenas de microsserviços, permitindo milhares de implantações por dia</li>
-                            <li><span class="highlight">Amazon:</strong> Migrou de monolito para microsserviços para escalar seu negócio de e-commerce global</li>
-                            <li><span class="highlight">Uber:</strong> Microsserviços para passageiros, motoristas, pagamentos e geolocalização</li>
-                            <li><span class="highlight">Spotify:</strong> Arquitetura baseada em microsserviços para suportar milhões de usuários</li>
-                            <li><span class="highlight">Airbnb:</strong> Utiliza microsserviços para diferentes aspectos como busca, reservas e pagamentos</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="warning-box">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Desafios dos Microsserviços</h4>
-                    <p>Apesar das vantagens, microsserviços introduzem complexidade:</p>
-                    <ul>
-                        <li><strong>Coordenação distribuída:</strong> Gerenciar comunicações entre serviços</li>
-                        <li><strong>Consistência de dados:</strong> Manter consistência em sistemas distribuídos</li>
-                        <li><strong>Monitoramento:</strong> Rastrear requisições através de múltiplos serviços</li>
-                        <li><strong>Testes:</strong> Testar integrações entre serviços é mais complexo</li>
+                <div class="answer">
+                    <strong>Análise e Resposta Correta:</strong>
+                    <p>A alternativa correta é a <strong>letra D</strong>. Os princípios do Manifesto Ágil incluem:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>Envolvimento do cliente:</strong> Colaboração contínua</li>
+                        <li><strong>Entrega incremental:</strong> Software funcionando em ciclos curtos</li>
+                        <li><strong>Pessoas, não processos:</strong> Indivíduos e interações mais que processos e ferramentas</li>
+                        <li><strong>Aceitar as mudanças:</strong> Responder a mudanças mais que seguir um plano</li>
+                        <li><strong>Manter a simplicidade:</strong> Maximizar trabalho não feito</li>
                     </ul>
                 </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(4)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(6)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
+            </div>
+            
+            <div class="question">
+                <p><strong>Questão 3:</strong> (Ano: 2019 Banca: COSEAC) Em relação aos métodos ágeis, o responsável por garantir que a equipe está aderindo aos valores do Scrum é representado por:</p>
+                <div class="options">
+                    <li>a) product owner.</li>
+                    <li>b) time.</li>
+                    <li>c) scrum master.</li>
+                    <li>d) gerente de projetos.</li>
+                    <li>e) stakeholders.</li>
                 </div>
-                <div class="slide-counter">5 / 12</div>
+                
+                <div class="answer">
+                    <strong>Análise e Resposta Correta:</strong>
+                    <p>A alternativa correta é a <strong>letra C</strong>. No Scrum:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>Scrum Master:</strong> Facilitador que garante que a equipe siga os valores e práticas do Scrum, remove impedimentos e protege o time de distrações externas.</li>
+                        <li><strong>Product Owner:</strong> Responsável pelo produto e backlog.</li>
+                        <li><strong>Time de Desenvolvimento:</strong> Responsável pela entrega do produto.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p><strong>Questão 4:</strong> (Ano: 2012 Banca: FEMPERJ) A lista que contém somente papéis em equipes SCRUM é:</p>
+                <div class="options">
+                    <li>a) Product Owner. Development Team e Scrum Master;</li>
+                    <li>b) Sprint Master, Product Owner e Development Team;</li>
+                    <li>c) Product Owner, Agile Developer e Scrum Master:</li>
+                    <li>d) Product Owner, Scrum Master, Developer Chef;</li>
+                    <li>e) Sprint Master. Agile Developer e Scrum Master.</li>
+                </div>
+                
+                <div class="answer">
+                    <strong>Análise e Resposta Correta:</strong>
+                    <p>A alternativa correta é a <strong>letra A</strong>. Os três papéis oficiais no Scrum são:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>Product Owner:</strong> Gerencia o backlog e prioriza funcionalidades</li>
+                        <li><strong>Development Team:</strong> Grupo multifuncional que entrega o produto</li>
+                        <li><strong>Scrum Master:</strong> Facilitador do processo Scrum</li>
+                    </ul>
+                    <p style="margin-top: 10px;">As outras alternativas contêm papéis que não existem no Scrum oficial (Sprint Master, Agile Developer, Developer Chef).</p>
+                </div>
             </div>
         </div>
         
-        <!-- Slide 6: Mitos sobre Microsserviços -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Mitos sobre Microsserviços</h1>
-                <p class="slide-subtitle">Desmistificando Conceitos Errados</p>
+        <div class="section">
+            <h2>Atividade 3: Tutorial do Trello</h2>
+            <p>O Trello é uma ferramenta visual para gerenciamento de projetos, fluxos de trabalho e tarefas, muito utilizada em metodologias ágeis como Scrum e Kanban.</p>
+            
+            <div class="step">
+                <h4>Passo 1:</h4>
+                <p>Acesse o Padlet (botão no topo) e localize o tutorial em vídeo sobre o Trello</p>
             </div>
-            <div class="slide-content">
-                <div class="visual-representation myths-visual">
-                    <div class="myth-bubble myth-1">Mito 1</div>
-                    <div class="myth-bubble myth-2">Mito 2</div>
-                    <i class="fas fa-check-circle reality-check"></i>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-question-circle"></i> Por que Mitos Surgem?</h3>
-                    <p>Microsserviços se tornaram um termo popular na indústria de software, e com essa popularidade vieram muitos mal-entendidos. É importante separar os fatos da ficção para tomar decisões arquiteturais informadas.</p>
-                    <p>Esses mitos geralmente surgem de interpretações simplistas ou da aplicação inadequada de conceitos sem entender o contexto completo e as trade-offs envolvidas.</p>
-                </div>
-                
-                <div class="myth-container">
-                    <div class="myth-box">
-                        <h3>Mito 1</h3>
-                        <p>"Como os microsserviços são altamente coesos, testes de integração são desnecessários."</p>
-                        <div class="reality">
-                            <strong>Realidade:</strong> A coesão é interna a cada serviço (cada serviço tem uma única responsabilidade bem definida), mas a comunicação entre serviços (via APIs) exige testes rigorosos para garantir funcionalidade. Testes de integração são ainda mais críticos em arquiteturas de microsserviços porque os serviços operam de forma independente e podem evoluir separadamente.
-                        </div>
-                        <p><strong>Por que isso é importante?</strong> Sem testes de integração adequados, mudanças em um serviço podem quebrar a comunicação com outros serviços, levando a falhas em cascata que são difíceis de diagnosticar e corrigir.</p>
-                    </div>
-                    <div class="myth-box">
-                        <h3>Mito 2</h3>
-                        <p>"Todos os microsserviços que compõem uma mesma aplicação devem ser implementados na mesma linguagem."</p>
-                        <div class="reality">
-                            <strong>Realidade:</strong> Uma das grandes vantagens dos microsserviços é que cada microsserviço pode ser implementado na linguagem mais adequada às suas necessidades específicas. Essa heterogeneidade tecnológica permite otimizar cada serviço para seu propósito específico.
-                        </div>
-                        <p><strong>Exemplo prático:</strong> Um serviço de machine learning pode usar Python com bibliotecas como TensorFlow, enquanto um serviço de alta performance pode usar Go ou Rust, e um serviço web pode usar JavaScript com Node.js. Cada linguagem é escolhida pelo que ela faz melhor.</p>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-lightbulb"></i> Verdades sobre Microsserviços</h3>
-                    <ul>
-                        <li><span class="highlight">Coesão interna:</span> Cada serviço tem uma única responsabilidade bem definida, tornando-o mais fácil de entender e manter</li>
-                        <li><span class="highlight">Acoplamento fraco:</span> Serviços se comunicam através de APIs bem definidas, minimizando dependências diretas</li>
-                        <li><span class="highlight">Autonomia:</span> Cada serviço tem seu próprio ciclo de vida, equipe de desenvolvimento e pipeline de deploy</li>
-                        <li><span class="highlight">Resiliência:</span> Falhas em um serviço não derrubam todo o sistema, permitindo isolamento de falhas</li>
-                        <li><span class="highlight">Escalabilidade independente:</span> Serviços podem ser escalados horizontalmente conforme necessidade específica</li>
-                    </ul>
-                </div>
-                
-                <div class="info-box">
-                    <h4><i class="fas fa-info-circle"></i> Quando Usar Microsserviços?</h4>
-                    <p>Microsserviços não são a solução para todos os problemas. Eles são mais adequados para:</p>
-                    <ul>
-                        <li>Aplicações complexas com domínios de negócio bem definidos</li>
-                        <li>Equipes grandes que precisam trabalhar de forma independente</li>
-                        <li>Sistemas que exigem alta escalabilidade e disponibilidade</li>
-                        <li>Aplicações onde diferentes componentes têm diferentes requisitos de escalabilidade</li>
-                    </ul>
-                    <p>Para aplicações simples ou equipes pequenas, uma arquitetura monolítica pode ser mais eficiente e menos complexa de gerenciar.</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(5)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(7)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">6 / 12</div>
+            
+            <div class="step">
+                <h4>Passo 2:</h4>
+                <p>Assista atentamente ao tutorial, anotando os principais recursos:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Criação de quadros (boards)</li>
+                    <li>Organização de listas (lists)</li>
+                    <li>Criação e gerenciamento de cartões (cards)</li>
+                    <li>Uso de etiquetas, prazos e checklists</li>
+                    <li>Configuração para Scrum e Kanban</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h4>Passo 3:</h4>
+                <p>Pratique criando um quadro simples no Trello enquanto assiste ao vídeo</p>
+            </div>
+            
+            <div class="note">
+                <strong>Importante:</strong> Domine o Trello antes de prosseguir para a Atividade 4, pois você precisará criar um quadro Scrum completo.
             </div>
         </div>
         
-        <!-- Slide 7: FaaS (Serverless) -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">FaaS (Serverless)</h1>
-                <p class="slide-subtitle">Computação Sem Servidores</p>
+        <div class="section">
+            <h2>Atividade 4: Criando um Quadro Scrum no Trello</h2>
+            <p>Agora você aplicará o que aprendeu sobre o Trello e Scrum para criar um quadro de organização pessoal.</p>
+            
+            <div class="step">
+                <h4>Passo 1:</h4>
+                <p>Crie um novo quadro no Trello com o nome "Organização Pessoal - [Seu Nome]"</p>
             </div>
-            <div class="slide-content">
-                <div class="visual-representation serverless-visual">
-                    <i class="fas fa-bolt event-trigger"></i>
-                    <div class="function func-1">F1</div>
-                    <div class="function func-2">F2</div>
-                    <div class="function func-3">F3</div>
-                    <div class="function func-4">F4</div>
-                    <div class="function func-5">F5</div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-cloud-upload-alt"></i> O que é Serverless?</h3>
-                    <p>Serverless Computing, ou Functions as a Service (FaaS), é um modelo de computação em nuvem onde o provedor gerencia a infraestrutura de servidores. Os desenvolvedores implantam funções (código) que são executadas sob demanda, sem precisar se preocupar com a gestão de servidores.</p>
-                    <p>Apesar do nome "serverless" (sem servidores), servidores ainda existem - a diferença é que o provedor de nuvem gerencia toda a infraestrutura subjacente, permitindo que os desenvolvedores se concentrem apenas no código da aplicação.</p>
-                </div>
-                
-                <div class="process-flow">
-                    <div class="process-step">
-                        <i class="fas fa-bolt"></i>
-                        <h4>Evento</h4>
-                        <p>Disparador</p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-arrow-right"></i>
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-code"></i>
-                        <h4>Função</h4>
-                        <p>Execução</p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-arrow-right"></i>
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-check"></i>
-                        <h4>Resultado</h4>
-                        <p>Resposta</p>
-                    </div>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-cogs"></i> Como Funciona?</h3>
-                        <ol>
-                            <li><strong>Função é acionada por evento:</strong> Uma requisição HTTP, upload de arquivo, mensagem em fila, timer, etc.</li>
-                            <li><strong>Recursos são alocados dinamicamente:</strong> O provedor aloca os recursos necessários (CPU, memória) para executar a função</li>
-                            <li><strong>Execução do código:</strong> A função é executada em um ambiente isolado e seguro</li>
-                            <li><strong>Recursos são liberados:</strong> Após a execução, os recursos são desalocados automaticamente</li>
-                            <li><strong>Cobrança pelo uso:</strong> Você paga apenas pelo tempo de execução (geralmente em milissegundos)</li>
-                        </ol>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-star"></i> Vantagens</h3>
-                        <ul>
-                            <li><span class="highlight">Sem gerenciamento de servidores:</span> Nenhuma preocupação com infraestrutura, patches ou atualizações</li>
-                            <li><span class="highlight">Custos reduzidos:</span> Pague apenas pelo que usar, sem custos de ociosidade</li>
-                            <li><span class="highlight">Escalabilidade automática:</strong> O provedor escala automaticamente conforme a demanda</li>
-                            <li><span class="highlight">Foco no código:</strong> Os desenvolvedores podem se concentrar na lógica de negócio</li>
-                            <li><span class="highlight">Implantação simplificada:</strong> Apenas o código da função precisa ser implantado</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Desafios e Limitações</h3>
-                    <ul>
-                        <li><span class="highlight">Cold Start:</span> Latência inicial quando a função é acionada após inatividade (tempo para alocar recursos)</li>
-                        <li><span class="highlight">Limitações de tempo:</span> Funções têm tempo máximo de execução (geralmente 5-15 minutos)</li>
-                        <li><span class="highlight">Dependência do provedor:</span> Vendor lock-in - dificuldade de migrar entre provedores</li>
-                        <li><span class="highlight">Monitoramento complexo:</span> Rastrear execuções distribuídas pode ser desafiador</li>
-                        <li><span class="highlight">Estado efêmero:</span> Funções não devem manter estado entre execuções (stateless)</li>
-                    </ul>
-                </div>
-                
-                <div class="success-box">
-                    <h4><i class="fas fa-check-circle"></i> Casos de Uso Ideais</h4>
-                    <ul>
-                        <li><strong>Processamento de arquivos:</strong> Redimensionamento de imagens, conversão de formatos</li>
-                        <li><strong>Webhooks:</strong> Resposta a eventos de sistemas externos</li>
-                        <li><strong>APIs simples:</strong> Endpoints HTTP com lógica de negócio leve</li>
-                        <li><strong>Processamento de streams:</strong> Análise de dados em tempo real</li>
-                        <li><strong>Tarefas agendadas:</strong> Jobs periódicos como limpeza de dados</li>
-                    </ul>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(6)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(8)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">7 / 12</div>
+            
+            <div class="step">
+                <h4>Passo 2:</h4>
+                <p>Configure as listas básicas do Scrum:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Product Backlog:</strong> Todas as suas atividades de estudo, trabalho e pessoais</li>
+                    <li><strong>Sprint Backlog:</strong> Atividades que você priorizou para a semana atual</li>
+                    <li><strong>Em Progresso:</strong> Atividades que você está executando no momento</li>
+                    <li><strong>Para Revisão:</strong> Atividades concluídas que precisam de validação</li>
+                    <li><strong>Concluído:</strong> Atividades finalizadas com sucesso</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h4>Passo 3:</h4>
+                <p>Adicione cartões com suas atividades reais:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Estudos da disciplina de Engenharia de Software</li>
+                    <li>Outras disciplinas do semestre</li>
+                    <li>Atividades de trabalho (se aplicável)</li>
+                    <li>Projetos pessoais</li>
+                    <li>Compromissos importantes</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h4>Passo 4:</h4>
+                <p>Utilize os recursos do Trello para organizar seus cartões:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Adicione prazos (due dates)</li>
+                    <li>Use etiquetas coloridas para categorizar (estudo, trabalho, pessoal)</li>
+                    <li>Crie checklists para tarefas complexas</li>
+                    <li>Adicione descrições detalhadas quando necessário</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h4>Passo 5 (Opcional):</h4>
+                <p>Compartilhe seu quadro no Padlet da turma para feedback e inspiração aos colegas</p>
+            </div>
+            
+            <div class="note">
+                <strong>Dica de Scrum:</strong> Faça uma "reunião diária" de 5 minutos com você mesmo todas as manhãs para revisar seu quadro e planejar o dia!
             </div>
         </div>
         
-        <!-- Slide 8: Edge Computing -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Edge Computing</h1>
-                <p class="slide-subtitle">Processamento na Borda da Rede</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation edge-visual">
-                    <div class="edge-device device-1"><i class="fas fa-mobile-alt"></i></div>
-                    <div class="edge-device device-2"><i class="fas fa-car"></i></div>
-                    <div class="edge-device device-3"><i class="fas fa-thermometer-half"></i></div>
-                    <div class="edge-device device-4"><i class="fas fa-video"></i></div>
-                    <i class="fas fa-cloud central-cloud"></i>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-network-wired"></i> O que é Edge Computing?</h3>
-                    <p>Edge Computing é um modelo de processamento de dados que ocorre próximo à fonte de geração dos dados (a "borda" da rede), em vez de depender de uma nuvem centralizada. Essa abordagem reduz a latência, economiza largura de banda e permite processamento em tempo real.</p>
-                    <p>Em vez de enviar todos os dados para a nuvem central para processamento, o Edge Computing permite que parte do processamento seja feita localmente, em dispositivos ou servidores próximos aos usuários ou sensores.</p>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-check-circle"></i> Aplicações Ideais</h3>
-                        <ul>
-                            <li><span class="highlight">Veículos autônomos:</span> Decisões críticas devem ser tomadas em milissegundos, sem depender de conexão com a nuvem</li>
-                            <li><span class="highlight">Realidade aumentada:</span> Processamento local para reduzir latência e proporcionar experiência imersiva</li>
-                            <li><span class="highlight">Cidades inteligentes:</span> Processamento de dados de sensores em tempo real para gestão de tráfego e segurança</li>
-                            <li><span class="highlight">Indústria 4.0:</span> Controle de máquinas e robôs com baixa latência em ambientes industriais</li>
-                            <li><span class="highlight">IoT (Internet das Coisas):</span> Processamento de dados de sensores antes de enviar para a nuvem</li>
-                        </ul>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-times-circle"></i> Limitações e Desafios</h3>
-                        <ul>
-                            <li><span class="highlight">Não adequado para:</span> Mineração de dados e análise histórica (requer processamento centralizado)</li>
-                            <li><span class="highlight">Não adequado para:</span> Inteligência de Negócios (análises complexas e relatórios)</li>
-                            <li><span class="highlight">Desafios:</span> Segurança em dispositivos distribuídos e com recursos limitados</li>
-                            <li><span class="highlight">Desafios:</span> Custo de infraestrutura descentralizada e manutenção</li>
-                            <li><span class="highlight">Desafios:</span> Gerenciamento de atualizações em milhares de dispositivos edge</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="comparison">
-                    <div class="comparison-column">
-                        <h3>Cloud Computing</h3>
-                        <p><i class="fas fa-cloud"></i> <strong>Processamento centralizado</strong></p>
-                        <p><i class="fas fa-database"></i> <strong>Armazenamento massivo</strong></p>
-                        <p><i class="fas fa-chart-line"></i> <strong>Análise complexa</strong></p>
-                        <p><i class="fas fa-clock"></i> <strong>Latência maior</strong></p>
-                        <p><i class="fas fa-shield-alt"></i> <strong>Segurança centralizada</strong></p>
-                    </div>
-                    <div class="comparison-column">
-                        <h3>Edge Computing</h3>
-                        <p><i class="fas fa-microchip"></i> <strong>Processamento distribuído</strong></p>
-                        <p><i class="fas fa-hdd"></i> <strong>Armazenamento local</strong></p>
-                        <p><i class="fas fa-tachometer-alt"></i> <strong>Processamento em tempo real</strong></p>
-                        <p><i class="fas fa-bolt"></i> <strong>Latência mínima</strong></p>
-                        <p><i class="fas fa-lock"></i> <strong>Segurança distribuída</strong></p>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <h4><i class="fas fa-info-circle"></i> Edge vs. Cloud: Complementares, não Competitivos</h4>
-                    <p>Edge Computing não substitui a nuvem; na verdade, eles trabalham juntos em uma arquitetura híbrida. A nuvem continua sendo essencial para:</p>
-                    <ul>
-                        <li>Armazenamento em larga escala e de longo prazo</li>
-                        <li>Análise complexa e treinamento de modelos de IA</li>
-                        <li>Gerenciamento centralizado de dispositivos edge</li>
-                        <li>Agregação de dados processados na borda</li>
-                    </ul>
-                    <p>A abordagem ideal é usar Edge Computing para processamento crítico em tempo real e a nuvem para armazenamento, análise histórica e gerenciamento.</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(7)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(9)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">8 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 9: Segurança na Nuvem -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Segurança em Aplicações em Nuvem</h1>
-                <p class="slide-subtitle">O Triângulo CIA e Principais Ameaças</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation security-visual">
-                    <i class="fas fa-shield-alt shield"></i>
-                    <i class="fas fa-lock lock-icon lock-1"></i>
-                    <i class="fas fa-lock lock-icon lock-2"></i>
-                    <i class="fas fa-lock lock-icon lock-3"></i>
-                    <i class="fas fa-lock lock-icon lock-4"></i>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-shield-alt"></i> Importância da Segurança na Nuvem</h3>
-                    <p>Com a migração de aplicações e dados para a nuvem, a segurança tornou-se uma preocupação crítica. Ambientes de nuvem introduzem novos desafios de segurança, mas também oferecem oportunidades para implementar práticas de segurança mais robustas e automatizadas.</p>
-                    <p>A segurança na nuvem segue o princípio da responsabilidade compartilhada: o provedor de nuvem é responsável pela segurança da nuvem, enquanto o cliente é responsável pela segurança na nuvem (dados, aplicações, sistemas operacionais, etc.).</p>
-                </div>
-                
-                <div class="triangle-diagram">
-                    <div class="triangle"></div>
-                    <div class="triangle-point top">Confidencialidade</div>
-                    <div class="triangle-point left">Integridade</div>
-                    <div class="triangle-point right">Disponibilidade</div>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-user-secret"></i> Confidencialidade</h3>
-                        <p><strong>Definição:</strong> Proteção contra acesso não autorizado aos dados e informações.</p>
-                        <p><strong>Práticas:</strong></p>
-                        <ul>
-                            <li>Criptografia de dados em repouso (AES-256) e em trânsito (TLS/SSL)</li>
-                            <li>Controle de acesso baseado em função (RBAC)</li>
-                            <li>Autenticação multifator (MFA)</li>
-                            <li>Gerenciamento seguro de chaves e segredos</li>
-                        </ul>
-                        <p><strong>Exemplo:</strong> Dados de clientes criptografados no banco de dados, acessíveis apenas por usuários autorizados.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-fingerprint"></i> Integridade</h3>
-                        <p><strong>Definição:</strong> Garantia de que os dados não foram alterados de forma não autorizada.</p>
-                        <p><strong>Práticas:</strong></p>
-                        <ul>
-                            <li>Assinaturas digitais para verificar autenticidade</li>
-                            <li>Hashes de verificação (SHA-256) para detectar alterações</li>
-                            <li>Controles de versão para rastrear mudanças</li>
-                            <li>Auditoria de logs para detectar atividades suspeitas</li>
-                        </ul>
-                        <p><strong>Exemplo:</strong> Transações financeiras com assinatura digital para garantir que não foram modificadas.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-server"></i> Disponibilidade</h3>
-                        <p><strong>Definição:</strong> Garantia de que os sistemas e dados estão acessíveis quando necessários.</p>
-                        <p><strong>Práticas:</strong></p>
-                        <ul>
-                            <li>Balanceadores de carga para distribuir tráfego</li>
-                            <li>Redundância geográfica em múltiplas regiões</li>
-                            <li>Planos de recuperação de desastres (DRP)</li>
-                            <li>Monitoramento proativo e alertas</li>
-                        </ul>
-                        <p><strong>Exemplo:</strong> Aplicação com servidores em múltiplas zonas de disponibilidade para garantir uptime de 99.99%.</p>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-exclamation-triangle"></i> Principais Ameaças</h3>
-                        <ul>
-                            <li><span class="highlight">Ataque de negação de serviço (DoS/DDoS):</span> Sobrecarga de requisições para tornar o serviço indisponível</li>
-                            <li><span class="highlight">Vazamento de dados:</span> Acesso não autorizado a informações sensíveis</li>
-                            <li><span class="highlight">Vulnerabilidades em APIs:</span> Falhas na comunicação entre serviços</li>
-                            <li><span class="highlight">Configurações incorretas:</span> Exposição acidental de recursos (buckets S3 públicos, etc.)</li>
-                            <li><span class="highlight">Malware interno:</span> Código malicioso em aplicações ou dependências</li>
-                            <li><span class="highlight">Ataques de injeção:</span> SQL injection, NoSQL injection, etc.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="warning-box">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Modelo de Responsabilidade Compartilhada</h4>
-                    <p>É crucial entender quem é responsável pelo quê na segurança da nuvem:</p>
-                    <ul>
-                        <li><strong>Provedor de Nuvem:</strong> Segurança da infraestrutura física, virtualização, rede e serviços gerenciados</li>
-                        <li><strong>Cliente:</strong> Segurança de dados, aplicações, sistemas operacionais, configurações e acesso</li>
-                    </ul>
-                    <p>Esse modelo varia conforme o tipo de serviço (IaaS, PaaS, SaaS), mas o cliente sempre mantém responsabilidade sobre seus dados e como eles são usados.</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(8)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(10)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">9 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 10: Ataque de Negação de Serviço -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Ataque de Negação de Serviço (DoS)</h1>
-                <p class="slide-subtitle">Impacto na Disponibilidade de Aplicações</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation dos-visual">
-                    <i class="fas fa-server server"></i>
-                    <i class="fas fa-long-arrow-alt-down attack-arrow arrow-1"></i>
-                    <i class="fas fa-long-arrow-alt-down attack-arrow arrow-2"></i>
-                    <i class="fas fa-long-arrow-alt-down attack-arrow arrow-3"></i>
-                    <i class="fas fa-long-arrow-alt-down attack-arrow arrow-4"></i>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-bomb"></i> O que é um Ataque DoS?</h3>
-                    <p>Um ataque de negação de serviço (Denial of Service - DoS) tem como objetivo tornar um serviço indisponível para seus usuários legítimos, sobrecarregando-o com um volume excessivo de requisições ou explorando vulnerabilidades para causar falhas.</p>
-                    <p>Quando o ataque é originado de múltiplas fontes simultaneamente, é chamado de Distributed Denial of Service (DDoS), sendo muito mais difícil de mitigar devido à natureza distribuída do ataque.</p>
-                </div>
-                
-                <div class="process-flow">
-                    <div class="process-step">
-                        <i class="fas fa-user-ninja"></i>
-                        <h4>Atacante</h4>
-                        <p>Inicia ataque</p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-arrow-right"></i>
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-network-wired"></i>
-                        <h4>Botnet</h4>
-                        <p>Dispositivos infectados</p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-arrow-right"></i>
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                    <div class="process-step">
-                        <i class="fas fa-server"></i>
-                        <h4>Alvo</h4>
-                        <p>Serviço sobrecarregado</p>
-                    </div>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-sync-alt"></i> Como Funciona?</h3>
-                        <ol>
-                            <li><strong>Atacante envia milhares de requisições simultâneas:</strong> Usando botnets (redes de dispositivos infectados) para amplificar o ataque</li>
-                            <li><strong>Recursos do servidor são sobrecarregados:</strong> CPU, memória, largura de banda e conexões de banco de dados são esgotadas</li>
-                            <li><strong>Servidor não consegue responder a requisições legítimas:</strong> O sistema fica lento ou completamente indisponível</li>
-                            <li><strong>Serviço torna-se inacessível:</strong> Usuários legítimos não conseguem acessar a aplicação</li>
-                            <li><strong>Impacto nos negócios:</strong> Perdas financeiras, danos à reputação e possível perda de clientes</li>
-                        </ol>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-shield-alt"></i> Propriedade Afetada</h3>
-                        <p class="highlight" style="font-size: 1.8rem; text-align: center; margin: 20px 0;">
-                            Disponibilidade
-                        </p>
-                        <p>O ataque compromete diretamente a capacidade do sistema de permanecer operacional e acessível, violando um dos pilares do triângulo CIA (Confidencialidade, Integridade, Disponibilidade).</p>
-                        <p><strong>Impacto específico:</strong></p>
-                        <ul>
-                            <li>Usuários não conseguem acessar o serviço</li>
-                            <li>Operações comerciais são interrompidas</li>
-                            <li>Perda de receita durante o período de inatividade</li>
-                            <li>Danos à reputação e confiança do cliente</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-tools"></i> Estratégias de Mitigação</h3>
-                    <ul>
-                        <li><span class="highlight">Firewalls especializados:</span> Soluções como AWS Shield, Cloudflare DDoS Protection, Akamai Prolexic</li>
-                        <li><span class="highlight">Rate limiting:</span> Limitar requisições por IP ou por sessão para detectar e bloquear padrões suspeitos</li>
-                        <li><span class="highlight">Redundância geográfica:</span> Distribuir carga entre múltiplos data centers para absorver o tráfego malicioso</li>
-                        <li><span class="highlight">Monitoramento proativo:</span> Detectar padrões de ataque em tempo real com sistemas de análise de tráfego</li>
-                        <li><span class="highlight">Plano de resposta a incidentes:</span> Procedimentos claros para ação rápida durante ataques</li>
-                        <li><span class="highlight">CDN (Content Delivery Network):</span> Distribuir conteúdo globalmente para absorver parte do tráfego</li>
-                    </ul>
-                </div>
-                
-                <div class="danger-box">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Casos Reais e Impacto</h4>
-                    <p><strong>GitHub (2018):</strong> Maior ataque DDoS registrado, atingindo 1.35 Tbps. O serviço permaneceu online graças à proteção da Akamai.</p>
-                    <p><strong>Amazon (2020):</strong> Ataque DDoS afetou serviços como Alexa e Ring, destacando a vulnerabilidade mesmo de grandes provedores.</p>
-                    <p><strong>Impacto financeiro:</strong> O custo médio de um minuto de inatividade para empresas de e-commerce é de aproximadamente $5.600, segundo a Gartner.</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(9)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(11)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">10 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 11: Guia para Responder às Questões -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Guia para Responder às Questões</h1>
-                <p class="slide-subtitle">Estratégias para Cada Questão da Avaliação</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation study-visual">
-                    <i class="fas fa-book book"></i>
-                    <i class="fas fa-lightbulb lightbulb"></i>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-graduation-cap"></i> Como Preparar-se para a Avaliação</h3>
-                    <p>Este guia foi desenvolvido para ajudá-lo a responder às questões da avaliação com confiança. Cada questão está relacionada a um tópico específico abordado nesta apresentação, e as estratégias aqui apresentadas focam nos pontos-chave que você deve destacar em suas respostas.</p>
-                    <p>Lembre-se: além de conhecer o conteúdo, é importante entender como aplicá-lo em situações práticas e como estruturar suas respostas de forma clara e objetiva.</p>
-                </div>
-                
-                <div class="question-grid">
-                    <div class="question-card">
-                        <h3>Questão 1</h3>
-                        <p class="question"><strong>Tema:</strong> Arquitetura multicamadas</p>
-                        <p class="answer"><strong>Resposta-chave:</strong> A camada de interface não deve interagir diretamente com a camada de dados</p>
-                        <p><i class="fas fa-lightbulb"></i> <strong>Foco:</strong> Separação de responsabilidades e segurança</p>
-                        <div class="info-box" style="margin-top: 15px;">
-                            <p><strong>Explicação detalhada:</strong> Na arquitetura multicamadas, a camada de interface (apresentação) nunca deve acessar diretamente a camada de dados (persistência). Toda comunicação deve passar pela camada de processamento (lógica de negócio). Isso garante segurança (evita ataques diretos ao banco) e manutenção (alterações no banco não afetam a interface).</p>
-                        </div>
-                    </div>
-                    <div class="question-card">
-                        <h3>Questão 2</h3>
-                        <p class="question"><strong>Tema:</strong> Microsserviços vs Monolítico</p>
-                        <p class="answer"><strong>Resposta-chave:</strong> Vantagens: modularidade, escalabilidade granular, agilidade</p>
-                        <p><i class="fas fa-lightbulb"></i> <strong>Foco:</strong> Flexibilidade e independência dos serviços</p>
-                        <div class="info-box" style="margin-top: 15px;">
-                            <p><strong>Explicação detalhada:</strong> Microsserviços oferecem vantagens sobre aplicações monolíticas: modularidade (falhas isoladas), escalabilidade granular (escala apenas serviços necessários), agilidade (implantações independentes), flexibilidade tecnológica (cada serviço usa melhor tecnologia) e autonomia das equipes.</p>
-                        </div>
-                    </div>
-                    <div class="question-card">
-                        <h3>Questão 3</h3>
-                        <p class="question"><strong>Tema:</strong> FaaS vs Edge Computing</p>
-                        <p class="answer"><strong>Resposta-chave:</strong> FaaS para eventos esporádicos, Edge para baixa latência</p>
-                        <p><i class="fas fa-lightbulb"></i> <strong>Foco:</strong> Casos de uso específicos de cada modelo</p>
-                        <div class="info-box" style="margin-top: 15px;">
-                            <p><strong>Explicação detalhada:</strong> FaaS (Serverless) é ideal para eventos esporádicos e processamento sob demanda, enquanto Edge Computing é melhor para aplicações que exigem baixa latência e processamento em tempo real, como veículos autônomos e IoT. Eles não são mutuamente exclusivos e podem ser usados juntos.</p>
-                        </div>
-                    </div>
-                    <div class="question-card">
-                        <h3>Questão 4</h3>
-                        <p class="question"><strong>Tema:</strong> Modelo Serverless</p>
-                        <p class="answer"><strong>Resposta-chave:</strong> Funções podem interagir com outras funções, BDs e APIs</p>
-                        <p><i class="fas fa-lightbulb"></i> <strong>Foco:</strong> Capacidades de comunicação entre componentes</p>
-                        <div class="info-box" style="margin-top: 15px;">
-                            <p><strong>Explicação detalhada:</strong> No modelo Serverless (FaaS), as funções podem interagir com outras funções na mesma aplicação, acessar bancos de dados, consumir APIs externas e se comunicar com outros serviços. Essa capacidade de integração permite construir aplicações complexas e distribuídas usando o modelo serverless.</p>
-                        </div>
-                    </div>
-                    <div class="question-card">
-                        <h3>Questão 5</h3>
-                        <p class="question"><strong>Tema:</strong> Ataque de Negação de Serviço</p>
-                        <p class="answer"><strong>Resposta-chave:</strong> Afeta a propriedade de Disponibilidade</p>
-                        <p><i class="fas fa-lightbulb"></i> <strong>Foco:</strong> Impacto no triângulo CIA e operacionalidade</p>
-                        <div class="info-box" style="margin-top: 15px;">
-                            <p><strong>Explicação detalhada:</strong> O ataque de negação de serviço (DoS) compromete diretamente a propriedade de Disponibilidade do triângulo CIA (Confidencialidade, Integridade, Disponibilidade). Ele torna o serviço inacessível para usuários legítimos, causando interrupções operacionais e perdas financeiras.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-list-check"></i> Dicas de Estudo</h3>
-                    <ul>
-                        <li><span class="highlight">Faça resumos:</span> Escreva cada tópico com suas palavras para reforçar a compreensão</li>
-                        <li><span class="highlight">Use exemplos práticos:</span> Associe conceitos a serviços reais (Netflix, AWS Lambda, etc.)</li>
-                        <li><span class="highlight">Responda simulados:</span> Crie questões com base nos tópicos e pratique as respostas</li>
-                        <li><span class="highlight">Consulte os links complementares:</span> Material de apoio para aprofundar conhecimentos</li>
-                        <li><span class="highlight">Estude em grupo:</span> Discuta os conceitos com colegas para esclarecer dúvidas</li>
-                    </ul>
-                </div>
-                
-                <div class="success-box">
-                    <h4><i class="fas fa-check-circle"></i> Estrutura Ideal para Respostas</h4>
-                    <p>Para responder bem às questões, siga esta estrutura:</p>
-                    <ol>
-                        <li><strong>Definição clara:</strong> Comece definindo o conceito central da questão</li>
-                        <li><strong>Explicação detalhada:</strong> Desenvolva o tema com explicações e exemplos</li>
-                        <li><strong>Aplicação prática:</strong> Mostre como o conceito se aplica no mundo real</li>
-                        <li><strong>Conclusão:</strong> Sintetize os pontos principais da sua resposta</li>
-                    </ol>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(10)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn next" onclick="showSlide(12)">
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">11 / 12</div>
-            </div>
-        </div>
-        
-        <!-- Slide 12: Conclusão -->
-        <div class="slide">
-            <div class="slide-header">
-                <h1 class="slide-title">Conclusão e Contato</h1>
-                <p class="slide-subtitle">Próximos Passos e Onde Tirar Dúvidas</p>
-            </div>
-            <div class="slide-content">
-                <div class="visual-representation conclusion-visual">
-                    <i class="fas fa-trophy trophy"></i>
-                    <i class="fas fa-star star star-1"></i>
-                    <i class="fas fa-star star star-2"></i>
-                    <i class="fas fa-star star star-3"></i>
-                    <i class="fas fa-star star star-4"></i>
-                </div>
-                
-                <div class="content-box">
-                    <h3><i class="fas fa-flag-checkered"></i> Resumo da Nossa Jornada</h3>
-                    <p>Ao longo desta apresentação, exploramos desde os conceitos fundamentais de aplicações em nuvem até arquiteturas modernas como FaaS e Edge Computing, passando por segurança e melhores práticas. Vimos como a tecnologia evoluiu para atender às demandas crescentes por escalabilidade, flexibilidade e eficiência.</p>
-                    <p>Cada modelo arquitetural tem suas vantagens e limitações, e a escolha certa depende das necessidades específicas de cada projeto. O importante é entender os conceitos para tomar decisões informadas e aplicar as melhores práticas em cada situação.</p>
-                </div>
-                
-                <div class="content-grid">
-                    <div class="content-box">
-                        <h3><i class="fas fa-rocket"></i> Próximos Passos</h3>
-                        <ul>
-                            <li><span class="highlight">Praticar com serviços de nuvem:</span> Crie contas gratuitas na AWS, Azure ou GCP para experimentar os conceitos</li>
-                            <li><span class="highlight">Implementar um projeto:</span> Desenvolva uma aplicação usando microsserviços ou serverless</li>
-                            <li><span class="highlight">Explorar ferramentas de segurança:</span> Estude soluções como AWS WAF, Cloudflare, etc.</li>
-                            <li><span class="highlight">Acompanhar as tendências:</span> Siga blogs e fóruns sobre cloud computing e arquitetura</li>
-                            <li><span class="highlight">Obter certificações:</span> Considere certificações como AWS Solutions Architect ou Azure Fundamentals</li>
-                        </ul>
-                    </div>
-                    <div class="content-box">
-                        <h3><i class="fas fa-book"></i> Recursos Complementares</h3>
-                        <ul>
-                            <li><a href="#" style="color: var(--secondary-blue); text-decoration: none;"><i class="fas fa-external-link-alt"></i> Arquitetura em Nuvem (Claranet)</a> - Artigo completo sobre conceitos fundamentais</li>
-                            <li><a href="#" style="color: var(--secondary-blue); text-decoration: none;"><i class="fas fa-external-link-alt"></i> Características da Cloud Computing (UFRJ)</a> - Material acadêmico detalhado</li>
-                            <li><a href="#" style="color: var(--secondary-blue); text-decoration: none;"><i class="fas fa-external-link-alt"></i> Segurança na Nuvem (DevMedia)</a> - Guia prático de segurança</li>
-                            <li><a href="#" style="color: var(--secondary-blue); text-decoration: none;"><i class="fas fa-external-link-alt"></i> Ferramentas de Armazenamento (Impacta)</a> - Comparativo de soluções</li>
-                            <li><a href="#" style="color: var(--secondary-blue); text-decoration: none;"><i class="fas fa-external-link-alt"></i> Documentação AWS</a> - Referência oficial para serviços AWS</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Professora: Patrícia Valério Martinez</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>E-mail: patricia.martinez@universidade.edu.br</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Atendimento: Quartas-feiras, 14h-16h</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Sala: B-205, Bloco B</span>
-                    </div>
-                </div>
-                
-                <div class="success-box">
-                    <h4><i class="fas fa-quote-left"></i> Mensagem Final</h4>
-                    <p style="font-size: 1.4rem; text-align: center; margin: 20px 0; color: var(--primary-blue);">
-                        "A nuvem não é o futuro, é o presente. Domine esses conceitos e transforme desafios em oportunidades!"
-                    </p>
-                    <p style="text-align: center;">A tecnologia evolui rapidamente, e os conhecimentos adquiridos aqui serão a base para sua carreira em computação em nuvem. Continue aprendendo, praticando e explorando novas possibilidades.</p>
-                </div>
-                
-                <div class="info-box" style="text-align: center; margin-top: 30px;">
-                    <h4 style="color: var(--primary-blue);">#ComputaçãoEmNuvem #Arquitetura #CloudComputing</h4>
-                    <p>Compartilhe seu conhecimento e inspire outros a aprender sobre essa área fascinante!</p>
-                </div>
-                
-                <div class="navigation">
-                    <button class="nav-btn" onclick="showSlide(11)">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </button>
-                    <button class="nav-btn" disabled>
-                        Próximo <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="slide-counter">12 / 12</div>
+        <div class="section">
+            <h2>Conclusão</h2>
+            <p>Parabéns por completar esta aula atividade! Agora você possui conhecimentos sólidos sobre:</p>
+            <ul style="margin-top: 15px; margin-left: 20px;">
+                <li>Fundamentos de metodologias ágeis</li>
+                <li>Diferenças e complementaridades entre Scrum e XP</li>
+                <li>Princípios do Manifesto Ágil</li>
+                <li>Papéis em equipes Scrum</li>
+                <li>Utilização prática do Trello para organização pessoal</li>
+            </ul>
+            
+            <p style="margin-top: 20px;">Lembre-se de aplicar esses conceitos em seus projetos acadêmicos e profissionais. As metodologias ágeis são ferramentas poderosas para aumentar produtividade e qualidade!</p>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://padlet.com/vanessaleite2/xxttsjconhmllh6d" target="_blank" class="btn">Acessar Padlet</a>
+                <a href="https://trello.com/" target="_blank" class="btn">Acessar Trello</a>
             </div>
         </div>
     </div>
-
-    <script>
-        let currentSlide = 1;
-        const totalSlides = 12;
-        
-        function showSlide(n) {
-            // Esconde todos os slides
-            const slides = document.querySelectorAll('.slide');
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-            });
-            
-            // Mostra o slide atual
-            document.querySelectorAll('.slide')[n-1].classList.add('active');
-            
-            // Atualiza o contador
-            const counters = document.querySelectorAll('.slide-counter');
-            counters.forEach(counter => {
-                counter.textContent = `${n} / ${totalSlides}`;
-            });
-            
-            // Atualiza o slide atual
-            currentSlide = n;
-            
-            // Rola para o topo
-            window.scrollTo(0, 0);
-        }
-        
-        // Navegação com teclado
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && currentSlide > 1) {
-                showSlide(currentSlide - 1);
-            } else if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
-                showSlide(currentSlide + 1);
-            }
-        });
-    </script>
+    
+    <footer>
+        <div class="container">
+            <p>Engenharia de Software - Teleaula 01 | Desenvolvido para auxiliar no aprendizado</p>
+        </div>
+    </footer>
 </body>
 </html>
