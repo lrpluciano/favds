@@ -246,6 +246,32 @@
             color: var(--white);
             font-weight: bold;
         }
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .step-number {
+            background-color: var(--secondary-orange);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex-grow: 1;
+        }
         @media (max-width: 768px) {
             .slide-content {
                 padding: 15px;
@@ -307,6 +333,15 @@
                     <h2 style="font-size: 1.8em; margin-top: 0;">Frameworks, APIs e Componentes</h2> 
                     <hr> 
                     <p style="color: #555; font-size: 1.2em;">Uma jornada didática para entender as ferramentas essenciais do desenvolvimento moderno.</p> 
+                    <div class="highlight-box">
+                        <h3>O que você aprenderá nesta apresentação:</h3>
+                        <ul>
+                            <li>Conceitos fundamentais de APIs, Frameworks e Componentes</li>
+                            <li>Como essas ferramentas se relacionam no desenvolvimento de software</li>
+                            <li>Vantagens e desvantagens de cada abordagem</li>
+                            <li>Aplicações práticas através de exercícios</li>
+                        </ul>
+                    </div>
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Desenvolvimento de Software">
                     </div>
@@ -318,11 +353,13 @@
         <div class="slide" id="slide2">
             <div class="slide-content">
                 <h2>Sumário da Apresentação</h2> 
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Esta apresentação está organizada em quatro blocos principais, cada um abordando um aspecto fundamental do desenvolvimento de software moderno:</p>
+                
                 <div class="infographic">
                     <div class="infographic-item">
                         <i class="fas fa-cogs"></i>
                         <h3>Componentes de Software</h3>
-                        <p>Conceitos fundamentais e práticas de reutilização</p>
+                        <p>Conceitos fundamentais e práticas de reutilização de código</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-plug"></i>
@@ -332,13 +369,18 @@
                     <div class="infographic-item">
                         <i class="fas fa-layer-group"></i>
                         <h3>Frameworks</h3>
-                        <p>Estruturas para desenvolvimento ágil</p>
+                        <p>Estruturas para desenvolvimento ágil e padronizado</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-tasks"></i>
                         <h3>Atividades Práticas</h3>
-                        <p>Questões para fixação do conteúdo</p>
+                        <p>Exercícios para fixação e aplicação dos conceitos</p>
                     </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Como aproveitar esta apresentação:</h3>
+                    <p>Avance no seu próprio ritmo, leia cada slide com atenção e tente responder às questões práticas antes de verificar as respostas. Ao final, você terá uma compreensão sólida desses conceitos essenciais.</p>
                 </div>
             </div>
         </div>
@@ -347,32 +389,67 @@
         <div class="slide" id="slide3">
             <div class="slide-content">
                 <h2>O que são APIs?</h2> 
-                <p style="font-size: 1.1em;">API (Application Programming Interface) é um conjunto de rotinas e padrões estabelecidos por um software para a utilização das suas funcionalidades por aplicativos que não pretendem envolver-se em detalhes da implementação do software.</p>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">API (Application Programming Interface) é um conjunto de rotinas, protocolos e ferramentas para construir softwares e aplicações. Em termos simples, uma API especifica como componentes de software devem interagir.</p>
                 
                 <div class="highlight-box">
                     <h3>Segurança por Design em APIs</h3>
                     <p>As APIs oferecem segurança por design porque sua posição como intermediário entre dois sistemas separa o aplicativo do serviço que fornece a funcionalidade (IBM CLOUD EDUCATION, 2020).</p>
-                    <p>O terminal da API atua como uma barreira de segurança, controlando o acesso e a comunicação entre os sistemas.</p>
+                    <p>O terminal da API atua como uma barreira de segurança, controlando o acesso e a comunicação entre os sistemas. Isso significa que:</p>
+                    <ul>
+                        <li>A aplicação cliente não acessa diretamente o servidor</li>
+                        <li>A API valida e filtra todas as requisições</li>
+                        <li>Permite implementar políticas de segurança centralizadas</li>
+                    </ul>
                 </div>
                 
                 <div class="api-diagram">
                     <div class="api-box" style="background-color: #4285F4;">
                         <i class="fas fa-mobile-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p>Aplicação Cliente</p>
+                        <p><strong>Aplicação Cliente</strong></p>
+                        <p>Envia requisições</p>
                     </div>
                     <div class="api-arrow">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
                     <div class="api-box" style="background-color: #34A853;">
                         <i class="fas fa-shield-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p>API</p>
+                        <p><strong>API</strong></p>
+                        <p>Intermediária segura</p>
                     </div>
                     <div class="api-arrow">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
                     <div class="api-box" style="background-color: #FBBC05;">
                         <i class="fas fa-server" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p>Servidor</p>
+                        <p><strong>Servidor</strong></p>
+                        <p>Processa dados</p>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Requisição:</strong> A aplicação envia uma requisição para a API
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Validação:</strong> A API verifica autenticação e autorização
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Processamento:</strong> A API encaminha a requisição para o servidor
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Resposta:</strong> O servidor retorna os dados através da API
+                        </div>
                     </div>
                 </div>
             </div>
@@ -382,27 +459,34 @@
         <div class="slide" id="slide4">
             <div class="slide-content">
                 <h2>Características Essenciais das APIs</h2> 
+                <p style="font-size: 1.1em; margin-bottom: 20px;">As APIs possuem características que as tornam fundamentais no desenvolvimento moderno de software. Vamos explorar cada uma delas em detalhes:</p>
+                
                 <div class="infographic">
                     <div class="infographic-item">
                         <i class="fas fa-shield-alt"></i>
                         <h3>Segurança</h3>
-                        <p>Controle de acesso e autenticação entre sistemas</p>
+                        <p>Controle de acesso e autenticação entre sistemas. As APIs implementam mecanismos como tokens, chaves de API e OAuth para garantir que apenas usuários autorizados acessem os recursos.</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-exchange-alt"></i>
                         <h3>Interoperabilidade</h3>
-                        <p>Permite comunicação entre diferentes plataformas</p>
+                        <p>Permite comunicação entre diferentes plataformas e linguagens. Uma API criada em Java pode ser consumida por aplicações em Python, JavaScript ou qualquer outra linguagem.</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-puzzle-piece"></i>
                         <h3>Modularidade</h3>
-                        <p>Funcionalidades independentes e reutilizáveis</p>
+                        <p>Funcionalidades independentes e reutilizáveis. Cada endpoint da API oferece uma funcionalidade específica, permitindo que os desenvolvedores usem apenas o que precisam.</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-code"></i>
                         <h3>Abstração</h3>
-                        <p>Oculta complexidade da implementação interna</p>
+                        <p>Oculta complexidade da implementação interna. Os desenvolvedores não precisam saber como os dados são processados internamente, apenas como interagir com a API.</p>
                     </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Exemplo Prático:</h3>
+                    <p>Quando você usa um aplicativo de previsão do tempo, ele não precisa saber como os dados meteorológicos são coletados ou processados. Ele simplesmente faz uma chamada à API do serviço de meteorologia, que retorna os dados formatados. Isso é abstração e interoperabilidade em ação!</p>
                 </div>
                 
                 <div class="image-container">
@@ -415,36 +499,75 @@
         <div class="slide" id="slide5">
             <div class="slide-content">
                 <h2>Desenvolvimento Baseado em Componentes</h2> 
-                <p style="font-size: 1.1em;">Segundo Eler (2006), o desenvolvimento de software baseado em componentes é um conjunto de práticas usadas para construir sistemas de software a partir de componentes reutilizáveis, tanto por terceiros quanto pelo próprio desenvolvedor do sistema.</p>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Segundo Eler (2006), o desenvolvimento de software baseado em componentes é um conjunto de práticas usadas para construir sistemas de software a partir de componentes reutilizáveis, tanto por terceiros quanto pelo próprio desenvolvedor do sistema.</p>
                 
                 <div class="highlight-box">
-                    <h3>Objetivo Principal</h3>
-                    <p>Adaptar, integrar e atualizar componentes de software reutilizáveis, permitindo que os desenvolvedores se concentrem na lógica de negócio em vez de detalhes de implementação.</p>
+                    <h3>Conceito Fundamental:</h3>
+                    <p>No desenvolvimento baseado em componentes, o software é construído como um conjunto de blocos independentes, cada um com uma funcionalidade específica. Esses componentes podem ser:</p>
+                    <ul>
+                        <li><strong>Desenvolvidos internamente:</strong> Criados pela equipe para uso em múltiplos projetos</li>
+                        <li><strong>Adquiridos de terceiros:</strong> Bibliotecas e frameworks comerciais ou open-source</li>
+                        <li><strong>Combinados:</strong> Mistura de componentes internos e externos</li>
+                    </ul>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Identificação:</strong> Identificar funcionalidades que podem ser encapsuladas como componentes
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Desenvolvimento:</strong> Criar o componente com interfaces bem definidas
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Teste:</strong> Testar o componente isoladamente e em integração
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Integração:</strong> Integrar o componente no sistema principal
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <strong>Reutilização:</strong> Reutilizar o componente em outros sistemas quando necessário
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="component-visual">
                     <div class="component-block" style="background-color: #4285F4;">
-                        Componente A
+                        Componente<br>Autenticação
                     </div>
                     <div class="component-block" style="background-color: #34A853;">
-                        Componente B
+                        Componente<br>Banco de Dados
                     </div>
                     <div class="component-block" style="background-color: #FBBC05;">
-                        Componente C
+                        Componente<br>Validação
                     </div>
                     <div class="component-block" style="background-color: #EA4335;">
-                        Componente D
+                        Componente<br>Relatórios
                     </div>
                     <div class="component-block" style="background-color: #673AB7;">
-                        Componente E
+                        Componente<br>Notificações
                     </div>
                     <div class="component-block" style="background-color: #00BCD4;">
-                        Componente F
+                        Componente<br>Interface
                     </div>
                 </div>
                 
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Componentes de Software">
+                <div class="highlight-box">
+                    <h3>Objetivo Principal:</h3>
+                    <p>Adaptar, integrar e atualizar componentes de software reutilizáveis, permitindo que os desenvolvedores se concentrem na lógica de negócio em vez de detalhes de implementação.</p>
                 </div>
             </div>
         </div>
@@ -453,27 +576,41 @@
         <div class="slide" id="slide6">
             <div class="slide-content">
                 <h2>Vantagens do Desenvolvimento por Componentes</h2> 
+                <p style="font-size: 1.1em; margin-bottom: 20px;">O desenvolvimento baseado em componentes oferece diversas vantagens significativas que impactam diretamente a produtividade e a qualidade do software desenvolvido.</p>
+                
                 <div class="infographic">
                     <div class="infographic-item">
                         <i class="fas fa-sync-alt"></i>
                         <h3>Reutilização</h3>
-                        <p>Componentes podem ser usados em múltiplos sistemas</p>
+                        <p>Componentes podem ser usados em múltiplos sistemas, reduzindo a necessidade de "reinventar a roda". Isso economiza tempo e recursos, além de promover consistência entre projetos.</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-rocket"></i>
                         <h3>Produtividade</h3>
-                        <p>Desenvolvimento mais rápido com menos código repetitivo</p>
+                        <p>Desenvolvimento mais rápido com menos código repetitivo. Os desenvolvedores podem focar em funcionalidades específicas do negócio, enquanto componentes genéricos já estão prontos para uso.</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-tools"></i>
                         <h3>Manutenção</h3>
-                        <p>Facilita atualizações e correções isoladas</p>
+                        <p>Facilita atualizações e correções isoladas. Quando um bug é encontrado ou uma melhoria é necessária, apenas o componente específico precisa ser modificado, sem afetar todo o sistema.</p>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-cubes"></i>
                         <h3>Escalabilidade</h3>
-                        <p>Sistemas podem crescer adicionando novos componentes</p>
+                        <p>Sistemas podem crescer adicionando novos componentes. À medida que novas funcionalidades são necessárias, novos componentes podem ser desenvolvidos e integrados sem modificar a estrutura existente.</p>
                     </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Exemplo Prático:</h3>
+                    <p>Imagine um sistema de e-commerce. Em vez de desenvolver tudo do zero, você pode usar:</p>
+                    <ul>
+                        <li>Um componente de carrinho de compras já testado</li>
+                        <li>Um componente de processamento de pagamentos integrado com múltiplos gateways</li>
+                        <li>Um componente de gestão de estoque</li>
+                        <li>Um componente de envio de e-mails transacionais</li>
+                    </ul>
+                    <p>Isso acelera o desenvolvimento e garante que partes críticas do sistema já foram validadas.</p>
                 </div>
                 
                 <div class="image-container">
@@ -486,29 +623,60 @@
         <div class="slide" id="slide7">
             <div class="slide-content">
                 <h2>O que são Frameworks?</h2> 
-                <p style="font-size: 1.1em;">Framework é uma estrutura de suporte definida na qual um outro projeto de software pode ser organizado e desenvolvido. Geralmente inclui programas de suporte, bibliotecas de código, linguagens de script e outros softwares.</p>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Framework é uma estrutura de suporte definida na qual um outro projeto de software pode ser organizado e desenvolvido. Pense nele como um esqueleto ou andaime que fornece a estrutura básica para a construção de aplicações.</p>
                 
                 <div class="highlight-box">
-                    <h3>Características dos Frameworks</h3>
+                    <h3>Características Essenciais dos Frameworks:</h3>
                     <ul>
-                        <li><strong>Inversão de Controle:</strong> O framework chama o código do desenvolvedor, não o contrário</li>
-                        <li><strong>Padronização:</strong> Define uma estrutura padrão para o desenvolvimento</li>
-                        <li><strong>Extensibilidade:</strong> Permite personalização através de pontos de extensão</li>
+                        <li><strong>Inversão de Controle (IoC):</strong> No desenvolvimento tradicional, seu código chama bibliotecas. Em um framework, é o framework que chama seu código. Isso permite que o framework controle o fluxo da aplicação.</li>
+                        <li><strong>Padronização:</strong> Define uma estrutura padrão para o desenvolvimento, garantindo consistência e facilitando a manutenção.</li>
+                        <li><strong>Extensibilidade:</strong> Permite personalização através de pontos de extensão, onde os desenvolvedores podem adicionar funcionalidades específicas.</li>
                     </ul>
                 </div>
                 
                 <div class="framework-structure">
                     <div class="framework-layer" style="background-color: #4285F4;">
-                        Camada de Apresentação (UI)
+                        <i class="fas fa-desktop"></i> Camada de Apresentação (UI)
+                        <p style="font-size: 0.9em; font-weight: normal;">Interface do usuário, formulários, navegação</p>
                     </div>
                     <div class="framework-layer" style="background-color: #34A853;">
-                        Camada de Lógica de Negócio
+                        <i class="fas fa-cogs"></i> Camada de Lógica de Negócio
+                        <p style="font-size: 0.9em; font-weight: normal;">Regras de negócio, validações, processamento</p>
                     </div>
                     <div class="framework-layer" style="background-color: #FBBC05;">
-                        Camada de Acesso a Dados
+                        <i class="fas fa-database"></i> Camada de Acesso a Dados
+                        <p style="font-size: 0.9em; font-weight: normal;">Conexão com banco de dados, ORM</p>
                     </div>
                     <div class="framework-layer" style="background-color: #EA4335;">
-                        Camada de Persistência
+                        <i class="fas fa-hdd"></i> Camada de Persistência
+                        <p style="font-size: 0.9em; font-weight: normal;">Armazenamento, backup, recuperação</p>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Configuração:</strong> Configurar o framework de acordo com as necessidades do projeto
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Implementação:</strong> Implementar as funcionalidades específicas nos pontos definidos pelo framework
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Teste:</strong> Testar a aplicação utilizando as ferramentas fornecidas pelo framework
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Deploy:</strong> Implantar a aplicação utilizando os mecanismos do framework
+                        </div>
                     </div>
                 </div>
                 
@@ -522,33 +690,51 @@
         <div class="slide" id="slide8">
             <div class="slide-content">
                 <h2>Categorias de Frameworks</h2> 
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Os frameworks podem ser classificados em diferentes categorias de acordo com seu propósito e área de atuação. Cada categoria é otimizada para resolver problemas específicos do desenvolvimento de software.</p>
+                
                 <table class="comparison-table">
                     <tr>
                         <th>Categoria</th>
                         <th>Descrição</th>
                         <th>Exemplos</th>
+                        <th>Características</th>
                     </tr>
                     <tr>
                         <td><strong>Web</strong></td>
-                        <td>Para desenvolvimento de aplicações web</td>
-                        <td>React, Angular, Django, Ruby on Rails</td>
+                        <td>Para desenvolvimento de aplicações web que rodam em navegadores</td>
+                        <td>React, Angular, Vue.js, Django, Ruby on Rails</td>
+                        <td>Manipulação de DOM, roteamento, gerenciamento de estado</td>
                     </tr>
                     <tr>
                         <td><strong>Mobile</strong></td>
-                        <td>Para desenvolvimento de aplicativos móveis</td>
-                        <td>React Native, Flutter, Xamarin</td>
+                        <td>Para desenvolvimento de aplicativos móveis nativos ou híbridos</td>
+                        <td>React Native, Flutter, Xamarin, Ionic</td>
+                        <td>Acesso a recursos do dispositivo, interface nativa</td>
                     </tr>
                     <tr>
                         <td><strong>Desktop</strong></td>
-                        <td>Para aplicações de desktop</td>
-                        <td>Electron, JavaFX, .NET</td>
+                        <td>Para aplicações que rodam diretamente no sistema operacional</td>
+                        <td>Electron, JavaFX, .NET, Qt</td>
+                        <td>Interface nativa, acesso ao sistema de arquivos</td>
                     </tr>
                     <tr>
                         <td><strong>Backend</strong></td>
-                        <td>Para lógica de servidor e APIs</td>
-                        <td>Express.js, Spring Boot, Laravel</td>
+                        <td>Para lógica de servidor, APIs e processamento de dados</td>
+                        <td>Express.js, Spring Boot, Laravel, Django REST</td>
+                        <td>Roteamento de APIs, ORM, segurança, autenticação</td>
                     </tr>
                 </table>
+                
+                <div class="highlight-box">
+                    <h3>Como Escolher o Framework Adequado:</h3>
+                    <ul>
+                        <li><strong>Objetivo do projeto:</strong> Web, mobile, desktop ou backend?</li>
+                        <li><strong>Linguagem de programação:</strong> Qual linguagem sua equipe domina?</li>
+                        <li><strong>Comunidade e suporte:</strong> Existe documentação adequada e comunidade ativa?</li>
+                        <li><strong>Performance:</strong> O framework atende aos requisitos de performance do projeto?</li>
+                        <li><strong>Curva de aprendizado:</strong> Quanto tempo sua equipe levará para se adaptar?</li>
+                    </ul>
+                </div>
                 
                 <div class="image-container">
                     <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Categorias de Frameworks">
@@ -560,15 +746,45 @@
         <div class="slide" id="slide9">
             <div class="slide-content">
                 <h2>Diferenças entre Frameworks, APIs e Componentes</h2> 
-                <p style="font-size: 1.1em;">As diferenças existentes entre essas ferramentas estão relacionadas ao ambiente de programação, ao software desenvolvido e às funcionalidades oferecidas.</p>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Embora frequentemente mencionados juntos, frameworks, APIs e componentes são conceitos distintos com propósitos diferentes no desenvolvimento de software. Vamos entender as diferenças fundamentais:</p>
                 
                 <div class="comparison-box">
                     <h3>Ambiente de Programação</h3>
                     <ul>
-                        <li><strong>Frameworks:</strong> Definem a arquitetura e o fluxo da aplicação</li>
-                        <li><strong>APIs:</strong> Oferecem interfaces para comunicação entre sistemas</li>
-                        <li><strong>Componentes:</strong> São blocos de construção reutilizáveis</li>
+                        <li><strong>Frameworks:</strong> Definem a arquitetura e o fluxo da aplicação. Eles ditam como o código deve ser organizado e executado. O desenvolvedor preenche os "gaps" deixados pelo framework.</li>
+                        <li><strong>APIs:</strong> Oferecem interfaces para comunicação entre sistemas. Elas não ditam a estrutura do código, apenas fornecem pontos de acesso a funcionalidades específicas.</li>
+                        <li><strong>Componentes:</strong> São blocos de construção reutilizáveis que podem ser integrados em qualquer parte da aplicação. Eles não impõem uma arquitetura específica.</li>
                     </ul>
+                </div>
+                
+                <div class="comparison-box">
+                    <h3>Nível de Controle</h3>
+                    <ul>
+                        <li><strong>Frameworks:</strong> Alto nível de controle sobre a aplicação. Eles gerenciam o ciclo de vida, o fluxo de execução e muitas vezes a configuração.</li>
+                        <li><strong>APIs:</strong> Controle limitado à interface de comunicação. O desenvolvedor decide quando e como chamar a API.</li>
+                        <li><strong>Componentes:</strong> Controle total sobre como e quando usar o componente. Eles são passivos até serem explicitamente invocados.</li>
+                    </ul>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Framework:</strong> "Eu te digo como estruturar tua aplicação e chamo teu código quando necessário"
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>API:</strong> "Eu ofereço funcionalidades específicas que você pode chamar quando precisar"
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Componente:</strong> "Eu sou uma peça que você pode usar onde e quando quiser na tua aplicação"
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="image-container">
@@ -581,6 +797,8 @@
         <div class="slide" id="slide10">
             <div class="slide-content">
                 <h2>Comparação Detalhada</h2> 
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Vamos aprofundar nossa análise comparando frameworks, APIs e componentes em diferentes aspectos do desenvolvimento de software:</p>
+                
                 <table class="comparison-table">
                     <tr>
                         <th>Aspecto</th>
@@ -590,29 +808,45 @@
                     </tr>
                     <tr>
                         <td><strong>Controle</strong></td>
-                        <td>Controla o fluxo da aplicação</td>
-                        <td>Oferece funcionalidades sob demanda</td>
-                        <td>É controlado pela aplicação</td>
+                        <td>Controla o fluxo da aplicação através de inversão de controle</td>
+                        <td>Oferece funcionalidades sob demanda, sem controlar o fluxo</td>
+                        <td>É controlado pela aplicação, não impõe fluxo</td>
                     </tr>
                     <tr>
                         <td><strong>Escopo</strong></td>
-                        <td>Amplo, define a estrutura</td>
-                        <td>Específico, funcionalidades pontuais</td>
-                        <td>Granular, partes específicas</td>
+                        <td>Amplo, define a estrutura completa da aplicação</td>
+                        <td>Específico, funcionalidades pontuais e bem definidas</td>
+                        <td>Granular, partes específicas e isoladas</td>
                     </tr>
                     <tr>
                         <td><strong>Dependência</strong></td>
-                        <td>Aplicação depende do framework</td>
-                        <td>Aplicação consome a API</td>
-                        <td>Aplicação integra o componente</td>
+                        <td>Aplicação depende fortemente do framework</td>
+                        <td>Aplicação consome a API, dependência moderada</td>
+                        <td>Aplicação integra o componente, dependência fraca</td>
                     </tr>
                     <tr>
                         <td><strong>Flexibilidade</strong></td>
-                        <td>Menor flexibilidade, mais estrutura</td>
-                        <td>Média flexibilidade</td>
-                        <td>Alta flexibilidade e reutilização</td>
+                        <td>Menor flexibilidade, mais estrutura e regras</td>
+                        <td>Média flexibilidade, depende da implementação</td>
+                        <td>Alta flexibilidade e reutilização em diferentes contextos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complexidade</strong></td>
+                        <td>Alta curva de aprendizado inicial</td>
+                        <td>Complexidade variável, depende da API</td>
+                        <td>Geralmente mais simples e focado</td>
                     </tr>
                 </table>
+                
+                <div class="highlight-box">
+                    <h3>Exemplo Prático Comparativo:</h3>
+                    <p><strong>Desenvolvendo um sistema de login:</strong></p>
+                    <ul>
+                        <li><strong>Com Framework:</strong> Você usaria o sistema de autenticação do framework (ex: Spring Security), seguindo as regras e estrutura definidas por ele.</li>
+                        <li><strong>Com API:</strong> Você consumiria uma API de autenticação de terceiros (ex: Auth0), enviando credenciais e recebendo tokens.</li>
+                        <li><strong>Com Componente:</strong> Você usaria um componente de login reutilizável que pode ser integrado em qualquer parte da aplicação.</li>
+                    </ul>
+                </div>
                 
                 <div class="image-container">
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Tabela comparativa">
@@ -624,27 +858,58 @@
         <div class="slide" id="slide11">
             <div class="slide-content">
                 <h2>Vantagens e Desvantagens</h2> 
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Cada abordagem tem seus pontos fortes e fracos. Entender as vantagens e desvantagens ajuda a tomar decisões mais informadas sobre qual utilizar em cada situação:</p>
+                
                 <div class="infographic">
                     <div class="infographic-item">
                         <i class="fas fa-thumbs-up"></i>
                         <h3>Vantagens dos Frameworks</h3>
-                        <p>Padronização, produtividade, comunidade ativa</p>
+                        <ul style="text-align: left;">
+                            <li><strong>Padronização:</strong> Estrutura consistente facilita a manutenção</li>
+                            <li><strong>Produtividade:</strong> Muitas funcionalidades já prontas para uso</li>
+                            <li><strong>Comunidade ativa:</strong> Suporte, documentação e recursos abundantes</li>
+                            <li><strong>Boas práticas:</strong> Geralmente implementam padrões de projeto consolidados</li>
+                        </ul>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-thumbs-down"></i>
                         <h3>Desvantagens dos Frameworks</h3>
-                        <p>Curva de aprendizado, limitações, dependência</p>
+                        <ul style="text-align: left;">
+                            <li><strong>Curva de aprendizado:</strong> Pode ser complexo para iniciantes</li>
+                            <li><strong>Limitações:</strong> Pode ser difícil implementar funcionalidades não previstas</li>
+                            <li><strong>Dependência:</strong> Alto acoplamento com o framework</li>
+                            <li><strong>Performance:</strong> Pode ter overhead desnecessário para projetos simples</li>
+                        </ul>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-thumbs-up"></i>
                         <h3>Vantagens das APIs</h3>
-                        <p>Segurança, interoperabilidade, abstração</p>
+                        <ul style="text-align: left;">
+                            <li><strong>Segurança:</strong> Camada de abstração segura entre sistemas</li>
+                            <li><strong>Interoperabilidade:</strong> Facilita integração entre diferentes tecnologias</li>
+                            <li><strong>Abstração:</strong> Oculta complexidade da implementação</li>
+                            <li><strong>Especialização:</strong> Foco em funcionalidades específicas e bem definidas</li>
+                        </ul>
                     </div>
                     <div class="infographic-item">
                         <i class="fas fa-thumbs-down"></i>
                         <h3>Desvantagens das APIs</h3>
-                        <p>Dependência de terceiros, limitações de uso</p>
+                        <ul style="text-align: left;">
+                            <li><strong>Dependência de terceiros:</strong> Disponibilidade e confiabilidade externas</li>
+                            <li><strong>Limitações de uso:</strong> Restrições de taxa, custos, quotas</li>
+                            <li><strong>Compatibilidade:</strong> Mudanças na API podem quebrar a integração</li>
+                            <li><strong>Latência:</strong> Comunicação de rede pode introduzir atrasos</li>
+                        </ul>
                     </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Quando Usar Cada Abordagem:</h3>
+                    <ul>
+                        <li><strong>Frameworks:</strong> Ideal para projetos complexos que precisam de estrutura consistente e rápida implementação de funcionalidades comuns.</li>
+                        <li><strong>APIs:</strong> Perfeito para integrar serviços externos, compartilhar funcionalidades entre sistemas ou quando você precisa de funcionalidades especializadas sem implementá-las.</li>
+                        <li><strong>Componentes:</strong> Excelente para construir bibliotecas reutilizáveis, modularizar aplicações e promover consistência entre projetos.</li>
+                    </ul>
                 </div>
                 
                 <div class="image-container">
@@ -674,10 +939,45 @@ if (idade >= 18) {
                     <p>E) 18</p>
                 </div>
                 <div class="answer-box">
-                    <h3>Análise e Resposta:</h3>
-                    <p>A variável <code>idade</code> é inicializada com valor 18.</p>
-                    <p>A condição <code>idade >= 18</code> é verdadeira (18 >= 18).</p>
-                    <p>Portanto, será executado o bloco <code>if</code>, imprimindo "Maior de idade".</p>
+                    <h3>Análise Passo a Passo:</h3>
+                    <div class="step-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Declaração da variável:</strong> A linha <code>int idade = 18;</code> declara uma variável do tipo inteiro chamada <code>idade</code> e atribui a ela o valor 18.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Estrutura condicional:</strong> O código utiliza uma estrutura <code>if-else</code> para tomar uma decisão com base no valor da variável <code>idade</code>.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Avaliação da condição:</strong> A condição <code>idade >= 18</code> é avaliada. Como <code>idade</code> tem valor 18, a expressão <code>18 >= 18</code> é verdadeira (true).
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Execução do bloco if:</strong> Como a condição é verdadeira, o bloco de código dentro do <code>if</code> é executado: <code>System.out.println("Maior de idade");</code>.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <strong>Impressão no console:</strong> O comando <code>System.out.println()</code> imprime a string "Maior de idade" no console.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <strong>Pulo do bloco else:</strong> O bloco <code>else</code> não é executado porque a condição do <code>if</code> era verdadeira.
+                            </div>
+                        </div>
+                    </div>
                     <p><strong>Resposta correta: D) Maior de idade</strong></p>
                 </div>
                 <div class="image-container">
@@ -704,11 +1004,67 @@ for (int i = 1; i <= 3; i++) {
                     <p>E) 2 3 4</p>
                 </div>
                 <div class="answer-box">
-                    <h3>Análise e Resposta:</h3>
-                    <p>O loop <code>for</code> inicia com <code>i = 1</code>.</p>
-                    <p>A condição é <code>i <= 3</code>, então o loop executará para i = 1, 2, 3.</p>
-                    <p>A cada iteração, imprime o valor de i seguido de espaço.</p>
-                    <p>Resultado: "1 2 3 "</p>
+                    <h3>Análise Passo a Passo:</h3>
+                    <div class="step-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Estrutura do loop for:</strong> O loop <code>for</code> tem três partes:
+                                <ul>
+                                    <li><code>int i = 1;</code> - Inicialização: cria uma variável <code>i</code> com valor 1</li>
+                                    <li><code>i <= 3;</code> - Condição: o loop continua enquanto <code>i</code> for menor ou igual a 3</li>
+                                    <li><code>i++</code> - Incremento: após cada iteração, <code>i</code> é incrementado em 1</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Primeira iteração (i = 1):</strong>
+                                <ul>
+                                    <li>Condição: 1 <= 3 é verdadeiro</li>
+                                    <li>Executa: <code>System.out.print(1 + " ");</code></li>
+                                    <li>Imprime: "1 "</li>
+                                    <li>Incrementa: <code>i</code> passa a valer 2</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Segunda iteração (i = 2):</strong>
+                                <ul>
+                                    <li>Condição: 2 <= 3 é verdadeiro</li>
+                                    <li>Executa: <code>System.out.print(2 + " ");</code></li>
+                                    <li>Imprime: "2 "</li>
+                                    <li>Incrementa: <code>i</code> passa a valer 3</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Terceira iteração (i = 3):</strong>
+                                <ul>
+                                    <li>Condição: 3 <= 3 é verdadeiro</li>
+                                    <li>Executa: <code>System.out.print(3 + " ");</code></li>
+                                    <li>Imprime: "3 "</li>
+                                    <li>Incrementa: <code>i</code> passa a valer 4</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <strong>Verificação final (i = 4):</strong>
+                                <ul>
+                                    <li>Condição: 4 <= 3 é falso</li>
+                                    <li>Loop encerra</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Resultado final impresso:</strong> "1 2 3 "</p>
                     <p><strong>Resposta correta: B) 1 2 3</strong></p>
                 </div>
                 <div class="image-container">
@@ -737,16 +1093,69 @@ while (i <= 3) {
                     <p>E) Erro de compilação</p>
                 </div>
                 <div class="answer-box">
-                    <h3>Análise e Resposta:</h3>
-                    <p>O <code>while</code> executa enquanto <code>i <= 3</code>.</p>
-                    <p>Inicialmente <code>i = 1</code>.</p>
-                    <p>Iterações:</p>
-                    <ul>
-                        <li>i=1: imprime "1 ", incrementa para 2</li>
-                        <li>i=2: imprime "2 ", incrementa para 3</li>
-                        <li>i=3: imprime "3 ", incrementa para 4</li>
-                    </ul>
-                    <p>Resultado: "1 2 3 "</p>
+                    <h3>Análise Passo a Passo:</h3>
+                    <div class="step-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Inicialização:</strong> A linha <code>int i = 1;</code> declara uma variável inteira <code>i</code> e atribui o valor 1.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Estrutura while:</strong> O loop <code>while</code> continua executando enquanto a condição <code>i <= 3</code> for verdadeira.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Primeira iteração (i = 1):</strong>
+                                <ul>
+                                    <li>Condição: 1 <= 3 é verdadeiro</li>
+                                    <li>Executa: <code>System.out.print(1 + " ");</code></li>
+                                    <li>Imprime: "1 "</li>
+                                    <li>Executa: <code>i++;</code> (i passa a valer 2)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Segunda iteração (i = 2):</strong>
+                                <ul>
+                                    <li>Condição: 2 <= 3 é verdadeiro</li>
+                                    <li>Executa: <code>System.out.print(2 + " ");</code></li>
+                                    <li>Imprime: "2 "</li>
+                                    <li>Executa: <code>i++;</code> (i passa a valer 3)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <strong>Terceira iteração (i = 3):</strong>
+                                <ul>
+                                    <li>Condição: 3 <= 3 é verdadeiro</li>
+                                    <li>Executa: <code>System.out.print(3 + " ");</code></li>
+                                    <li>Imprime: "3 "</li>
+                                    <li>Executa: <code>i++;</code> (i passa a valer 4)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <strong>Verificação final (i = 4):</strong>
+                                <ul>
+                                    <li>Condição: 4 <= 3 é falso</li>
+                                    <li>Loop encerra</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Resultado final impresso:</strong> "1 2 3 "</p>
+                    <p><strong>Importante:</strong> Note que o valor 4 nunca é impresso porque quando <code>i</code> vale 4, a condição <code>i <= 3</code> é falsa e o loop não executa.</p>
                     <p><strong>Resposta correta: A) 1 2 3</strong></p>
                 </div>
                 <div class="image-container">
@@ -775,13 +1184,57 @@ do {
                     <p>E) Loop infinito</p>
                 </div>
                 <div class="answer-box">
-                    <h3>Análise e Resposta:</h3>
-                    <p>O <code>do-while</code> executa pelo menos uma vez.</p>
-                    <p>Primeira execução: imprime "5 ", incrementa i para 6.</p>
-                    <p>Verifica condição: 6 < 7 é verdadeiro.</p>
-                    <p>Segunda execução: imprime "6 ", incrementa i para 7.</p>
-                    <p>Verifica condição: 7 < 7 é falso, encerra.</p>
-                    <p>Resultado: "5 6 "</p>
+                    <h3>Análise Passo a Passo:</h3>
+                    <div class="step-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Característica do do-while:</strong> O loop <code>do-while</code> é diferente do <code>while</code> tradicional porque ele executa pelo menos uma vez, independentemente da condição.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Inicialização:</strong> A linha <code>int i = 5;</code> declara uma variável inteira <code>i</code> com valor inicial 5.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Primeira execução (garantida):</strong>
+                                <ul>
+                                    <li>Executa: <code>System.out.print(5 + " ");</code></li>
+                                    <li>Imprime: "5 "</li>
+                                    <li>Executa: <code>i++;</code> (i passa a valer 6)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Verificação da condição:</strong> Após a primeira execução, verifica-se a condição <code>i < 7</code>. Como <code>i</code> vale 6, a condição 6 < 7 é verdadeira.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <strong>Segunda execução:</strong>
+                                <ul>
+                                    <li>Executa: <code>System.out.print(6 + " ");</code></li>
+                                    <li>Imprime: "6 "</li>
+                                    <li>Executa: <code>i++;</code> (i passa a valer 7)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <strong>Verificação final:</strong> Verifica-se novamente a condição <code>i < 7</code>. Como <code>i</code> vale 7, a condição 7 < 7 é falsa, e o loop encerra.
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Resultado final impresso:</strong> "5 6 "</p>
+                    <p><strong>Importante:</strong> O valor 7 não é impresso porque o incremento acontece antes da verificação da condição na segunda iteração.</p>
                     <p><strong>Resposta correta: B) 5 6</strong></p>
                 </div>
                 <div class="image-container">
@@ -816,11 +1269,55 @@ switch (dia) {
                     <p>E) Nada será impresso</p>
                 </div>
                 <div class="answer-box">
-                    <h3>Análise e Resposta:</h3>
-                    <p>A variável <code>dia</code> tem valor 1.</p>
-                    <p>O <code>switch</code> avalia o valor e encontra o <code>case 1</code>.</p>
-                    <p>Executa o bloco do case 1: imprime "Domingo".</p>
-                    <p>O <code>break</code> impede a execução dos demais casos.</p>
+                    <h3>Análise Passo a Passo:</h3>
+                    <div class="step-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Declaração da variável:</strong> A linha <code>int dia = 1;</code> declara uma variável inteira <code>dia</code> e atribui a ela o valor 1.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Estrutura switch:</strong> O comando <code>switch</code> avalia o valor da variável <code>dia</code> e compara com os valores especificados nos <code>case</code>.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Avaliação dos cases:</strong> O <code>switch</code> verifica cada <code>case</code> em ordem:
+                                <ul>
+                                    <li><code>case 1:</code> - O valor de <code>dia</code> (1) corresponde a este caso</li>
+                                    <li>O fluxo do programa salta para este bloco</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Execução do case 1:</strong>
+                                <ul>
+                                    <li>Executa: <code>System.out.println("Domingo");</code></li>
+                                    <li>Imprime: "Domingo"</li>
+                                    <li>Executa: <code>break;</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <strong>Função do break:</strong> O comando <code>break;</code> é essencial porque ele interrompe a execução do <code>switch</code>. Sem ele, o programa continuaria executando os próximos cases (fenômeno chamado "fall-through").
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <strong>Encerramento:</strong> Após o <code>break;</code>, o fluxo do programa sai do bloco <code>switch</code> e continua com a próxima instrução após ele.
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Importante:</strong> O <code>default</code> não é executado porque o programa já encontrou um <code>case</code> correspondente e saiu do <code>switch</code> com o <code>break;</code>.</p>
                     <p><strong>Resposta correta: A) Domingo</strong></p>
                 </div>
                 <div class="image-container">
@@ -835,21 +1332,41 @@ switch (dia) {
                 <h2>Conclusão</h2> 
                 <h3>O que Aprendemos:</h3>
                 <ul style="font-size: 1.1em;">
-                    <li>APIs oferecem segurança por design, atuando como intermediárias entre sistemas</li>
-                    <li>O desenvolvimento baseado em componentes promove reutilização e produtividade</li>
-                    <li>Frameworks definem a estrutura e o fluxo das aplicações</li>
-                    <li>A escolha entre frameworks, APIs e componentes depende do contexto e requisitos</li>
-                    <li>Praticar com exercícios é essencial para fixar os conceitos</li>
+                    <li><strong>APIs:</strong> São interfaces que permitem a comunicação entre sistemas, oferecendo segurança por design ao atuar como intermediárias. Elas promovem interoperabilidade, modularidade e abstração.</li>
+                    <li><strong>Componentes:</strong> São blocos de construção reutilizáveis que podem ser desenvolvidos internamente ou adquiridos de terceiros. O desenvolvimento baseado em componentes aumenta a produtividade, facilita a manutenção e promove a escalabilidade.</li>
+                    <li><strong>Frameworks:</strong> São estruturas que definem a arquitetura e o fluxo das aplicações através de inversão de controle. Eles oferecem padronização, produtividade e implementam boas práticas de desenvolvimento.</li>
+                    <li><strong>Escolha da ferramenta adequada:</strong> A decisão entre usar frameworks, APIs ou componentes depende do contexto, requisitos do projeto, equipe disponível e objetivos específicos.</li>
+                    <li><strong>Importância da prática:</strong> A resolução de exercícios práticos é fundamental para fixar os conceitos e entender como aplicar essas ferramentas em situações reais.</li>
                 </ul>
                 
                 <div class="highlight-box">
                     <h3>Para Continuar Estudando:</h3>
-                    <ul>
-                        <li>Explore frameworks populares como React, Angular e Spring</li>
-                        <li>Pratique consumindo APIs públicas (GitHub, Twitter, etc.)</li>
-                        <li>Desenvolva projetos utilizando componentes reutilizáveis</li>
-                        <li>Participe de comunidades de desenvolvedores</li>
-                    </ul>
+                    <div class="step-container">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Explore frameworks populares:</strong> Experimente React ou Angular para desenvolvimento web, Spring Boot para backend, ou Flutter para mobile.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Pratique com APIs:</strong> Consuma APIs públicas como a do GitHub, Twitter ou OpenWeatherMap para entender como integrar serviços externos.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Desenvolva componentes:</strong> Crie sua própria biblioteca de componentes reutilizáveis para usar em múltiplos projetos.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Participe de comunidades:</strong> Junte-se a fóruns, grupos de discussão e eventos da comunidade de desenvolvedores para aprender com a experiência dos outros.
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="image-container">
@@ -867,9 +1384,20 @@ switch (dia) {
                     <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Perguntas e respostas">
                 </div>
                 <div class="highlight-box" style="text-align: left; margin-top: 20px;">
-                    <h3>Referências:</h3>
-                    <p>IBM CLOUD EDUCATION (2020). APIs oferecem segurança por design.</p>
-                    <p>ELER, A. (2006). Desenvolvimento de software baseado em componentes.</p>
+                    <h3>Referências Bibliográficas:</h3>
+                    <p><strong>IBM CLOUD EDUCATION (2020).</strong> APIs oferecem segurança por design. IBM Cloud Documentation.</p>
+                    <p><strong>ELER, A. (2006).</strong> Desenvolvimento de software baseado em componentes. In: Anais do Simpósio Brasileiro de Engenharia de Software.</p>
+                    <p><strong>PRESSMAN, R. S.; MAXIM, B. R. (2020).</strong> Software Engineering: A Practitioner's Approach. 9th ed. McGraw-Hill.</p>
+                    <p><strong>FOWLER, M. (2003).</strong> Patterns of Enterprise Application Architecture. Addison-Wesley Professional.</p>
+                </div>
+                <div class="highlight-box" style="text-align: left; margin-top: 20px;">
+                    <h3>Recursos Complementares:</h3>
+                    <ul>
+                        <li>Documentação oficial dos frameworks mencionados</li>
+                        <li>Cursos online sobre desenvolvimento de software</li>
+                        <li>Repositórios GitHub com exemplos práticos</li>
+                        <li>Fóruns de discussão como Stack Overflow</li>
+                    </ul>
                 </div>
             </div>
         </div>
