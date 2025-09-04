@@ -3,443 +3,935 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engenharia de Software - Teleaula 01</title>
+    <title>Desenvolvimento de Software: Frameworks, APIs e Componentes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary: #4a90e2;
-            --primary-dark: #357abd;
-            --secondary: #5cb85c;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --gray: #6c757d;
+            --primary-blue: #003366;
+            --secondary-orange: #FF6600;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333333;
             --white: #ffffff;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --light-blue: #e6f2ff;
+            --light-orange: #fff0e6;
         }
-        
-        * {
+        body {
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            padding: 40px 0;
+        .header {
+            width: 100%;
+            background-color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
-            box-shadow: var(--shadow);
         }
-        
-        header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
+        .logo {
+            max-height: 60px;
         }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .title-container {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
         }
-        
-        .section {
-            background: var(--white);
-            margin: 30px 0;
-            padding: 30px;
+        .title-container h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .slide {
+            display: none;
+            background-color: var(--white);
             border-radius: 10px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        
-        .section h2 {
-            color: var(--primary);
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
+        .slide.active {
+            display: block;
         }
-        
-        .section h3 {
-            color: var(--primary-dark);
-            font-size: 1.5rem;
-            margin: 25px 0 15px;
+        .slide-content {
+            padding: 25px;
         }
-        
-        .step {
-            background: var(--light);
-            border-left: 4px solid var(--primary);
-            padding: 15px 20px;
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        button {
+            background-color: var(--secondary-orange);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e55a00;
+        }
+        button:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+        }
+        .slide-indicator {
+            text-align: center;
+            font-size: 18px;
+            color: var(--dark-gray);
+            margin: 10px 0;
+            background-color: var(--white);
+            padding: 8px;
+            border-radius: 20px;
+            width: fit-content;
+            margin: 10px auto;
+        }
+        .slide h1, .slide h2, .slide h3 {
+            color: var(--primary-blue);
+        }
+        .slide h2 {
+            border-bottom: 2px solid var(--secondary-orange);
+            padding-bottom: 5px;
+        }
+        .slide hr {
+            border: 1px solid var(--secondary-orange);
+            width: 80%;
+        }
+        .highlight-box {
+            background-color: rgba(255, 102, 0, 0.1);
+            border-left: 4px solid var(--secondary-orange);
+            padding: 15px;
             margin: 15px 0;
             border-radius: 0 5px 5px 0;
         }
-        
-        .step h4 {
-            color: var(--primary-dark);
+        .comparison-box {
+            border: 1px solid var(--medium-gray);
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .footer {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+        .infographic {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .infographic-item {
+            width: 45%;
+            text-align: center;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: var(--light-blue);
+        }
+        .infographic-item i {
+            font-size: 3em;
+            color: var(--secondary-orange);
             margin-bottom: 10px;
         }
-        
-        .question {
-            background: #f0f7ff;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .question p {
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-        
-        .options {
-            margin-left: 25px;
-        }
-        
-        .options li {
-            margin: 10px 0;
-            list-style-type: none;
-            position: relative;
-        }
-        
-        .options li::before {
-            content: "•";
-            color: var(--primary);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        
-        .answer {
-            background: #e8f5e9;
+        .question-box {
+            background-color: var(--light-blue);
             border-radius: 8px;
             padding: 15px;
-            margin-top: 15px;
-            border-left: 4px solid var(--secondary);
+            margin: 15px 0;
         }
-        
-        .btn {
-            display: inline-block;
-            background: var(--primary);
+        .answer-box {
+            background-color: var(--light-orange);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--medium-gray);
+            padding: 10px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: var(--primary-blue);
             color: var(--white);
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 15px 10px 15px 0;
-            transition: all 0.3s ease;
+        }
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .api-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+        .api-box {
+            width: 30%;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            background-color: var(--white);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        .api-arrow {
+            font-size: 2em;
+            color: var(--secondary-orange);
         }
-        
-        .highlight {
-            background: #fff9c4;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        
-        .note {
-            background: #e3f2fd;
-            border-left: 4px solid var(--primary);
-            padding: 15px;
+        .component-visual {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
             margin: 20px 0;
-            border-radius: 0 5px 5px 0;
         }
-        
-        footer {
+        .component-block {
+            width: 120px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--white);
             text-align: center;
-            padding: 30px 0;
-            margin-top: 40px;
-            color: var(--gray);
-            border-top: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
+        .framework-structure {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .framework-layer {
+            width: 80%;
+            padding: 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            text-align: center;
+            color: var(--white);
+            font-weight: bold;
+        }
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2rem;
+            .slide-content {
+                padding: 15px;
             }
             
-            .section {
-                padding: 20px;
+            .controls {
+                flex-direction: column;
+                gap: 10px;
             }
             
-            .section h2 {
-                font-size: 1.7rem;
+            button {
+                width: 100%;
+            }
+            
+            .infographic-item {
+                width: 100%;
+            }
+            
+            .comparison-table {
+                font-size: 0.9em;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 8px 5px;
+            }
+            
+            .api-diagram {
+                flex-direction: column;
+            }
+            
+            .api-box {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .api-arrow {
+                transform: rotate(90deg);
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Engenharia de Software</h1>
-            <p>Teleaula 01 - Introdução à Engenharia de Software</p>
-        </div>
-    </header>
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/95/Anhanguera_Educacional.svg/1200px-Anhanguera_Educacional.svg.png" alt="Logo Anhanguera" class="logo">
+    </div>
     
-    <div class="container">
-        <div class="section">
-            <h2>Introdução à Atividade</h2>
-            <p>Esta aula atividade tem como objetivo promover o <span class="highlight">autoestudo</span> das competências e conteúdos relacionados à Unidade de Ensino "Introdução à engenharia de software".</p>
-            
-            <div class="note">
-                <strong>Organização da Atividade:</strong>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Etapa 1: 1h20</li>
-                    <li>Intervalo: 20 min</li>
-                    <li>Etapa 2: 1h20</li>
-                </ul>
-            </div>
-            
-            <p style="margin-top: 20px;">Para participar das atividades 1, 3 e 4, utilize o Padlet:</p>
-            <a href="https://padlet.com/vanessaleite2/xxttsjconhmllh6d" target="_blank" class="btn">Acessar Padlet</a>
-        </div>
-        
-        <div class="section">
-            <h2>Atividade 1: Fundamentos dos Métodos Ágeis</h2>
-            <p>Para iniciar nossa aula atividade, é fundamental que você compreenda os conceitos de <span class="highlight">metodologias ágeis</span>. No Padlet, disponibilizamos um podcast que explica:</p>
-            
-            <div class="step">
-                <h4>Passo 1:</h4>
-                <p>Acesse o Padlet através do botão acima</p>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 2:</h4>
-                <p>Localize e ouça o podcast sobre fundamentos dos métodos ágeis</p>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 3:</h4>
-                <p>Enquanto ouve, anote os principais conceitos sobre:</p>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Definição de métodos ágeis</li>
-                    <li>Principais metodologias (Scrum, XP, Kanban)</li>
-                    <li>Aplicações no mercado de trabalho</li>
-                    <li>Vantagens em relação a métodos tradicionais</li>
-                </ul>
-            </div>
-            
-            <div class="note">
-                <strong>Dica:</strong> O podcast é essencial para responder às questões da Atividade 2. Preste atenção especialmente aos conceitos de Scrum e XP.
+    <div class="title-container">
+        <h1>Desenvolvimento de Software: Frameworks, APIs e Componentes</h1>
+    </div>
+    
+    <div class="slide-indicator" id="slideIndicator">Slide 1 de 18</div>
+    
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide1">
+            <div class="slide-content">
+                <div style="text-align: center;"> 
+                    <h1 style="font-size: 2.5em; margin-bottom: 10px;">Desenvolvimento de Software:</h1> 
+                    <h2 style="font-size: 1.8em; margin-top: 0;">Frameworks, APIs e Componentes</h2> 
+                    <hr> 
+                    <p style="color: #555; font-size: 1.2em;">Uma jornada didática para entender as ferramentas essenciais do desenvolvimento moderno.</p> 
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Desenvolvimento de Software">
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="section">
-            <h2>Atividade 2: Questões sobre Metodologias Ágeis</h2>
-            <p>Agora que você compreende mais sobre as metodologias ágeis, teste seus conhecimentos nas questões a seguir. Vamos analisar cada uma delas passo a passo:</p>
-            
-            <div class="question">
-                <p><strong>Questão 1:</strong> (Ano: 2019 Banca: FCC) Scrum e XP são metodologias ágeis usadas no contexto de desenvolvimento de software que:</p>
-                <div class="options">
-                    <li>a) podem ser usadas em conjunto, criando uma metodologia híbrida própria, de forma a unir as práticas de gestão do Scrum com as práticas de desenvolvimento da XP.</li>
-                    <li>b) utilizam reuniões diárias (Daily Meetings) de 30 minutos em pé para ajudar a tornar as reuniões mais produtivas, colaborativas e úteis.</li>
-                    <li>c) podem ser usadas juntas, desde que em um contexto em que o gerenciamento do projeto seja realizado por um framework como o PMBoK.</li>
-                    <li>d) não podem ser usadas em conjunto por serem ambas voltadas para a gestão do processo de desenvolvimento de software.</li>
-                    <li>e) podem ser usadas em conjunto, já que a XP foca mais na gestão do processo de desenvolvimento e a Scrum, no desenvolvimento propriamente dito.</li>
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+            <div class="slide-content">
+                <h2>Sumário da Apresentação</h2> 
+                <div class="infographic">
+                    <div class="infographic-item">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Componentes de Software</h3>
+                        <p>Conceitos fundamentais e práticas de reutilização</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-plug"></i>
+                        <h3>APIs</h3>
+                        <p>Interfaces de programação e segurança por design</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Frameworks</h3>
+                        <p>Estruturas para desenvolvimento ágil</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Atividades Práticas</h3>
+                        <p>Questões para fixação do conteúdo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+            <div class="slide-content">
+                <h2>O que são APIs?</h2> 
+                <p style="font-size: 1.1em;">API (Application Programming Interface) é um conjunto de rotinas e padrões estabelecidos por um software para a utilização das suas funcionalidades por aplicativos que não pretendem envolver-se em detalhes da implementação do software.</p>
+                
+                <div class="highlight-box">
+                    <h3>Segurança por Design em APIs</h3>
+                    <p>As APIs oferecem segurança por design porque sua posição como intermediário entre dois sistemas separa o aplicativo do serviço que fornece a funcionalidade (IBM CLOUD EDUCATION, 2020).</p>
+                    <p>O terminal da API atua como uma barreira de segurança, controlando o acesso e a comunicação entre os sistemas.</p>
                 </div>
                 
-                <div class="answer">
-                    <strong>Análise e Resposta Correta:</strong>
-                    <p>A alternativa correta é a <strong>letra A</strong>. Scrum e XP são complementares:</p>
-                    <ul style="margin-top: 10px; margin-left: 20px;">
-                        <li><strong>Scrum:</strong> Foca na gestão do projeto (sprints, reuniões, papéis)</li>
-                        <li><strong>XP (Extreme Programming):</strong> Foca em práticas de desenvolvimento (TDD, integração contínua, programação em pares)</li>
-                    </ul>
-                    <p style="margin-top: 10px;">É comum combinar as práticas de gestão do Scrum com as técnicas de desenvolvimento da XP em projetos reais.</p>
-                </div>
-            </div>
-            
-            <div class="question">
-                <p><strong>Questão 2:</strong> (Ano: 2019, IFPR) Os métodos ágeis compartilham um conjunto de princípios, com base no manifesto ágil, e por isso compartilham vários princípios. Assinale a alternativa correta sobre os princípios comuns aos métodos ágeis:</p>
-                <div class="options">
-                    <li>a) Desenvolvimento interativo. Compartilhar as mudanças. Desenvolvimento eficiente. Manter a complexidade. Entrega ambiental.</li>
-                    <li>b) Enviar as mudanças. Desenvolvimento do cliente. Manter a complexidade. Entrega ambiental. Pessoas, sem processos.</li>
-                    <li>c) Entrega experimental. Pessoas são processos. Envolvimento do cliente. Evitar as mudanças. Manter a complexidade.</li>
-                    <li>d) Envolvimento do cliente. Entrega incremental. Pessoas, não processos. Aceitar as mudanças. Manter a simplicidade.</li>
-                    <li>e) Nenhuma das alternativas anteriores.</li>
-                </div>
-                
-                <div class="answer">
-                    <strong>Análise e Resposta Correta:</strong>
-                    <p>A alternativa correta é a <strong>letra D</strong>. Os princípios do Manifesto Ágil incluem:</p>
-                    <ul style="margin-top: 10px; margin-left: 20px;">
-                        <li><strong>Envolvimento do cliente:</strong> Colaboração contínua</li>
-                        <li><strong>Entrega incremental:</strong> Software funcionando em ciclos curtos</li>
-                        <li><strong>Pessoas, não processos:</strong> Indivíduos e interações mais que processos e ferramentas</li>
-                        <li><strong>Aceitar as mudanças:</strong> Responder a mudanças mais que seguir um plano</li>
-                        <li><strong>Manter a simplicidade:</strong> Maximizar trabalho não feito</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="question">
-                <p><strong>Questão 3:</strong> (Ano: 2019 Banca: COSEAC) Em relação aos métodos ágeis, o responsável por garantir que a equipe está aderindo aos valores do Scrum é representado por:</p>
-                <div class="options">
-                    <li>a) product owner.</li>
-                    <li>b) time.</li>
-                    <li>c) scrum master.</li>
-                    <li>d) gerente de projetos.</li>
-                    <li>e) stakeholders.</li>
-                </div>
-                
-                <div class="answer">
-                    <strong>Análise e Resposta Correta:</strong>
-                    <p>A alternativa correta é a <strong>letra C</strong>. No Scrum:</p>
-                    <ul style="margin-top: 10px; margin-left: 20px;">
-                        <li><strong>Scrum Master:</strong> Facilitador que garante que a equipe siga os valores e práticas do Scrum, remove impedimentos e protege o time de distrações externas.</li>
-                        <li><strong>Product Owner:</strong> Responsável pelo produto e backlog.</li>
-                        <li><strong>Time de Desenvolvimento:</strong> Responsável pela entrega do produto.</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="question">
-                <p><strong>Questão 4:</strong> (Ano: 2012 Banca: FEMPERJ) A lista que contém somente papéis em equipes SCRUM é:</p>
-                <div class="options">
-                    <li>a) Product Owner. Development Team e Scrum Master;</li>
-                    <li>b) Sprint Master, Product Owner e Development Team;</li>
-                    <li>c) Product Owner, Agile Developer e Scrum Master:</li>
-                    <li>d) Product Owner, Scrum Master, Developer Chef;</li>
-                    <li>e) Sprint Master. Agile Developer e Scrum Master.</li>
-                </div>
-                
-                <div class="answer">
-                    <strong>Análise e Resposta Correta:</strong>
-                    <p>A alternativa correta é a <strong>letra A</strong>. Os três papéis oficiais no Scrum são:</p>
-                    <ul style="margin-top: 10px; margin-left: 20px;">
-                        <li><strong>Product Owner:</strong> Gerencia o backlog e prioriza funcionalidades</li>
-                        <li><strong>Development Team:</strong> Grupo multifuncional que entrega o produto</li>
-                        <li><strong>Scrum Master:</strong> Facilitador do processo Scrum</li>
-                    </ul>
-                    <p style="margin-top: 10px;">As outras alternativas contêm papéis que não existem no Scrum oficial (Sprint Master, Agile Developer, Developer Chef).</p>
+                <div class="api-diagram">
+                    <div class="api-box" style="background-color: #4285F4;">
+                        <i class="fas fa-mobile-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
+                        <p>Aplicação Cliente</p>
+                    </div>
+                    <div class="api-arrow">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="api-box" style="background-color: #34A853;">
+                        <i class="fas fa-shield-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
+                        <p>API</p>
+                    </div>
+                    <div class="api-arrow">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="api-box" style="background-color: #FBBC05;">
+                        <i class="fas fa-server" style="font-size: 2em; margin-bottom: 10px;"></i>
+                        <p>Servidor</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="section">
-            <h2>Atividade 3: Tutorial do Trello</h2>
-            <p>O Trello é uma ferramenta visual para gerenciamento de projetos, fluxos de trabalho e tarefas, muito utilizada em metodologias ágeis como Scrum e Kanban.</p>
-            
-            <div class="step">
-                <h4>Passo 1:</h4>
-                <p>Acesse o Padlet (botão no topo) e localize o tutorial em vídeo sobre o Trello</p>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 2:</h4>
-                <p>Assista atentamente ao tutorial, anotando os principais recursos:</p>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Criação de quadros (boards)</li>
-                    <li>Organização de listas (lists)</li>
-                    <li>Criação e gerenciamento de cartões (cards)</li>
-                    <li>Uso de etiquetas, prazos e checklists</li>
-                    <li>Configuração para Scrum e Kanban</li>
-                </ul>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 3:</h4>
-                <p>Pratique criando um quadro simples no Trello enquanto assiste ao vídeo</p>
-            </div>
-            
-            <div class="note">
-                <strong>Importante:</strong> Domine o Trello antes de prosseguir para a Atividade 4, pois você precisará criar um quadro Scrum completo.
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Atividade 4: Criando um Quadro Scrum no Trello</h2>
-            <p>Agora você aplicará o que aprendeu sobre o Trello e Scrum para criar um quadro de organização pessoal.</p>
-            
-            <div class="step">
-                <h4>Passo 1:</h4>
-                <p>Crie um novo quadro no Trello com o nome "Organização Pessoal - [Seu Nome]"</p>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 2:</h4>
-                <p>Configure as listas básicas do Scrum:</p>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li><strong>Product Backlog:</strong> Todas as suas atividades de estudo, trabalho e pessoais</li>
-                    <li><strong>Sprint Backlog:</strong> Atividades que você priorizou para a semana atual</li>
-                    <li><strong>Em Progresso:</strong> Atividades que você está executando no momento</li>
-                    <li><strong>Para Revisão:</strong> Atividades concluídas que precisam de validação</li>
-                    <li><strong>Concluído:</strong> Atividades finalizadas com sucesso</li>
-                </ul>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 3:</h4>
-                <p>Adicione cartões com suas atividades reais:</p>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Estudos da disciplina de Engenharia de Software</li>
-                    <li>Outras disciplinas do semestre</li>
-                    <li>Atividades de trabalho (se aplicável)</li>
-                    <li>Projetos pessoais</li>
-                    <li>Compromissos importantes</li>
-                </ul>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 4:</h4>
-                <p>Utilize os recursos do Trello para organizar seus cartões:</p>
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Adicione prazos (due dates)</li>
-                    <li>Use etiquetas coloridas para categorizar (estudo, trabalho, pessoal)</li>
-                    <li>Crie checklists para tarefas complexas</li>
-                    <li>Adicione descrições detalhadas quando necessário</li>
-                </ul>
-            </div>
-            
-            <div class="step">
-                <h4>Passo 5 (Opcional):</h4>
-                <p>Compartilhe seu quadro no Padlet da turma para feedback e inspiração aos colegas</p>
-            </div>
-            
-            <div class="note">
-                <strong>Dica de Scrum:</strong> Faça uma "reunião diária" de 5 minutos com você mesmo todas as manhãs para revisar seu quadro e planejar o dia!
+        <!-- Slide 4 -->
+        <div class="slide" id="slide4">
+            <div class="slide-content">
+                <h2>Características Essenciais das APIs</h2> 
+                <div class="infographic">
+                    <div class="infographic-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Segurança</h3>
+                        <p>Controle de acesso e autenticação entre sistemas</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>Interoperabilidade</h3>
+                        <p>Permite comunicação entre diferentes plataformas</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <h3>Modularidade</h3>
+                        <p>Funcionalidades independentes e reutilizáveis</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-code"></i>
+                        <h3>Abstração</h3>
+                        <p>Oculta complexidade da implementação interna</p>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="APIs em ação">
+                </div>
             </div>
         </div>
         
-        <div class="section">
-            <h2>Conclusão</h2>
-            <p>Parabéns por completar esta aula atividade! Agora você possui conhecimentos sólidos sobre:</p>
-            <ul style="margin-top: 15px; margin-left: 20px;">
-                <li>Fundamentos de metodologias ágeis</li>
-                <li>Diferenças e complementaridades entre Scrum e XP</li>
-                <li>Princípios do Manifesto Ágil</li>
-                <li>Papéis em equipes Scrum</li>
-                <li>Utilização prática do Trello para organização pessoal</li>
-            </ul>
-            
-            <p style="margin-top: 20px;">Lembre-se de aplicar esses conceitos em seus projetos acadêmicos e profissionais. As metodologias ágeis são ferramentas poderosas para aumentar produtividade e qualidade!</p>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="https://padlet.com/vanessaleite2/xxttsjconhmllh6d" target="_blank" class="btn">Acessar Padlet</a>
-                <a href="https://trello.com/" target="_blank" class="btn">Acessar Trello</a>
+        <!-- Slide 5 -->
+        <div class="slide" id="slide5">
+            <div class="slide-content">
+                <h2>Desenvolvimento Baseado em Componentes</h2> 
+                <p style="font-size: 1.1em;">Segundo Eler (2006), o desenvolvimento de software baseado em componentes é um conjunto de práticas usadas para construir sistemas de software a partir de componentes reutilizáveis, tanto por terceiros quanto pelo próprio desenvolvedor do sistema.</p>
+                
+                <div class="highlight-box">
+                    <h3>Objetivo Principal</h3>
+                    <p>Adaptar, integrar e atualizar componentes de software reutilizáveis, permitindo que os desenvolvedores se concentrem na lógica de negócio em vez de detalhes de implementação.</p>
+                </div>
+                
+                <div class="component-visual">
+                    <div class="component-block" style="background-color: #4285F4;">
+                        Componente A
+                    </div>
+                    <div class="component-block" style="background-color: #34A853;">
+                        Componente B
+                    </div>
+                    <div class="component-block" style="background-color: #FBBC05;">
+                        Componente C
+                    </div>
+                    <div class="component-block" style="background-color: #EA4335;">
+                        Componente D
+                    </div>
+                    <div class="component-block" style="background-color: #673AB7;">
+                        Componente E
+                    </div>
+                    <div class="component-block" style="background-color: #00BCD4;">
+                        Componente F
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Componentes de Software">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 6 -->
+        <div class="slide" id="slide6">
+            <div class="slide-content">
+                <h2>Vantagens do Desenvolvimento por Componentes</h2> 
+                <div class="infographic">
+                    <div class="infographic-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <h3>Reutilização</h3>
+                        <p>Componentes podem ser usados em múltiplos sistemas</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Produtividade</h3>
+                        <p>Desenvolvimento mais rápido com menos código repetitivo</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-tools"></i>
+                        <h3>Manutenção</h3>
+                        <p>Facilita atualizações e correções isoladas</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-cubes"></i>
+                        <h3>Escalabilidade</h3>
+                        <p>Sistemas podem crescer adicionando novos componentes</p>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Benefícios dos componentes">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7 -->
+        <div class="slide" id="slide7">
+            <div class="slide-content">
+                <h2>O que são Frameworks?</h2> 
+                <p style="font-size: 1.1em;">Framework é uma estrutura de suporte definida na qual um outro projeto de software pode ser organizado e desenvolvido. Geralmente inclui programas de suporte, bibliotecas de código, linguagens de script e outros softwares.</p>
+                
+                <div class="highlight-box">
+                    <h3>Características dos Frameworks</h3>
+                    <ul>
+                        <li><strong>Inversão de Controle:</strong> O framework chama o código do desenvolvedor, não o contrário</li>
+                        <li><strong>Padronização:</strong> Define uma estrutura padrão para o desenvolvimento</li>
+                        <li><strong>Extensibilidade:</strong> Permite personalização através de pontos de extensão</li>
+                    </ul>
+                </div>
+                
+                <div class="framework-structure">
+                    <div class="framework-layer" style="background-color: #4285F4;">
+                        Camada de Apresentação (UI)
+                    </div>
+                    <div class="framework-layer" style="background-color: #34A853;">
+                        Camada de Lógica de Negócio
+                    </div>
+                    <div class="framework-layer" style="background-color: #FBBC05;">
+                        Camada de Acesso a Dados
+                    </div>
+                    <div class="framework-layer" style="background-color: #EA4335;">
+                        Camada de Persistência
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Estrutura de Framework">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8 -->
+        <div class="slide" id="slide8">
+            <div class="slide-content">
+                <h2>Categorias de Frameworks</h2> 
+                <table class="comparison-table">
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Descrição</th>
+                        <th>Exemplos</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Web</strong></td>
+                        <td>Para desenvolvimento de aplicações web</td>
+                        <td>React, Angular, Django, Ruby on Rails</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile</strong></td>
+                        <td>Para desenvolvimento de aplicativos móveis</td>
+                        <td>React Native, Flutter, Xamarin</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desktop</strong></td>
+                        <td>Para aplicações de desktop</td>
+                        <td>Electron, JavaFX, .NET</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backend</strong></td>
+                        <td>Para lógica de servidor e APIs</td>
+                        <td>Express.js, Spring Boot, Laravel</td>
+                    </tr>
+                </table>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Categorias de Frameworks">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 9 -->
+        <div class="slide" id="slide9">
+            <div class="slide-content">
+                <h2>Diferenças entre Frameworks, APIs e Componentes</h2> 
+                <p style="font-size: 1.1em;">As diferenças existentes entre essas ferramentas estão relacionadas ao ambiente de programação, ao software desenvolvido e às funcionalidades oferecidas.</p>
+                
+                <div class="comparison-box">
+                    <h3>Ambiente de Programação</h3>
+                    <ul>
+                        <li><strong>Frameworks:</strong> Definem a arquitetura e o fluxo da aplicação</li>
+                        <li><strong>APIs:</strong> Oferecem interfaces para comunicação entre sistemas</li>
+                        <li><strong>Componentes:</strong> São blocos de construção reutilizáveis</li>
+                    </ul>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Comparação entre Frameworks, APIs e Componentes">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 10 -->
+        <div class="slide" id="slide10">
+            <div class="slide-content">
+                <h2>Comparação Detalhada</h2> 
+                <table class="comparison-table">
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Framework</th>
+                        <th>API</th>
+                        <th>Componente</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Controle</strong></td>
+                        <td>Controla o fluxo da aplicação</td>
+                        <td>Oferece funcionalidades sob demanda</td>
+                        <td>É controlado pela aplicação</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Escopo</strong></td>
+                        <td>Amplo, define a estrutura</td>
+                        <td>Específico, funcionalidades pontuais</td>
+                        <td>Granular, partes específicas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dependência</strong></td>
+                        <td>Aplicação depende do framework</td>
+                        <td>Aplicação consome a API</td>
+                        <td>Aplicação integra o componente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexibilidade</strong></td>
+                        <td>Menor flexibilidade, mais estrutura</td>
+                        <td>Média flexibilidade</td>
+                        <td>Alta flexibilidade e reutilização</td>
+                    </tr>
+                </table>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Tabela comparativa">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 11 -->
+        <div class="slide" id="slide11">
+            <div class="slide-content">
+                <h2>Vantagens e Desvantagens</h2> 
+                <div class="infographic">
+                    <div class="infographic-item">
+                        <i class="fas fa-thumbs-up"></i>
+                        <h3>Vantagens dos Frameworks</h3>
+                        <p>Padronização, produtividade, comunidade ativa</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-thumbs-down"></i>
+                        <h3>Desvantagens dos Frameworks</h3>
+                        <p>Curva de aprendizado, limitações, dependência</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-thumbs-up"></i>
+                        <h3>Vantagens das APIs</h3>
+                        <p>Segurança, interoperabilidade, abstração</p>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-thumbs-down"></i>
+                        <h3>Desvantagens das APIs</h3>
+                        <p>Dependência de terceiros, limitações de uso</p>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vantagens e desvantagens">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 12 -->
+        <div class="slide" id="slide12">
+            <div class="slide-content">
+                <h2>Atividade Prática: Questão 1</h2>
+                <div class="question-box">
+                    <p><strong>Código Java:</strong></p>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
+int idade = 18;
+if (idade >= 18) {
+    System.out.println("Maior de idade");
+} else {
+    System.out.println("Menor de idade");
+}</pre>
+                    <p><strong>Questão:</strong> O que será impresso no console?</p>
+                    <p>A) Erro de compilação</p>
+                    <p>B) Nada será impresso</p>
+                    <p>C) Menor de idade</p>
+                    <p>D) Maior de idade</p>
+                    <p>E) 18</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise e Resposta:</h3>
+                    <p>A variável <code>idade</code> é inicializada com valor 18.</p>
+                    <p>A condição <code>idade >= 18</code> é verdadeira (18 >= 18).</p>
+                    <p>Portanto, será executado o bloco <code>if</code>, imprimindo "Maior de idade".</p>
+                    <p><strong>Resposta correta: D) Maior de idade</strong></p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Código Java">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 13 -->
+        <div class="slide" id="slide13">
+            <div class="slide-content">
+                <h2>Atividade Prática: Questão 2</h2>
+                <div class="question-box">
+                    <p><strong>Código:</strong></p>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
+for (int i = 1; i <= 3; i++) {
+    System.out.print(i + " ");
+}</pre>
+                    <p><strong>Questão:</strong> O que será impresso no console?</p>
+                    <p>A) 0 1 2</p>
+                    <p>B) 1 2 3</p>
+                    <p>C) 1 2 3 4</p>
+                    <p>D) 0 1 2 3</p>
+                    <p>E) 2 3 4</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise e Resposta:</h3>
+                    <p>O loop <code>for</code> inicia com <code>i = 1</code>.</p>
+                    <p>A condição é <code>i <= 3</code>, então o loop executará para i = 1, 2, 3.</p>
+                    <p>A cada iteração, imprime o valor de i seguido de espaço.</p>
+                    <p>Resultado: "1 2 3 "</p>
+                    <p><strong>Resposta correta: B) 1 2 3</strong></p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loop for">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 14 -->
+        <div class="slide" id="slide14">
+            <div class="slide-content">
+                <h2>Atividade Prática: Questão 3</h2>
+                <div class="question-box">
+                    <p><strong>Código:</strong></p>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
+int i = 1;
+while (i <= 3) {
+    System.out.print(i + " ");
+    i++;
+}</pre>
+                    <p><strong>Questão:</strong> Qual será a saída do seguinte código?</p>
+                    <p>A) 1 2 3</p>
+                    <p>B) 1 2 3 4</p>
+                    <p>C) 0 1 2</p>
+                    <p>D) 1 2</p>
+                    <p>E) Erro de compilação</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise e Resposta:</h3>
+                    <p>O <code>while</code> executa enquanto <code>i <= 3</code>.</p>
+                    <p>Inicialmente <code>i = 1</code>.</p>
+                    <p>Iterações:</p>
+                    <ul>
+                        <li>i=1: imprime "1 ", incrementa para 2</li>
+                        <li>i=2: imprime "2 ", incrementa para 3</li>
+                        <li>i=3: imprime "3 ", incrementa para 4</li>
+                    </ul>
+                    <p>Resultado: "1 2 3 "</p>
+                    <p><strong>Resposta correta: A) 1 2 3</strong></p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loop while">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 15 -->
+        <div class="slide" id="slide15">
+            <div class="slide-content">
+                <h2>Atividade Prática: Questão 4</h2>
+                <div class="question-box">
+                    <p><strong>Código:</strong></p>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
+int i = 5;
+do {
+    System.out.print(i + " ");
+    i++;
+} while (i < 7);</pre>
+                    <p><strong>Questão:</strong> O que o seguinte código imprimirá?</p>
+                    <p>A) 5</p>
+                    <p>B) 5 6</p>
+                    <p>C) 5 6 7</p>
+                    <p>D) Nada será impresso</p>
+                    <p>E) Loop infinito</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise e Resposta:</h3>
+                    <p>O <code>do-while</code> executa pelo menos uma vez.</p>
+                    <p>Primeira execução: imprime "5 ", incrementa i para 6.</p>
+                    <p>Verifica condição: 6 < 7 é verdadeiro.</p>
+                    <p>Segunda execução: imprime "6 ", incrementa i para 7.</p>
+                    <p>Verifica condição: 7 < 7 é falso, encerra.</p>
+                    <p>Resultado: "5 6 "</p>
+                    <p><strong>Resposta correta: B) 5 6</strong></p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loop do-while">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 16 -->
+        <div class="slide" id="slide16">
+            <div class="slide-content">
+                <h2>Atividade Prática: Questão 5</h2>
+                <div class="question-box">
+                    <p><strong>Código:</strong></p>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
+int dia = 1;
+switch (dia) {
+    case 1:
+        System.out.println("Domingo");
+        break;
+    case 2:
+        System.out.println("Segunda");
+        break;
+    default:
+        System.out.println("Outro dia");
+}</pre>
+                    <p><strong>Questão:</strong> O que será impresso pelo seguinte código?</p>
+                    <p>A) Domingo</p>
+                    <p>B) Segunda</p>
+                    <p>C) Outro dia</p>
+                    <p>D) Terça</p>
+                    <p>E) Nada será impresso</p>
+                </div>
+                <div class="answer-box">
+                    <h3>Análise e Resposta:</h3>
+                    <p>A variável <code>dia</code> tem valor 1.</p>
+                    <p>O <code>switch</code> avalia o valor e encontra o <code>case 1</code>.</p>
+                    <p>Executa o bloco do case 1: imprime "Domingo".</p>
+                    <p>O <code>break</code> impede a execução dos demais casos.</p>
+                    <p><strong>Resposta correta: A) Domingo</strong></p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Estrutura switch">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 17 -->
+        <div class="slide" id="slide17">
+            <div class="slide-content">
+                <h2>Conclusão</h2> 
+                <h3>O que Aprendemos:</h3>
+                <ul style="font-size: 1.1em;">
+                    <li>APIs oferecem segurança por design, atuando como intermediárias entre sistemas</li>
+                    <li>O desenvolvimento baseado em componentes promove reutilização e produtividade</li>
+                    <li>Frameworks definem a estrutura e o fluxo das aplicações</li>
+                    <li>A escolha entre frameworks, APIs e componentes depende do contexto e requisitos</li>
+                    <li>Praticar com exercícios é essencial para fixar os conceitos</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3>Para Continuar Estudando:</h3>
+                    <ul>
+                        <li>Explore frameworks populares como React, Angular e Spring</li>
+                        <li>Pratique consumindo APIs públicas (GitHub, Twitter, etc.)</li>
+                        <li>Desenvolva projetos utilizando componentes reutilizáveis</li>
+                        <li>Participe de comunidades de desenvolvedores</li>
+                    </ul>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Conclusão do estudo">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 18 -->
+        <div class="slide" id="slide18">
+            <div class="slide-content" style="text-align: center;">
+                <h1 style="font-size: 3em;">Perguntas?</h1> 
+                <p style="font-size: 1.5em;">Obrigado!</p>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Perguntas e respostas">
+                </div>
+                <div class="highlight-box" style="text-align: left; margin-top: 20px;">
+                    <h3>Referências:</h3>
+                    <p>IBM CLOUD EDUCATION (2020). APIs oferecem segurança por design.</p>
+                    <p>ELER, A. (2006). Desenvolvimento de software baseado em componentes.</p>
+                </div>
             </div>
         </div>
     </div>
     
-    <footer>
-        <div class="container">
-            <p>Engenharia de Software - Teleaula 01 | Desenvolvido para auxiliar no aprendizado</p>
-        </div>
-    </footer>
+    <div class="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)">Anterior</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Próximo</button>
+    </div>
+    
+    <div class="footer">
+        <p>© 2023 Anhanguera Educacional. Todos os direitos reservados.</p>
+    </div>
+    
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 18;
+        
+        function showSlide(n) {
+            // Esconde todos os slides
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Mostra o slide atual
+            document.getElementById(`slide${n}`).classList.add('active');
+            
+            // Atualiza o indicador
+            document.getElementById('slideIndicator').textContent = `Slide ${n} de ${totalSlides}`;
+            
+            // Atualiza o estado dos botões
+            document.getElementById('prevBtn').disabled = (n === 1);
+            document.getElementById('nextBtn').disabled = (n === totalSlides);
+        }
+        
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            // Garante que o slide atual esteja dentro dos limites
+            if (currentSlide < 1) {
+                currentSlide = 1;
+            } else if (currentSlide > totalSlides) {
+                currentSlide = totalSlides;
+            }
+            
+            showSlide(currentSlide);
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlide(currentSlide);
+        });
+        
+        // Adiciona suporte para navegação com teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+    </script>
 </body>
 </html>
