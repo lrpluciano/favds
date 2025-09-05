@@ -1,1465 +1,1107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desenvolvimento de Software: Frameworks, APIs e Componentes</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="utf-8">
+    <title>Fundamentos em Python</title>
+    <meta name="description" content="Apresentação sobre Fundamentos em Python">
+    <meta name="author" content="Grok 4">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/white.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-blue: #003366;
-            --secondary-orange: #FF6600;
-            --light-gray: #f5f5f5;
-            --medium-gray: #e0e0e0;
-            --dark-gray: #333333;
-            --white: #ffffff;
-            --light-blue: #e6f2ff;
-            --light-orange: #fff0e6;
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --text-color: #2c3e50;
+            --light-bg: #f8f9fa;
+            --border-color: #e0e0e0;
         }
-        body {
-            font-family: 'Arial', sans-serif;
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: var(--light-gray);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            box-sizing: border-box;
         }
-        .header {
-            width: 100%;
-            background-color: var(--white);
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .logo {
-            max-height: 60px;
-        }
-        .title-container {
-            width: 100%;
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 15px 0;
-            text-align: center;
-        }
-        .title-container h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-        .slide-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-        }
-        .slide {
-            display: none;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            background-color: #ffffff;
             overflow: hidden;
         }
-        .slide.active {
-            display: block;
-        }
-        .slide-content {
-            padding: 25px;
-        }
-        .controls {
-            display: flex;
-            justify-content: space-between;
+        
+        .reveal {
+            background-color: #ffffff;
             width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
+            height: 100vh;
+            position: relative;
         }
-        button {
-            background-color: var(--secondary-orange);
-            color: var(--white);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #e55a00;
-        }
-        button:disabled {
-            background-color: var(--medium-gray);
-            cursor: not-allowed;
-        }
-        .slide-indicator {
-            text-align: center;
-            font-size: 18px;
-            color: var(--dark-gray);
-            margin: 10px 0;
-            background-color: var(--white);
-            padding: 8px;
-            border-radius: 20px;
-            width: fit-content;
-            margin: 10px auto;
-        }
-        .slide h1, .slide h2, .slide h3 {
-            color: var(--primary-blue);
-        }
-        .slide h2 {
-            border-bottom: 2px solid var(--secondary-orange);
-            padding-bottom: 5px;
-        }
-        .slide hr {
-            border: 1px solid var(--secondary-orange);
-            width: 80%;
-        }
-        .highlight-box {
-            background-color: rgba(255, 102, 0, 0.1);
-            border-left: 4px solid var(--secondary-orange);
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 5px 5px 0;
-        }
-        .comparison-box {
-            border: 1px solid var(--medium-gray);
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        .footer {
+        
+        .reveal .slides {
             width: 100%;
-            background-color: var(--primary-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 15px 0;
-            margin-top: auto;
+            height: 100%;
         }
-        .infographic {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .infographic-item {
-            width: 45%;
-            text-align: center;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: var(--light-blue);
-        }
-        .infographic-item i {
-            font-size: 3em;
-            color: var(--secondary-orange);
-            margin-bottom: 10px;
-        }
-        .question-box {
-            background-color: var(--light-blue);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        .answer-box {
-            background-color: var(--light-orange);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--medium-gray);
-            padding: 10px;
+        
+        .reveal .slides section {
             text-align: left;
+            font-size: 0.75em;
+            line-height: 1.4;
+            padding: 15px 25px;
+            width: 100%;
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-        .comparison-table th {
-            background-color: var(--primary-blue);
-            color: var(--white);
+        
+        .reveal .slides section .content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) #f1f1f1;
         }
-        .comparison-table tr:nth-child(even) {
-            background-color: var(--light-gray);
+        
+        .reveal .slides section .content-wrapper::-webkit-scrollbar {
+            width: 6px;
         }
-        .image-container {
-            text-align: center;
-            margin: 20px 0;
+        
+        .reveal .slides section .content-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
-        .image-container img {
+        
+        .reveal .slides section .content-wrapper::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .reveal .slides section .content-wrapper > *:last-child {
+            margin-bottom: 15px;
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+        }
+        
+        .reveal h1 {
+            font-size: 1.8em;
+            margin-bottom: 0.6em;
+        }
+        
+        .reveal h2 {
+            font-size: 1.4em;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.2em;
+        }
+        
+        .reveal h3 {
+            font-size: 1.1em;
+            color: var(--secondary-color);
+        }
+        
+        .reveal p {
+            margin-bottom: 0.6em;
+        }
+        
+        .reveal ul, .reveal ol {
+            margin-bottom: 0.6em;
+            padding-left: 1.2em;
+        }
+        
+        .reveal li {
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal pre {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            margin-bottom: 0.8em;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .reveal pre code {
+            max-height: 200px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.7em;
+            line-height: 1.3;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 0.8em;
+            border-radius: 6px;
+            overflow: auto;
+            white-space: pre;
+        }
+        
+        .reveal table {
+            margin: 0.8em auto;
+            border-collapse: collapse;
+            width: 100%;
             max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            table-layout: fixed;
         }
-        .api-diagram {
+        
+        .reveal table th, .reveal table td {
+            border: 1px solid var(--border-color);
+            padding: 0.4em 0.6em;
+            text-align: left;
+            word-wrap: break-word;
+            font-size: 0.9em;
+        }
+        
+        .reveal table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .reveal table tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        .reveal strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .page-counter {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+            z-index: 50;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin: 20px 0;
-            padding: 20px;
-            background-color: var(--light-gray);
-            border-radius: 8px;
         }
-        .api-box {
-            width: 30%;
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            background-color: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        
+        .page-counter i {
+            margin-right: 5px;
+            font-size: 0.8em;
         }
-        .api-arrow {
-            font-size: 2em;
-            color: var(--secondary-orange);
+        
+        .reveal .controls {
+            color: var(--primary-color);
+            z-index: 40;
+            bottom: 15px;
         }
-        .component-visual {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
+        
+        .reveal .controls button {
+            opacity: 0.8;
         }
-        .component-block {
-            width: 120px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-weight: bold;
-            color: var(--white);
-            text-align: center;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        
+        .reveal .controls button:hover {
+            opacity: 1;
         }
-        .framework-structure {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px 0;
+        
+        .reveal .progress {
+            color: var(--primary-color);
+            height: 3px;
+            z-index: 30;
+            bottom: 8px;
         }
-        .framework-layer {
-            width: 80%;
-            padding: 15px;
-            margin: 5px 0;
-            border-radius: 8px;
-            text-align: center;
-            color: var(--white);
-            font-weight: bold;
+        
+        .reveal .progress span {
+            background-color: var(--primary-color);
         }
-        .step-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .step {
+        
+        .icon-box {
             display: flex;
             align-items: flex-start;
-            gap: 15px;
+            margin-bottom: 0.5em;
         }
-        .step-number {
-            background-color: var(--secondary-orange);
-            color: var(--white);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+        
+        .icon-box i {
+            font-size: 1em;
+            color: var(--primary-color);
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+            margin-top: 0.2em;
             flex-shrink: 0;
         }
-        .step-content {
-            flex-grow: 1;
+        
+        .icon-box p {
+            margin: 0;
+            font-size: 0.95em;
         }
+        
+        .example-card {
+            background-color: var(--light-bg);
+            border-left: 3px solid var(--secondary-color);
+            padding: 0.8em;
+            border-radius: 0 6px 6px 0;
+            margin: 0.8em 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .example-card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1em;
+            margin-bottom: 0.5em;
+        }
+        
+        .tech-term {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+            color: var(--primary-color);
+            font-size: 0.9em;
+        }
+        
+        .slide-intro {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        
+        .slide-intro h1 {
+            margin-bottom: 0.4em;
+            border: none;
+        }
+        
+        .slide-intro h2 {
+            margin-bottom: 1em;
+            border: none;
+        }
+        
+        .slide-intro .icon-box {
+            width: 80%;
+            max-width: 400px;
+            margin-bottom: 0.8em;
+        }
+        
+        @media (max-width: 1024px) {
+            .reveal .slides section {
+                padding: 12px 20px;
+                font-size: 0.7em;
+            }
+            
+            .reveal h1 {
+                font-size: 1.6em;
+            }
+            
+            .reveal h2 {
+                font-size: 1.2em;
+            }
+            
+            .reveal pre code {
+                font-size: 0.65em;
+                max-height: 180px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .slide-content {
-                padding: 15px;
+            .reveal .slides section {
+                padding: 10px 15px;
+                font-size: 0.65em;
             }
             
-            .controls {
+            .reveal h1 {
+                font-size: 1.4em;
+            }
+            
+            .reveal h2 {
+                font-size: 1.1em;
+            }
+            
+            .reveal pre code {
+                font-size: 0.6em;
+                max-height: 150px;
+                padding: 0.6em;
+            }
+            
+            .icon-box {
                 flex-direction: column;
-                gap: 10px;
+                align-items: flex-start;
             }
             
-            button {
-                width: 100%;
+            .icon-box i {
+                margin-bottom: 5px;
             }
             
-            .infographic-item {
-                width: 100%;
-            }
-            
-            .comparison-table {
-                font-size: 0.9em;
-            }
-            
-            .comparison-table th, .comparison-table td {
-                padding: 8px 5px;
-            }
-            
-            .api-diagram {
-                flex-direction: column;
-            }
-            
-            .api-box {
-                width: 100%;
-                margin: 10px 0;
-            }
-            
-            .api-arrow {
-                transform: rotate(90deg);
+            .page-counter {
+                top: 8px;
+                right: 8px;
+                padding: 3px 6px;
+                font-size: 0.6em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/95/Anhanguera_Educacional.svg/1200px-Anhanguera_Educacional.svg.png" alt="Logo Anhanguera" class="logo">
+    <div class="page-counter">
+        <i class="fas fa-file-alt"></i>
+        <span id="page-info">Página 1 de 1</span>
     </div>
     
-    <div class="title-container">
-        <h1>Desenvolvimento de Software: Frameworks, APIs e Componentes</h1>
-    </div>
-    
-    <div class="slide-indicator" id="slideIndicator">Slide 1 de 18</div>
-    
-    <div class="slide-container">
-        <!-- Slide 1 -->
-        <div class="slide active" id="slide1">
-            <div class="slide-content">
-                <div style="text-align: center;"> 
-                    <h1 style="font-size: 2.5em; margin-bottom: 10px;">Desenvolvimento de Software:</h1> 
-                    <h2 style="font-size: 1.8em; margin-top: 0;">Frameworks, APIs e Componentes</h2> 
-                    <hr> 
-                    <p style="color: #555; font-size: 1.2em;">Uma jornada didática para entender as ferramentas essenciais do desenvolvimento moderno.</p> 
-                    <div class="highlight-box">
-                        <h3>O que você aprenderá nesta apresentação:</h3>
+    <div class="reveal">
+        <div class="slides">
+            <section class="slide-intro">
+                <h1>Linguagem de Programação:</h1>
+                <h2>Fundamentos em Python</h2>
+                <div class="icon-box">
+                    <i class="fas fa-code"></i>
+                    <p>Aprenda os conceitos essenciais de Python de forma prática e intuitiva</p>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>Desenvolva habilidades para resolver problemas do mundo real</p>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-laptop-code"></i>
+                    <p>Exercícios práticos e exemplos detalhados</p>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Introdução à Linguagem Python</h2>
+                    <div class="example-card">
+                        <h3>Por que Python?</h3>
+                        <p>Python emergiu como uma das ferramentas mais proeminentes no cenário tecnológico contemporâneo. Sua popularidade deve-se à:</p>
                         <ul>
-                            <li>Conceitos fundamentais de APIs, Frameworks e Componentes</li>
-                            <li>Como essas ferramentas se relacionam no desenvolvimento de software</li>
-                            <li>Vantagens e desvantagens de cada abordagem</li>
-                            <li>Aplicações práticas através de exercícios</li>
+                            <li><span class="tech-term">Sintaxe simples</span> e intuitiva</li>
+                            <li><span class="tech-term">Versatilidade</span> em diversas aplicações</li>
+                            <li><span class="tech-term">Comunidade ativa</span> e vasta documentação</li>
                         </ul>
                     </div>
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Desenvolvimento de Software">
-                    </div>
+                    <p>Essa característica a posiciona como uma escolha ideal tanto para iniciantes quanto para profissionais experientes.</p>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Slide 2 -->
-        <div class="slide" id="slide2">
-            <div class="slide-content">
-                <h2>Sumário da Apresentação</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Esta apresentação está organizada em quatro blocos principais, cada um abordando um aspecto fundamental do desenvolvimento de software moderno:</p>
-                
-                <div class="infographic">
-                    <div class="infographic-item">
-                        <i class="fas fa-cogs"></i>
-                        <h3>Componentes de Software</h3>
-                        <p>Conceitos fundamentais e práticas de reutilização de código</p>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Introdução à Linguagem Python (continuação)</h2>
+                    <p>Neste material, você será guiado por uma jornada imersiva pelos conceitos fundamentais da programação, com o Python como instrumento principal.</p>
+                    <div class="icon-box">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Estrutura para fomentar o <strong>autoestudo</strong> e a <strong>prática contínua</strong></p>
                     </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-plug"></i>
-                        <h3>APIs</h3>
-                        <p>Interfaces de programação e segurança por design</p>
+                    <div class="icon-box">
+                        <i class="fas fa-graduation-cap"></i>
+                        <p>Do básico à concepção de programas complexos</p>
                     </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-layer-group"></i>
-                        <h3>Frameworks</h3>
-                        <p>Estruturas para desenvolvimento ágil e padronizado</p>
-                    </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-tasks"></i>
-                        <h3>Atividades Práticas</h3>
-                        <p>Exercícios para fixação e aplicação dos conceitos</p>
-                    </div>
+                    <p>Nosso objetivo é proporcionar uma compreensão sólida e prática, capacitando-o a resolver problemas reais.</p>
                 </div>
-                
-                <div class="highlight-box">
-                    <h3>Como aproveitar esta apresentação:</h3>
-                    <p>Avance no seu próprio ritmo, leia cada slide com atenção e tente responder às questões práticas antes de verificar as respostas. Ao final, você terá uma compreensão sólida desses conceitos essenciais.</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 3 -->
-        <div class="slide" id="slide3">
-            <div class="slide-content">
-                <h2>O que são APIs?</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">API (Application Programming Interface) é um conjunto de rotinas, protocolos e ferramentas para construir softwares e aplicações. Em termos simples, uma API especifica como componentes de software devem interagir.</p>
-                
-                <div class="highlight-box">
-                    <h3>Segurança por Design em APIs</h3>
-                    <p>As APIs oferecem segurança por design porque sua posição como intermediário entre dois sistemas separa o aplicativo do serviço que fornece a funcionalidade (IBM CLOUD EDUCATION, 2020).</p>
-                    <p>O terminal da API atua como uma barreira de segurança, controlando o acesso e a comunicação entre os sistemas. Isso significa que:</p>
-                    <ul>
-                        <li>A aplicação cliente não acessa diretamente o servidor</li>
-                        <li>A API valida e filtra todas as requisições</li>
-                        <li>Permite implementar políticas de segurança centralizadas</li>
-                    </ul>
-                </div>
-                
-                <div class="api-diagram">
-                    <div class="api-box" style="background-color: #4285F4;">
-                        <i class="fas fa-mobile-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p><strong>Aplicação Cliente</strong></p>
-                        <p>Envia requisições</p>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Tópicos Essenciais</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-sitemap"></i>
+                        <p><strong>Fundamentos da Programação:</strong> Lógica de algoritmos e fluxo de controle</p>
                     </div>
-                    <div class="api-arrow">
-                        <i class="fas fa-exchange-alt"></i>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><strong>Estruturas Condicionais:</strong> Uso de if, elif e else</p>
                     </div>
-                    <div class="api-box" style="background-color: #34A853;">
-                        <i class="fas fa-shield-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p><strong>API</strong></p>
-                        <p>Intermediária segura</p>
-                    </div>
-                    <div class="api-arrow">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <div class="api-box" style="background-color: #FBBC05;">
-                        <i class="fas fa-server" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p><strong>Servidor</strong></p>
-                        <p>Processa dados</p>
-                    </div>
-                </div>
-                
-                <div class="step-container">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <strong>Requisição:</strong> A aplicação envia uma requisição para a API
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <strong>Validação:</strong> A API verifica autenticação e autorização
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <strong>Processamento:</strong> A API encaminha a requisição para o servidor
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <strong>Resposta:</strong> O servidor retorna os dados através da API
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 4 -->
-        <div class="slide" id="slide4">
-            <div class="slide-content">
-                <h2>Características Essenciais das APIs</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">As APIs possuem características que as tornam fundamentais no desenvolvimento moderno de software. Vamos explorar cada uma delas em detalhes:</p>
-                
-                <div class="infographic">
-                    <div class="infographic-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Segurança</h3>
-                        <p>Controle de acesso e autenticação entre sistemas. As APIs implementam mecanismos como tokens, chaves de API e OAuth para garantir que apenas usuários autorizados acessem os recursos.</p>
-                    </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-exchange-alt"></i>
-                        <h3>Interoperabilidade</h3>
-                        <p>Permite comunicação entre diferentes plataformas e linguagens. Uma API criada em Java pode ser consumida por aplicações em Python, JavaScript ou qualquer outra linguagem.</p>
-                    </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <h3>Modularidade</h3>
-                        <p>Funcionalidades independentes e reutilizáveis. Cada endpoint da API oferece uma funcionalidade específica, permitindo que os desenvolvedores usem apenas o que precisam.</p>
-                    </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-code"></i>
-                        <h3>Abstração</h3>
-                        <p>Oculta complexidade da implementação interna. Os desenvolvedores não precisam saber como os dados são processados internamente, apenas como interagir com a API.</p>
-                    </div>
-                </div>
-                
-                <div class="highlight-box">
-                    <h3>Exemplo Prático:</h3>
-                    <p>Quando você usa um aplicativo de previsão do tempo, ele não precisa saber como os dados meteorológicos são coletados ou processados. Ele simplesmente faz uma chamada à API do serviço de meteorologia, que retorna os dados formatados. Isso é abstração e interoperabilidade em ação!</p>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="APIs em ação">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 5 -->
-        <div class="slide" id="slide5">
-            <div class="slide-content">
-                <h2>Desenvolvimento Baseado em Componentes</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Segundo Eler (2006), o desenvolvimento de software baseado em componentes é um conjunto de práticas usadas para construir sistemas de software a partir de componentes reutilizáveis, tanto por terceiros quanto pelo próprio desenvolvedor do sistema.</p>
-                
-                <div class="highlight-box">
-                    <h3>Conceito Fundamental:</h3>
-                    <p>No desenvolvimento baseado em componentes, o software é construído como um conjunto de blocos independentes, cada um com uma funcionalidade específica. Esses componentes podem ser:</p>
-                    <ul>
-                        <li><strong>Desenvolvidos internamente:</strong> Criados pela equipe para uso em múltiplos projetos</li>
-                        <li><strong>Adquiridos de terceiros:</strong> Bibliotecas e frameworks comerciais ou open-source</li>
-                        <li><strong>Combinados:</strong> Mistura de componentes internos e externos</li>
-                    </ul>
-                </div>
-                
-                <div class="step-container">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <strong>Identificação:</strong> Identificar funcionalidades que podem ser encapsuladas como componentes
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <strong>Desenvolvimento:</strong> Criar o componente com interfaces bem definidas
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <strong>Teste:</strong> Testar o componente isoladamente e em integração
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <strong>Integração:</strong> Integrar o componente no sistema principal
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">5</div>
-                        <div class="step-content">
-                            <strong>Reutilização:</strong> Reutilizar o componente em outros sistemas quando necessário
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="component-visual">
-                    <div class="component-block" style="background-color: #4285F4;">
-                        Componente<br>Autenticação
-                    </div>
-                    <div class="component-block" style="background-color: #34A853;">
-                        Componente<br>Banco de Dados
-                    </div>
-                    <div class="component-block" style="background-color: #FBBC05;">
-                        Componente<br>Validação
-                    </div>
-                    <div class="component-block" style="background-color: #EA4335;">
-                        Componente<br>Relatórios
-                    </div>
-                    <div class="component-block" style="background-color: #673AB7;">
-                        Componente<br>Notificações
-                    </div>
-                    <div class="component-block" style="background-color: #00BCD4;">
-                        Componente<br>Interface
-                    </div>
-                </div>
-                
-                <div class="highlight-box">
-                    <h3>Objetivo Principal:</h3>
-                    <p>Adaptar, integrar e atualizar componentes de software reutilizáveis, permitindo que os desenvolvedores se concentrem na lógica de negócio em vez de detalhes de implementação.</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 6 -->
-        <div class="slide" id="slide6">
-            <div class="slide-content">
-                <h2>Vantagens do Desenvolvimento por Componentes</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">O desenvolvimento baseado em componentes oferece diversas vantagens significativas que impactam diretamente a produtividade e a qualidade do software desenvolvido.</p>
-                
-                <div class="infographic">
-                    <div class="infographic-item">
+                    <div class="icon-box">
                         <i class="fas fa-sync-alt"></i>
-                        <h3>Reutilização</h3>
-                        <p>Componentes podem ser usados em múltiplos sistemas, reduzindo a necessidade de "reinventar a roda". Isso economiza tempo e recursos, além de promover consistência entre projetos.</p>
+                        <p><strong>Estruturas de Repetição:</strong> for e while com exemplos práticos</p>
                     </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-rocket"></i>
-                        <h3>Produtividade</h3>
-                        <p>Desenvolvimento mais rápido com menos código repetitivo. Os desenvolvedores podem focar em funcionalidades específicas do negócio, enquanto componentes genéricos já estão prontos para uso.</p>
-                    </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-tools"></i>
-                        <h3>Manutenção</h3>
-                        <p>Facilita atualizações e correções isoladas. Quando um bug é encontrado ou uma melhoria é necessária, apenas o componente específico precisa ser modificado, sem afetar todo o sistema.</p>
-                    </div>
-                    <div class="infographic-item">
+                    <div class="icon-box">
                         <i class="fas fa-cubes"></i>
-                        <h3>Escalabilidade</h3>
-                        <p>Sistemas podem crescer adicionando novos componentes. À medida que novas funcionalidades são necessárias, novos componentes podem ser desenvolvidos e integrados sem modificar a estrutura existente.</p>
+                        <p><strong>Funções:</strong> Modularização e organização do código</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-exchange-alt"></i>
+                        <p><strong>Entrada e Saída de Dados:</strong> input() e print()</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-database"></i>
+                        <p><strong>Tipos de Dados e Manipulação:</strong> Inteiros, decimais, strings, etc.</p>
+                    </div>
+                    <p>Cada tópico com explicações claras, exemplos e exercícios para solidificar o aprendizado.</p>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>2. Estruturas Fundamentais de Programação:</h2>
+                    <h3>Tomando Decisões com Condicionais</h3>
+                    <div class="example-card">
+                        <h3>O que são estruturas condicionais?</h3>
+                        <p>Para que um programa seja funcional, ele precisa tomar decisões. As estruturas condicionais permitem que seu código execute diferentes ações com base em critérios específicos.</p>
+                        <p>Em Python, usamos <span class="tech-term">if</span>, <span class="tech-term">elif</span> e <span class="tech-term">else</span> para implementar essa lógica.</p>
                     </div>
                 </div>
-                
-                <div class="highlight-box">
-                    <h3>Exemplo Prático:</h3>
-                    <p>Imagine um sistema de e-commerce. Em vez de desenvolver tudo do zero, você pode usar:</p>
-                    <ul>
-                        <li>Um componente de carrinho de compras já testado</li>
-                        <li>Um componente de processamento de pagamentos integrado com múltiplos gateways</li>
-                        <li>Um componente de gestão de estoque</li>
-                        <li>Um componente de envio de e-mails transacionais</li>
-                    </ul>
-                    <p>Isso acelera o desenvolvimento e garante que partes críticas do sistema já foram validadas.</p>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Benefícios dos componentes">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 7 -->
-        <div class="slide" id="slide7">
-            <div class="slide-content">
-                <h2>O que são Frameworks?</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Framework é uma estrutura de suporte definida na qual um outro projeto de software pode ser organizado e desenvolvido. Pense nele como um esqueleto ou andaime que fornece a estrutura básica para a construção de aplicações.</p>
-                
-                <div class="highlight-box">
-                    <h3>Características Essenciais dos Frameworks:</h3>
-                    <ul>
-                        <li><strong>Inversão de Controle (IoC):</strong> No desenvolvimento tradicional, seu código chama bibliotecas. Em um framework, é o framework que chama seu código. Isso permite que o framework controle o fluxo da aplicação.</li>
-                        <li><strong>Padronização:</strong> Define uma estrutura padrão para o desenvolvimento, garantindo consistência e facilitando a manutenção.</li>
-                        <li><strong>Extensibilidade:</strong> Permite personalização através de pontos de extensão, onde os desenvolvedores podem adicionar funcionalidades específicas.</li>
-                    </ul>
-                </div>
-                
-                <div class="framework-structure">
-                    <div class="framework-layer" style="background-color: #4285F4;">
-                        <i class="fas fa-desktop"></i> Camada de Apresentação (UI)
-                        <p style="font-size: 0.9em; font-weight: normal;">Interface do usuário, formulários, navegação</p>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Entendendo a Lógica Condicional</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-lock"></i>
+                        <p>Imagine um sistema de controle de acesso: se a senha estiver correta, acesso concedido; caso contrário, negado.</p>
                     </div>
-                    <div class="framework-layer" style="background-color: #34A853;">
-                        <i class="fas fa-cogs"></i> Camada de Lógica de Negócio
-                        <p style="font-size: 0.9em; font-weight: normal;">Regras de negócio, validações, processamento</p>
+                    <div class="icon-box">
+                        <i class="fas fa-route"></i>
+                        <p>As condicionais guiam o fluxo de execução do programa, permitindo que ele se adapte a diferentes entradas.</p>
                     </div>
-                    <div class="framework-layer" style="background-color: #FBBC05;">
-                        <i class="fas fa-database"></i> Camada de Acesso a Dados
-                        <p style="font-size: 0.9em; font-weight: normal;">Conexão com banco de dados, ORM</p>
-                    </div>
-                    <div class="framework-layer" style="background-color: #EA4335;">
-                        <i class="fas fa-hdd"></i> Camada de Persistência
-                        <p style="font-size: 0.9em; font-weight: normal;">Armazenamento, backup, recuperação</p>
-                    </div>
+                    <p>A beleza das condicionais está na sua capacidade de criar programas dinâmicos e interativos.</p>
                 </div>
-                
-                <div class="step-container">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <strong>Configuração:</strong> Configurar o framework de acordo com as necessidades do projeto
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <strong>Implementação:</strong> Implementar as funcionalidades específicas nos pontos definidos pelo framework
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <strong>Teste:</strong> Testar a aplicação utilizando as ferramentas fornecidas pelo framework
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <strong>Deploy:</strong> Implantar a aplicação utilizando os mecanismos do framework
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Estrutura de Framework">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 8 -->
-        <div class="slide" id="slide8">
-            <div class="slide-content">
-                <h2>Categorias de Frameworks</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Os frameworks podem ser classificados em diferentes categorias de acordo com seu propósito e área de atuação. Cada categoria é otimizada para resolver problemas específicos do desenvolvimento de software.</p>
-                
-                <table class="comparison-table">
-                    <tr>
-                        <th>Categoria</th>
-                        <th>Descrição</th>
-                        <th>Exemplos</th>
-                        <th>Características</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Web</strong></td>
-                        <td>Para desenvolvimento de aplicações web que rodam em navegadores</td>
-                        <td>React, Angular, Vue.js, Django, Ruby on Rails</td>
-                        <td>Manipulação de DOM, roteamento, gerenciamento de estado</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Mobile</strong></td>
-                        <td>Para desenvolvimento de aplicativos móveis nativos ou híbridos</td>
-                        <td>React Native, Flutter, Xamarin, Ionic</td>
-                        <td>Acesso a recursos do dispositivo, interface nativa</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Desktop</strong></td>
-                        <td>Para aplicações que rodam diretamente no sistema operacional</td>
-                        <td>Electron, JavaFX, .NET, Qt</td>
-                        <td>Interface nativa, acesso ao sistema de arquivos</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Backend</strong></td>
-                        <td>Para lógica de servidor, APIs e processamento de dados</td>
-                        <td>Express.js, Spring Boot, Laravel, Django REST</td>
-                        <td>Roteamento de APIs, ORM, segurança, autenticação</td>
-                    </tr>
-                </table>
-                
-                <div class="highlight-box">
-                    <h3>Como Escolher o Framework Adequado:</h3>
-                    <ul>
-                        <li><strong>Objetivo do projeto:</strong> Web, mobile, desktop ou backend?</li>
-                        <li><strong>Linguagem de programação:</strong> Qual linguagem sua equipe domina?</li>
-                        <li><strong>Comunidade e suporte:</strong> Existe documentação adequada e comunidade ativa?</li>
-                        <li><strong>Performance:</strong> O framework atende aos requisitos de performance do projeto?</li>
-                        <li><strong>Curva de aprendizado:</strong> Quanto tempo sua equipe levará para se adaptar?</li>
-                    </ul>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Categorias de Frameworks">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 9 -->
-        <div class="slide" id="slide9">
-            <div class="slide-content">
-                <h2>Diferenças entre Frameworks, APIs e Componentes</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Embora frequentemente mencionados juntos, frameworks, APIs e componentes são conceitos distintos com propósitos diferentes no desenvolvimento de software. Vamos entender as diferenças fundamentais:</p>
-                
-                <div class="comparison-box">
-                    <h3>Ambiente de Programação</h3>
-                    <ul>
-                        <li><strong>Frameworks:</strong> Definem a arquitetura e o fluxo da aplicação. Eles ditam como o código deve ser organizado e executado. O desenvolvedor preenche os "gaps" deixados pelo framework.</li>
-                        <li><strong>APIs:</strong> Oferecem interfaces para comunicação entre sistemas. Elas não ditam a estrutura do código, apenas fornecem pontos de acesso a funcionalidades específicas.</li>
-                        <li><strong>Componentes:</strong> São blocos de construção reutilizáveis que podem ser integrados em qualquer parte da aplicação. Eles não impõem uma arquitetura específica.</li>
-                    </ul>
-                </div>
-                
-                <div class="comparison-box">
-                    <h3>Nível de Controle</h3>
-                    <ul>
-                        <li><strong>Frameworks:</strong> Alto nível de controle sobre a aplicação. Eles gerenciam o ciclo de vida, o fluxo de execução e muitas vezes a configuração.</li>
-                        <li><strong>APIs:</strong> Controle limitado à interface de comunicação. O desenvolvedor decide quando e como chamar a API.</li>
-                        <li><strong>Componentes:</strong> Controle total sobre como e quando usar o componente. Eles são passivos até serem explicitamente invocados.</li>
-                    </ul>
-                </div>
-                
-                <div class="step-container">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <strong>Framework:</strong> "Eu te digo como estruturar tua aplicação e chamo teu código quando necessário"
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <strong>API:</strong> "Eu ofereço funcionalidades específicas que você pode chamar quando precisar"
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <strong>Componente:</strong> "Eu sou uma peça que você pode usar onde e quando quiser na tua aplicação"
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Comparação entre Frameworks, APIs e Componentes">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 10 -->
-        <div class="slide" id="slide10">
-            <div class="slide-content">
-                <h2>Comparação Detalhada</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Vamos aprofundar nossa análise comparando frameworks, APIs e componentes em diferentes aspectos do desenvolvimento de software:</p>
-                
-                <table class="comparison-table">
-                    <tr>
-                        <th>Aspecto</th>
-                        <th>Framework</th>
-                        <th>API</th>
-                        <th>Componente</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Controle</strong></td>
-                        <td>Controla o fluxo da aplicação através de inversão de controle</td>
-                        <td>Oferece funcionalidades sob demanda, sem controlar o fluxo</td>
-                        <td>É controlado pela aplicação, não impõe fluxo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Escopo</strong></td>
-                        <td>Amplo, define a estrutura completa da aplicação</td>
-                        <td>Específico, funcionalidades pontuais e bem definidas</td>
-                        <td>Granular, partes específicas e isoladas</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dependência</strong></td>
-                        <td>Aplicação depende fortemente do framework</td>
-                        <td>Aplicação consome a API, dependência moderada</td>
-                        <td>Aplicação integra o componente, dependência fraca</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Flexibilidade</strong></td>
-                        <td>Menor flexibilidade, mais estrutura e regras</td>
-                        <td>Média flexibilidade, depende da implementação</td>
-                        <td>Alta flexibilidade e reutilização em diferentes contextos</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Complexidade</strong></td>
-                        <td>Alta curva de aprendizado inicial</td>
-                        <td>Complexidade variável, depende da API</td>
-                        <td>Geralmente mais simples e focado</td>
-                    </tr>
-                </table>
-                
-                <div class="highlight-box">
-                    <h3>Exemplo Prático Comparativo:</h3>
-                    <p><strong>Desenvolvendo um sistema de login:</strong></p>
-                    <ul>
-                        <li><strong>Com Framework:</strong> Você usaria o sistema de autenticação do framework (ex: Spring Security), seguindo as regras e estrutura definidas por ele.</li>
-                        <li><strong>Com API:</strong> Você consumiria uma API de autenticação de terceiros (ex: Auth0), enviando credenciais e recebendo tokens.</li>
-                        <li><strong>Com Componente:</strong> Você usaria um componente de login reutilizável que pode ser integrado em qualquer parte da aplicação.</li>
-                    </ul>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Tabela comparativa">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 11 -->
-        <div class="slide" id="slide11">
-            <div class="slide-content">
-                <h2>Vantagens e Desvantagens</h2> 
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Cada abordagem tem seus pontos fortes e fracos. Entender as vantagens e desvantagens ajuda a tomar decisões mais informadas sobre qual utilizar em cada situação:</p>
-                
-                <div class="infographic">
-                    <div class="infographic-item">
-                        <i class="fas fa-thumbs-up"></i>
-                        <h3>Vantagens dos Frameworks</h3>
-                        <ul style="text-align: left;">
-                            <li><strong>Padronização:</strong> Estrutura consistente facilita a manutenção</li>
-                            <li><strong>Produtividade:</strong> Muitas funcionalidades já prontas para uso</li>
-                            <li><strong>Comunidade ativa:</strong> Suporte, documentação e recursos abundantes</li>
-                            <li><strong>Boas práticas:</strong> Geralmente implementam padrões de projeto consolidados</li>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Como funciona?</h2>
+                    <div class="example-card">
+                        <h3>Estrutura básica</h3>
+                        <ul>
+                            <li><strong>if (Se):</strong> Executa se a condição for verdadeira</li>
+                            <li><strong>elif (Senão, se):</strong> Verifica múltiplas condições</li>
+                            <li><strong>else (Senão):</strong> Executa se nenhuma condição anterior for verdadeira</li>
                         </ul>
                     </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-thumbs-down"></i>
-                        <h3>Desvantagens dos Frameworks</h3>
-                        <ul style="text-align: left;">
-                            <li><strong>Curva de aprendizado:</strong> Pode ser complexo para iniciantes</li>
-                            <li><strong>Limitações:</strong> Pode ser difícil implementar funcionalidades não previstas</li>
-                            <li><strong>Dependência:</strong> Alto acoplamento com o framework</li>
-                            <li><strong>Performance:</strong> Pode ter overhead desnecessário para projetos simples</li>
+                    <div class="icon-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>A <span class="tech-term">indentação</span> é crucial em Python para definir blocos de código</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Exemplo Prático 1: Cálculo de Reajuste Salarial</h2>
+                    <div class="example-card">
+                        <h3>Cenário</h3>
+                        <p>A rede de farmácias "Descontão" precisa automatizar o reajuste salarial de seus colaboradores, com base em faixas salariais específicas.</p>
+                        <p>Este é um problema clássico que demonstra a eficácia das estruturas condicionais.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Critérios de Reajuste</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Faixa Salarial</th>
+                                <th>Percentual de Aumento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Até R$ 280,00</td>
+                                <td>20%</td>
+                            </tr>
+                            <tr>
+                                <td>Entre R$ 280,01 e R$ 700,00</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td>Entre R$ 700,01 e R$ 1500,00</td>
+                                <td>10%</td>
+                            </tr>
+                            <tr>
+                                <td>Acima de R$ 1500,00</td>
+                                <td>5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>O programa deve solicitar o salário atual, calcular o novo salário e mostrar todas as informações relevantes.</p>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Passo a passo para a solução</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-keyboard"></i>
+                        <p><strong>1. Obter o Salário:</strong> Usar input()</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-exchange-alt"></i>
+                        <p><strong>2. Converter o Valor:</strong> Converter string para float</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><strong>3. Aplicar as Condições:</strong> Usar if, elif, else</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-calculator"></i>
+                        <p><strong>4. Calcular o Aumento:</strong> aumento = (salário * percentual) / 100</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-desktop"></i>
+                        <p><strong>5. Exibir o Resultado:</strong> Usar print() com f-strings</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Código Python</h2>
+                    <pre><code class="python"># Cálculo de reajuste salarial
+salario = float(input("Digite o salário do colaborador: R$ "))
+
+if salario > 1500:
+    percentual = 5
+elif salario > 700:
+    percentual = 10
+elif salario > 280:
+    percentual = 15
+else:
+    percentual = 20
+
+aumento = (salario * percentual) / 100
+novo_salario = salario + aumento
+
+print(f"Salário antes do reajuste: R$ {salario:.2f}")
+print(f"Percentual de aumento aplicado: {percentual}%")
+print(f"Valor do aumento: R$ {aumento:.2f}")
+print(f"Novo salário: R$ {novo_salario:.2f}")</code></pre>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Explicação do Código</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-arrow-right"></i>
+                        <p><code>salario = float(input(...))</code>: Solicita e converte para float</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><code>if salario > 1500: percentual = 5</code>: Verifica a primeira faixa</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><code>elif salario > 700: percentual = 10</code>: Verifica a segunda faixa</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><code>elif salario > 280: percentual = 15</code>: Verifica a terceira faixa</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><code>else: percentual = 20</code>: Aplica para a última faixa</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-calculator"></i>
+                        <p><code>aumento = (salario * percentual) / 100</code>: Calcula o valor do aumento</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-print"></i>
+                        <p><code>print(...)</code>: Exibe resultados formatados com 2 casas decimais</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Exemplo Prático 2: Atribuição de Conceitos por Nota</h2>
+                    <div class="example-card">
+                        <h3>Cenário</h3>
+                        <p>Um programa que lê duas notas parciais de um aluno, calcula a média e atribui um conceito e uma situação final (APROVADO ou REPROVADO).</p>
+                        <p>Este exemplo demonstra como classificar dados com base em valores numéricos.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Tabela de Conceitos</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Média de Aproveitamento</th>
+                                <th>Conceito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Entre 9.0 e 10.0</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>Entre 7.5 e 8.9</td>
+                                <td>B</td>
+                            </tr>
+                            <tr>
+                                <td>Entre 6.0 e 7.4</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>Entre 4.0 e 5.9</td>
+                                <td>D</td>
+                            </tr>
+                            <tr>
+                                <td>Entre 0.0 e 3.9</td>
+                                <td>E</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Passo a passo para a solução</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-keyboard"></i>
+                        <p><strong>1. Obter as Notas:</strong> Usar input() para duas notas</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-calculator"></i>
+                        <p><strong>2. Calcular a Média:</strong> Converter para float e calcular (soma / 2)</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><strong>3. Definir o Conceito:</strong> Usar if e elif com base na tabela</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-check-circle"></i>
+                        <p><strong>4. Verificar a Situação:</strong> if conceito in ["A", "B", "C"]: "APROVADO"</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-desktop"></i>
+                        <p><strong>5. Exibir o Resultado:</strong> Usar print() com f-strings</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Código Python</h2>
+                    <pre><code class="python"># Sistema de conceitos por média
+nota1 = float(input("Primeira nota parcial: "))
+nota2 = float(input("Segunda nota parcial: "))
+media = (nota1 + nota2) / 2
+
+if media >= 9.0:
+    conceito = "A"
+elif media >= 7.5:
+    conceito = "B"
+elif media >= 6.0:
+    conceito = "C"
+elif media >= 4.0:
+    conceito = "D"
+else:
+    conceito = "E"
+
+# Verificação simplificada de aprovação
+resultado = "APROVADO" if conceito in ["A", "B", "C"] else "REPROVADO"
+
+print(f"Nota 1: {nota1}")
+print(f"Nota 2: {nota2}")
+print(f"Média: {media:.2f}")
+print(f"Conceito: {conceito}")
+print(f"Resultado: {resultado}")</code></pre>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Explicação do Código</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-arrow-right"></i>
+                        <p><code>nota1, nota2 = float(input(...))</code>: Solicita e converte para float</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-calculator"></i>
+                        <p><code>media = (nota1 + nota2) / 2</code>: Calcula a média</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-code-branch"></i>
+                        <p><code>if/elif/else</code>: Determina o conceito baseado na média</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-check-circle"></i>
+                        <p><code>resultado = "APROVADO" if conceito in ["A", "B", "C"] else "REPROVADO"</code>: Verificação simplificada</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-print"></i>
+                        <p><code>print(...)</code>: Exibe notas, média, conceito e resultado</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>3. Programação Modular com Funções</h2>
+                    <div class="example-card">
+                        <h3>O que é programação modular?</h3>
+                        <p>É uma estratégia que divide um programa complexo em partes menores, mais simples e gerenciáveis, conhecidas como funções.</p>
+                        <p>Pense em uma função como uma "mini-tarefa" ou "bloco de construção" que você define uma vez e reutiliza várias vezes.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Por que usar Funções?</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-recycle"></i>
+                        <p><strong>Reutilização de Código:</strong> Evita repetição e torna o código mais eficiente</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-sitemap"></i>
+                        <p><strong>Organização e Legibilidade:</strong> Estrutura lógica e mais fácil de entender</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-tools"></i>
+                        <p><strong>Manutenção Simplificada:</strong> Alterações em um só lugar</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-bug"></i>
+                        <p><strong>Depuração Mais Fácil:</strong> Isola partes do código para identificar problemas</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Definindo e Chamando Funções em Python</h2>
+                    <div class="example-card">
+                        <h3>Estrutura básica</h3>
+                        <pre><code class="python">def nome_da_funcao(parametro1, parametro2):
+    # Código da função
+    return resultado
+
+# Chamando a função
+resultado = nome_da_funcao(valor1, valor2)</code></pre>
+                    </div>
+                    <p>Funções são definidas com <span class="tech-term">def</span>, seguidas pelo nome, parâmetros entre parênteses e corpo indentado.</p>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Exemplo: Somando Três Números</h2>
+                    <div class="example-card">
+                        <h3>Cenário</h3>
+                        <p>Função simples para somar três números, ilustrando definição, argumentos e retorno.</p>
+                        <p>Este exemplo demonstra como criar uma função reutilizável para operações matemáticas.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Passo a passo</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-cube"></i>
+                        <p><strong>1. Definir a Função:</strong> def somar(n1, n2, n3)</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-cogs"></i>
+                        <p><strong>2. Realizar a Lógica:</strong> Converter para float e retornar soma</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-keyboard"></i>
+                        <p><strong>3. Obter Entrada:</strong> input() para três números</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-play-circle"></i>
+                        <p><strong>4. Chamar Função:</strong> soma_total = somar(num1, num2, num3)</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-desktop"></i>
+                        <p><strong>5. Exibir Resultado:</strong> print()</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Código Python</h2>
+                    <pre><code class="python"># Função para somar três números
+def somar(n1, n2, n3):
+    return float(n1) + float(n2) + float(n3)
+
+num1 = input("Digite o primeiro número: ")
+num2 = input("Digite o segundo número: ")
+num3 = input("Digite o terceiro número: ")
+soma_total = somar(num1, num2, num3)
+print(f"A soma dos números é: {soma_total:.2f}")</code></pre>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Explicação do Código</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-cube"></i>
+                        <p><code>def somar(...)</code>: Define função e retorna soma como float</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-keyboard"></i>
+                        <p><code>inputs</code>: Obtêm strings dos números</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-play-circle"></i>
+                        <p><code>soma_total = somar(...)</code>: Chama função</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-print"></i>
+                        <p><code>print</code>: Exibe soma formatada</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>4. Entrada e Saída de Dados (Input/Output)</h2>
+                    <div class="example-card">
+                        <h3>Interagindo com o usuário</h3>
+                        <p>Para criar programas interativos, precisamos receber dados do usuário (input) e exibir resultados (output).</p>
+                        <p>Em Python, as funções principais são <span class="tech-term">input()</span> e <span class="tech-term">print()</span>.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Obtendo Dados com input()</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-keyboard"></i>
+                        <p>A função <code>input()</code> solicita entrada do usuário via teclado</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>Sintaxe básica</h3>
+                        <pre><code class="python">variavel = input("Mensagem para o usuário: ")</code></pre>
+                        <p>O programa pausa até que o usuário digite algo e pressione Enter.</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Importante:</strong> <code>input()</code> sempre retorna uma <span class="tech-term">string</span></p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Ponto Crucial: input() retorna string!</h2>
+                    <div class="example-card">
+                        <h3>Problema comum</h3>
+                        <p>Mesmo quando o usuário digita números, <code>input()</code> os retorna como texto (string).</p>
+                        <p>Para realizar cálculos, é necessário converter para tipos numéricos (int ou float).</p>
+                    </div>
+                    <pre><code class="python">idade_str = input("Digite sua idade: ")
+idade_int = int(idade_str)
+idade_futura = idade_int + 5
+print(f"Em 5 anos você terá {idade_futura} anos")</code></pre>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Exibindo Informações com print()</h2>
+                    <div class="icon-box">
+                        <i class="fas fa-desktop"></i>
+                        <p>A função <code>print()</code> exibe informações no console</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>Formas de uso</h3>
+                        <pre><code class="python">print("Mensagem simples")
+print(variavel)
+print("Texto", variavel)
+print(f"Texto com {variavel}")  # f-string</code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Recurso Avançado: f-strings</h2>
+                    <div class="example-card">
+                        <h3>O que são f-strings?</h3>
+                        <p>Strings formatadas (f-strings) são uma forma moderna e eficiente de combinar texto e variáveis.</p>
+                        <p>Elas são mais legíveis, concisas e flexíveis que outros métodos de formatação.</p>
+                    </div>
+                    <pre><code class="python">nome = "Maria"
+idade = 25
+print(f"Olá, {nome}! Você tem {idade} anos.")</code></pre>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Exemplos de f-strings</h2>
+                    <div class="example-card">
+                        <h3>Exemplos práticos</h3>
+                        <pre><code class="python"># Formatação básica
+nome = "Carlos"
+idade = 30
+print(f"Olá, {nome}! Você tem {idade} anos.")
+
+# Cálculos dentro da f-string
+largura = 10
+altura = 5
+print(f"Área: {largura * altura}")
+
+# Formatação numérica
+preco = 49.99
+print(f"Preço: R$ {preco:.2f}")</code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>5. Tipos de Dados e Manipulação</h2>
+                    <div class="example-card">
+                        <h3>Tipos básicos em Python</h3>
+                        <p>Cada informação em Python tem um tipo de dado específico, que determina como ela é armazenada e quais operações podem ser realizadas.</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-hashtag"></i>
+                        <p><strong>int:</strong> Números inteiros (5, -100, 0)</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-percentage"></i>
+                        <p><strong>float:</strong> Números decimais (3.14, -0.5, 10.0)</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-quote-right"></i>
+                        <p><strong>str:</strong> Textos ("Olá", "Python", "123")</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-toggle-on"></i>
+                        <p><strong>bool:</strong> Valores lógicos (True, False)</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>A Importância da Manipulação</h2>
+                    <div class="example-card">
+                        <h3>Conversão de tipos</h3>
+                        <p>Como vimos, <code>input()</code> sempre retorna strings. Para realizar operações matemáticas, precisamos converter esses valores para tipos numéricos.</p>
+                        <p>Sem a conversão adequada, ocorrerão erros durante a execução do programa.</p>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Erro comum:</strong> Tentar somar strings sem conversão</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Convertendo Dados</h2>
+                    <div class="example-card">
+                        <h3>Funções de conversão</h3>
+                        <ul>
+                            <li><strong>float():</strong> Converte para números decimais</li>
+                            <li><strong>int():</strong> Converte para números inteiros</li>
+                            <li><strong>str():</strong> Converte para texto</li>
                         </ul>
                     </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-thumbs-up"></i>
-                        <h3>Vantagens das APIs</h3>
-                        <ul style="text-align: left;">
-                            <li><strong>Segurança:</strong> Camada de abstração segura entre sistemas</li>
-                            <li><strong>Interoperabilidade:</strong> Facilita integração entre diferentes tecnologias</li>
-                            <li><strong>Abstração:</strong> Oculta complexidade da implementação</li>
-                            <li><strong>Especialização:</strong> Foco em funcionalidades específicas e bem definidas</li>
-                        </ul>
-                    </div>
-                    <div class="infographic-item">
-                        <i class="fas fa-thumbs-down"></i>
-                        <h3>Desvantagens das APIs</h3>
-                        <ul style="text-align: left;">
-                            <li><strong>Dependência de terceiros:</strong> Disponibilidade e confiabilidade externas</li>
-                            <li><strong>Limitações de uso:</strong> Restrições de taxa, custos, quotas</li>
-                            <li><strong>Compatibilidade:</strong> Mudanças na API podem quebrar a integração</li>
-                            <li><strong>Latência:</strong> Comunicação de rede pode introduzir atrasos</li>
-                        </ul>
+                    <pre><code class="python"># Convertendo string para float
+preco_str = "19.99"
+preco_num = float(preco_str)
+
+# Convertendo string para inteiro
+idade_str = "25"
+idade_num = int(idade_str)</code></pre>
+                    <div class="icon-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Atenção:</strong> <code>int()</code> trunca decimais, não arredonda</p>
                     </div>
                 </div>
-                
-                <div class="highlight-box">
-                    <h3>Quando Usar Cada Abordagem:</h3>
-                    <ul>
-                        <li><strong>Frameworks:</strong> Ideal para projetos complexos que precisam de estrutura consistente e rápida implementação de funcionalidades comuns.</li>
-                        <li><strong>APIs:</strong> Perfeito para integrar serviços externos, compartilhar funcionalidades entre sistemas ou quando você precisa de funcionalidades especializadas sem implementá-las.</li>
-                        <li><strong>Componentes:</strong> Excelente para construir bibliotecas reutilizáveis, modularizar aplicações e promover consistência entre projetos.</li>
-                    </ul>
-                </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vantagens e desvantagens">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 12 -->
-        <div class="slide" id="slide12">
-            <div class="slide-content">
-                <h2>Atividade Prática: Questão 1</h2>
-                <div class="question-box">
-                    <p><strong>Código Java:</strong></p>
-                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
-int idade = 18;
-if (idade >= 18) {
-    System.out.println("Maior de idade");
-} else {
-    System.out.println("Menor de idade");
-}</pre>
-                    <p><strong>Questão:</strong> O que será impresso no console?</p>
-                    <p>A) Erro de compilação</p>
-                    <p>B) Nada será impresso</p>
-                    <p>C) Menor de idade</p>
-                    <p>D) Maior de idade</p>
-                    <p>E) 18</p>
-                </div>
-                <div class="answer-box">
-                    <h3>Análise Passo a Passo:</h3>
-                    <div class="step-container">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Declaração da variável:</strong> A linha <code>int idade = 18;</code> declara uma variável do tipo inteiro chamada <code>idade</code> e atribui a ela o valor 18.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Estrutura condicional:</strong> O código utiliza uma estrutura <code>if-else</code> para tomar uma decisão com base no valor da variável <code>idade</code>.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Avaliação da condição:</strong> A condição <code>idade >= 18</code> é avaliada. Como <code>idade</code> tem valor 18, a expressão <code>18 >= 18</code> é verdadeira (true).
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Execução do bloco if:</strong> Como a condição é verdadeira, o bloco de código dentro do <code>if</code> é executado: <code>System.out.println("Maior de idade");</code>.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <strong>Impressão no console:</strong> O comando <code>System.out.println()</code> imprime a string "Maior de idade" no console.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">6</div>
-                            <div class="step-content">
-                                <strong>Pulo do bloco else:</strong> O bloco <code>else</code> não é executado porque a condição do <code>if</code> era verdadeira.
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Resposta correta: D) Maior de idade</strong></p>
-                </div>
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Código Java">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 13 -->
-        <div class="slide" id="slide13">
-            <div class="slide-content">
-                <h2>Atividade Prática: Questão 2</h2>
-                <div class="question-box">
-                    <p><strong>Código:</strong></p>
-                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
-for (int i = 1; i <= 3; i++) {
-    System.out.print(i + " ");
-}</pre>
-                    <p><strong>Questão:</strong> O que será impresso no console?</p>
-                    <p>A) 0 1 2</p>
-                    <p>B) 1 2 3</p>
-                    <p>C) 1 2 3 4</p>
-                    <p>D) 0 1 2 3</p>
-                    <p>E) 2 3 4</p>
-                </div>
-                <div class="answer-box">
-                    <h3>Análise Passo a Passo:</h3>
-                    <div class="step-container">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Estrutura do loop for:</strong> O loop <code>for</code> tem três partes:
-                                <ul>
-                                    <li><code>int i = 1;</code> - Inicialização: cria uma variável <code>i</code> com valor 1</li>
-                                    <li><code>i <= 3;</code> - Condição: o loop continua enquanto <code>i</code> for menor ou igual a 3</li>
-                                    <li><code>i++</code> - Incremento: após cada iteração, <code>i</code> é incrementado em 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Primeira iteração (i = 1):</strong>
-                                <ul>
-                                    <li>Condição: 1 <= 3 é verdadeiro</li>
-                                    <li>Executa: <code>System.out.print(1 + " ");</code></li>
-                                    <li>Imprime: "1 "</li>
-                                    <li>Incrementa: <code>i</code> passa a valer 2</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Segunda iteração (i = 2):</strong>
-                                <ul>
-                                    <li>Condição: 2 <= 3 é verdadeiro</li>
-                                    <li>Executa: <code>System.out.print(2 + " ");</code></li>
-                                    <li>Imprime: "2 "</li>
-                                    <li>Incrementa: <code>i</code> passa a valer 3</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Terceira iteração (i = 3):</strong>
-                                <ul>
-                                    <li>Condição: 3 <= 3 é verdadeiro</li>
-                                    <li>Executa: <code>System.out.print(3 + " ");</code></li>
-                                    <li>Imprime: "3 "</li>
-                                    <li>Incrementa: <code>i</code> passa a valer 4</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <strong>Verificação final (i = 4):</strong>
-                                <ul>
-                                    <li>Condição: 4 <= 3 é falso</li>
-                                    <li>Loop encerra</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Resultado final impresso:</strong> "1 2 3 "</p>
-                    <p><strong>Resposta correta: B) 1 2 3</strong></p>
-                </div>
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loop for">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 14 -->
-        <div class="slide" id="slide14">
-            <div class="slide-content">
-                <h2>Atividade Prática: Questão 3</h2>
-                <div class="question-box">
-                    <p><strong>Código:</strong></p>
-                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
-int i = 1;
-while (i <= 3) {
-    System.out.print(i + " ");
-    i++;
-}</pre>
-                    <p><strong>Questão:</strong> Qual será a saída do seguinte código?</p>
-                    <p>A) 1 2 3</p>
-                    <p>B) 1 2 3 4</p>
-                    <p>C) 0 1 2</p>
-                    <p>D) 1 2</p>
-                    <p>E) Erro de compilação</p>
-                </div>
-                <div class="answer-box">
-                    <h3>Análise Passo a Passo:</h3>
-                    <div class="step-container">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Inicialização:</strong> A linha <code>int i = 1;</code> declara uma variável inteira <code>i</code> e atribui o valor 1.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Estrutura while:</strong> O loop <code>while</code> continua executando enquanto a condição <code>i <= 3</code> for verdadeira.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Primeira iteração (i = 1):</strong>
-                                <ul>
-                                    <li>Condição: 1 <= 3 é verdadeiro</li>
-                                    <li>Executa: <code>System.out.print(1 + " ");</code></li>
-                                    <li>Imprime: "1 "</li>
-                                    <li>Executa: <code>i++;</code> (i passa a valer 2)</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Segunda iteração (i = 2):</strong>
-                                <ul>
-                                    <li>Condição: 2 <= 3 é verdadeiro</li>
-                                    <li>Executa: <code>System.out.print(2 + " ");</code></li>
-                                    <li>Imprime: "2 "</li>
-                                    <li>Executa: <code>i++;</code> (i passa a valer 3)</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <strong>Terceira iteração (i = 3):</strong>
-                                <ul>
-                                    <li>Condição: 3 <= 3 é verdadeiro</li>
-                                    <li>Executa: <code>System.out.print(3 + " ");</code></li>
-                                    <li>Imprime: "3 "</li>
-                                    <li>Executa: <code>i++;</code> (i passa a valer 4)</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">6</div>
-                            <div class="step-content">
-                                <strong>Verificação final (i = 4):</strong>
-                                <ul>
-                                    <li>Condição: 4 <= 3 é falso</li>
-                                    <li>Loop encerra</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Resultado final impresso:</strong> "1 2 3 "</p>
-                    <p><strong>Importante:</strong> Note que o valor 4 nunca é impresso porque quando <code>i</code> vale 4, a condição <code>i <= 3</code> é falsa e o loop não executa.</p>
-                    <p><strong>Resposta correta: A) 1 2 3</strong></p>
-                </div>
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loop while">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 15 -->
-        <div class="slide" id="slide15">
-            <div class="slide-content">
-                <h2>Atividade Prática: Questão 4</h2>
-                <div class="question-box">
-                    <p><strong>Código:</strong></p>
-                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
-int i = 5;
-do {
-    System.out.print(i + " ");
-    i++;
-} while (i < 7);</pre>
-                    <p><strong>Questão:</strong> O que o seguinte código imprimirá?</p>
-                    <p>A) 5</p>
-                    <p>B) 5 6</p>
-                    <p>C) 5 6 7</p>
-                    <p>D) Nada será impresso</p>
-                    <p>E) Loop infinito</p>
-                </div>
-                <div class="answer-box">
-                    <h3>Análise Passo a Passo:</h3>
-                    <div class="step-container">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Característica do do-while:</strong> O loop <code>do-while</code> é diferente do <code>while</code> tradicional porque ele executa pelo menos uma vez, independentemente da condição.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Inicialização:</strong> A linha <code>int i = 5;</code> declara uma variável inteira <code>i</code> com valor inicial 5.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Primeira execução (garantida):</strong>
-                                <ul>
-                                    <li>Executa: <code>System.out.print(5 + " ");</code></li>
-                                    <li>Imprime: "5 "</li>
-                                    <li>Executa: <code>i++;</code> (i passa a valer 6)</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Verificação da condição:</strong> Após a primeira execução, verifica-se a condição <code>i < 7</code>. Como <code>i</code> vale 6, a condição 6 < 7 é verdadeira.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <strong>Segunda execução:</strong>
-                                <ul>
-                                    <li>Executa: <code>System.out.print(6 + " ");</code></li>
-                                    <li>Imprime: "6 "</li>
-                                    <li>Executa: <code>i++;</code> (i passa a valer 7)</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">6</div>
-                            <div class="step-content">
-                                <strong>Verificação final:</strong> Verifica-se novamente a condição <code>i < 7</code>. Como <code>i</code> vale 7, a condição 7 < 7 é falsa, e o loop encerra.
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Resultado final impresso:</strong> "5 6 "</p>
-                    <p><strong>Importante:</strong> O valor 7 não é impresso porque o incremento acontece antes da verificação da condição na segunda iteração.</p>
-                    <p><strong>Resposta correta: B) 5 6</strong></p>
-                </div>
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loop do-while">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 16 -->
-        <div class="slide" id="slide16">
-            <div class="slide-content">
-                <h2>Atividade Prática: Questão 5</h2>
-                <div class="question-box">
-                    <p><strong>Código:</strong></p>
-                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">
-int dia = 1;
-switch (dia) {
-    case 1:
-        System.out.println("Domingo");
-        break;
-    case 2:
-        System.out.println("Segunda");
-        break;
-    default:
-        System.out.println("Outro dia");
-}</pre>
-                    <p><strong>Questão:</strong> O que será impresso pelo seguinte código?</p>
-                    <p>A) Domingo</p>
-                    <p>B) Segunda</p>
-                    <p>C) Outro dia</p>
-                    <p>D) Terça</p>
-                    <p>E) Nada será impresso</p>
-                </div>
-                <div class="answer-box">
-                    <h3>Análise Passo a Passo:</h3>
-                    <div class="step-container">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Declaração da variável:</strong> A linha <code>int dia = 1;</code> declara uma variável inteira <code>dia</code> e atribui a ela o valor 1.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Estrutura switch:</strong> O comando <code>switch</code> avalia o valor da variável <code>dia</code> e compara com os valores especificados nos <code>case</code>.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Avaliação dos cases:</strong> O <code>switch</code> verifica cada <code>case</code> em ordem:
-                                <ul>
-                                    <li><code>case 1:</code> - O valor de <code>dia</code> (1) corresponde a este caso</li>
-                                    <li>O fluxo do programa salta para este bloco</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Execução do case 1:</strong>
-                                <ul>
-                                    <li>Executa: <code>System.out.println("Domingo");</code></li>
-                                    <li>Imprime: "Domingo"</li>
-                                    <li>Executa: <code>break;</code></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <strong>Função do break:</strong> O comando <code>break;</code> é essencial porque ele interrompe a execução do <code>switch</code>. Sem ele, o programa continuaria executando os próximos cases (fenômeno chamado "fall-through").
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">6</div>
-                            <div class="step-content">
-                                <strong>Encerramento:</strong> Após o <code>break;</code>, o fluxo do programa sai do bloco <code>switch</code> e continua com a próxima instrução após ele.
-                            </div>
-                        </div>
-                    </div>
-                    <p><strong>Importante:</strong> O <code>default</code> não é executado porque o programa já encontrou um <code>case</code> correspondente e saiu do <code>switch</code> com o <code>break;</code>.</p>
-                    <p><strong>Resposta correta: A) Domingo</strong></p>
-                </div>
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Estrutura switch">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 17 -->
-        <div class="slide" id="slide17">
-            <div class="slide-content">
-                <h2>Conclusão</h2> 
-                <h3>O que Aprendemos:</h3>
-                <ul style="font-size: 1.1em;">
-                    <li><strong>APIs:</strong> São interfaces que permitem a comunicação entre sistemas, oferecendo segurança por design ao atuar como intermediárias. Elas promovem interoperabilidade, modularidade e abstração.</li>
-                    <li><strong>Componentes:</strong> São blocos de construção reutilizáveis que podem ser desenvolvidos internamente ou adquiridos de terceiros. O desenvolvimento baseado em componentes aumenta a produtividade, facilita a manutenção e promove a escalabilidade.</li>
-                    <li><strong>Frameworks:</strong> São estruturas que definem a arquitetura e o fluxo das aplicações através de inversão de controle. Eles oferecem padronização, produtividade e implementam boas práticas de desenvolvimento.</li>
-                    <li><strong>Escolha da ferramenta adequada:</strong> A decisão entre usar frameworks, APIs ou componentes depende do contexto, requisitos do projeto, equipe disponível e objetivos específicos.</li>
-                    <li><strong>Importância da prática:</strong> A resolução de exercícios práticos é fundamental para fixar os conceitos e entender como aplicar essas ferramentas em situações reais.</li>
-                </ul>
-                
-                <div class="highlight-box">
-                    <h3>Para Continuar Estudando:</h3>
-                    <div class="step-container">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Explore frameworks populares:</strong> Experimente React ou Angular para desenvolvimento web, Spring Boot para backend, ou Flutter para mobile.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Pratique com APIs:</strong> Consuma APIs públicas como a do GitHub, Twitter ou OpenWeatherMap para entender como integrar serviços externos.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Desenvolva componentes:</strong> Crie sua própria biblioteca de componentes reutilizáveis para usar em múltiplos projetos.
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Participe de comunidades:</strong> Junte-se a fóruns, grupos de discussão e eventos da comunidade de desenvolvedores para aprender com a experiência dos outros.
-                            </div>
-                        </div>
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Exemplo prático de conversão</h2>
+                    <div class="example-card">
+                        <h3>Cálculo de aumento salarial</h3>
+                        <pre><code class="python"># Obtendo salário como string
+salario_digitado = input("Digite seu salário: ")  # "1250.75"
+
+# Convertendo para float
+salario_numerico = float(salario_digitado)
+
+# Calculando novo salário
+novo_salario = salario_numerico * 1.10
+
+# Exibindo resultado formatado
+print(f"Seu novo salário é: R$ {novo_salario:.2f}")</code></pre>
                     </div>
                 </div>
-                
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Conclusão do estudo">
+            </section>
+            
+            <section>
+                <div class="content-wrapper">
+                    <h2>Fim da Apresentação</h2>
+                    <div class="example-card">
+                        <h3>Próximos passos</h3>
+                        <p>Agora você está pronto para aplicar esses conceitos em exercícios práticos.</p>
+                        <div class="icon-box">
+                            <i class="fas fa-laptop-code"></i>
+                            <p>Pratique codificando os exemplos apresentados</p>
+                        </div>
+                        <div class="icon-box">
+                            <i class="fas fa-book-reader"></i>
+                            <p>Experimente modificar os códigos para entender melhor</p>
+                        </div>
+                        <div class="icon-box">
+                            <i class="fas fa-puzzle-piece"></i>
+                            <p>Resolva exercícios para solidificar o aprendizado</p>
+                        </div>
+                    </div>
+                    <p><strong>Lembre-se:</strong> A prática constante é a chave para se tornar um programador Python proficient</p>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Slide 18 -->
-        <div class="slide" id="slide18">
-            <div class="slide-content" style="text-align: center;">
-                <h1 style="font-size: 3em;">Perguntas?</h1> 
-                <p style="font-size: 1.5em;">Obrigado!</p>
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Perguntas e respostas">
-                </div>
-                <div class="highlight-box" style="text-align: left; margin-top: 20px;">
-                    <h3>Referências Bibliográficas:</h3>
-                    <p><strong>IBM CLOUD EDUCATION (2020).</strong> APIs oferecem segurança por design. IBM Cloud Documentation.</p>
-                    <p><strong>ELER, A. (2006).</strong> Desenvolvimento de software baseado em componentes. In: Anais do Simpósio Brasileiro de Engenharia de Software.</p>
-                    <p><strong>PRESSMAN, R. S.; MAXIM, B. R. (2020).</strong> Software Engineering: A Practitioner's Approach. 9th ed. McGraw-Hill.</p>
-                    <p><strong>FOWLER, M. (2003).</strong> Patterns of Enterprise Application Architecture. Addison-Wesley Professional.</p>
-                </div>
-                <div class="highlight-box" style="text-align: left; margin-top: 20px;">
-                    <h3>Recursos Complementares:</h3>
-                    <ul>
-                        <li>Documentação oficial dos frameworks mencionados</li>
-                        <li>Cursos online sobre desenvolvimento de software</li>
-                        <li>Repositórios GitHub com exemplos práticos</li>
-                        <li>Fóruns de discussão como Stack Overflow</li>
-                    </ul>
-                </div>
-            </div>
+            </section>
         </div>
     </div>
     
-    <div class="controls">
-        <button id="prevBtn" onclick="changeSlide(-1)">Anterior</button>
-        <button id="nextBtn" onclick="changeSlide(1)">Próximo</button>
-    </div>
-    
-    <div class="footer">
-        <p>© 2023 Anhanguera Educacional. Todos os direitos reservados.</p>
-    </div>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
     <script>
-        let currentSlide = 1;
-        const totalSlides = 18;
-        
-        function showSlide(n) {
-            // Esconde todos os slides
-            const slides = document.querySelectorAll('.slide');
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-            });
-            
-            // Mostra o slide atual
-            document.getElementById(`slide${n}`).classList.add('active');
-            
-            // Atualiza o indicador
-            document.getElementById('slideIndicator').textContent = `Slide ${n} de ${totalSlides}`;
-            
-            // Atualiza o estado dos botões
-            document.getElementById('prevBtn').disabled = (n === 1);
-            document.getElementById('nextBtn').disabled = (n === totalSlides);
-        }
-        
-        function changeSlide(direction) {
-            currentSlide += direction;
-            
-            // Garante que o slide atual esteja dentro dos limites
-            if (currentSlide < 1) {
-                currentSlide = 1;
-            } else if (currentSlide > totalSlides) {
-                currentSlide = totalSlides;
-            }
-            
-            showSlide(currentSlide);
-        }
-        
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            showSlide(currentSlide);
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            progress: true,
+            controls: true,
+            center: false,
+            width: "100%",
+            height: "100%",
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            controlsLayout: 'edges',
+            controlsBackArrows: 'faded',
+            navigationMode: 'linear'
         });
         
-        // Adiciona suporte para navegação com teclado
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                changeSlide(-1);
-            } else if (e.key === 'ArrowRight') {
-                changeSlide(1);
-            }
-        });
+        function updatePageCounter() {
+            const totalPages = document.querySelectorAll('.slides > section').length;
+            const currentIndex = Reveal.getIndices().h;
+            
+            document.getElementById('page-info').textContent = `Página ${currentIndex + 1} de ${totalPages}`;
+        }
+        
+        Reveal.addEventListener('slidechanged', updatePageCounter);
+        window.addEventListener('load', updatePageCounter);
     </script>
 </body>
 </html>
